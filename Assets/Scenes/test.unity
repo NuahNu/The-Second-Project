@@ -153,9 +153,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   _mapSize: {x: 30, y: 100}
-  _maxLoofCount: 3
+  _maxLoopCount: 10
   _divideRatio: 0.2
-  _roomMinRatio: 0.5
+  _roomMinRatio: 0.9
+  _makeData: 109
 --- !u!4 &1025983280
 Transform:
   m_ObjectHideFlags: 0
