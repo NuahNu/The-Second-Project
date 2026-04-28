@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -43,6 +43,7 @@ public class CWorldMaker : MonoBehaviour
         public RectInt _nodeRect;
         // 실제 생성된 방의 Rect
         public RectInt _roomRect;
+        public List<TreeNode> _nodeList = new List<TreeNode>();
 
         public TreeNode(int x, int y, int width, int height)
         {
@@ -59,13 +60,16 @@ public class CWorldMaker : MonoBehaviour
 
     [Header("이진 공간 분할")]
     [SerializeField] private Vector2Int _mapSize = new Vector2Int(100, 100);
-    [SerializeField] private int _maxLoofCount = 5;
+    [SerializeField] private int _maxLoopCount = 5;
     // 0 ~ 0.5
     // 0.5 에 가까울수록 오류가 생길 가능성이 높다. 예외처리 없음.
     [SerializeField] private float _divideRatio = 0.2f;
     [SerializeField] private float _roomMinRatio = 0.5f;
 
     [Header("Cellular Automata")]
+
+    [Header("디버그 키")]
+    [SerializeField] private KeyCode _makeData = KeyCode.M;
     #endregion
 
     #region 내부 변수
@@ -79,26 +83,13 @@ public class CWorldMaker : MonoBehaviour
         _tileMap = new int[_mapSize.x, _mapSize.y];
 
         // 타일맵 데이터 생성.
-        TreeNode rootNode = new TreeNode(0, 0, _mapSize.x, _mapSize.y); //루트가 될 트리 생성
-        DivideTree(rootNode, 0); //트리 분할
-        GenerateRoom(rootNode, 0); //방 생성
-        GenerateRoad(rootNode, 0); //길 연결
+        TreeNode rootNode = new TreeNode(0, 0, _mapSize.x, _mapSize.y);
+        DivideTree(rootNode, 0);
+        GenerateRoom(rootNode, 0);
+        GenerateRoad(rootNode, 0);
 
         // Cellular Automata - SmoothMap
-        int rows = _tileMap.GetLength(0); // 첫 번째 차원 크기
-        int cols = _tileMap.GetLength(1); // 두 번째 차원 크기
-        string mapData = $"TileMap 데이터: \n_mapSize: {_mapSize} _maxLoofCount: {_maxLoofCount} _divideRatio: {_divideRatio} _roomMinRatio: {_roomMinRatio}\n";
 
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                mapData += _tileMap[i, j] == 0 ? "■" : "□";
-            }
-            mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
-        }
-
-        Debug.Log(mapData);
     }
 
     void Start()
@@ -108,6 +99,34 @@ public class CWorldMaker : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(_makeData))
+        {
+            // 타일맵 초기화
+            _tileMap = new int[_mapSize.x, _mapSize.y];
+
+            // 타일맵 데이터 생성.
+            TreeNode rootNode = new TreeNode(0, 0, _mapSize.x, _mapSize.y); //루트가 될 트리 생성
+            DivideTree(rootNode, 0); //트리 분할
+            GenerateRoom(rootNode, 0); //방 생성
+            GenerateRoad(rootNode, 0); //길 연결
+
+            // Cellular Automata - SmoothMap
+
+            int rows = _tileMap.GetLength(0);
+            int cols = _tileMap.GetLength(1);
+            string mapData = $"TileMap 데이터: \n_mapSize: {_mapSize} _maxLoopCount: {_maxLoopCount} _divideRatio: {_divideRatio} _roomMinRatio: {_roomMinRatio}\n";
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    mapData += _tileMap[i, j] == 0 ? "■" : "□";
+                }
+                mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
+            }
+
+            Debug.Log(mapData);
+        }
     }
     #endregion
 
@@ -119,16 +138,16 @@ public class CWorldMaker : MonoBehaviour
     #endregion
 
     #region private
-    private void DivideTree(TreeNode node, int loofCount)
+    private void DivideTree(TreeNode node, int loopCount)
     {
         // 캐싱
         RectInt size = node._nodeRect;
 
-        if (loofCount < _maxLoofCount)
+        if (loopCount < _maxLoopCount)
         {
             // 반으로 나누는 기준은?
             int longLength = size.width >= size.height ? size.width : size.height;
-            int splitLength = Mathf.RoundToInt(UnityEngine.Random.Range(longLength * (0.5f - _divideRatio), longLength * (0.5f + _divideRatio)));
+            int splitLength = Mathf.RoundToInt(Random.Range(longLength * (0.5f - _divideRatio), longLength * (0.5f + _divideRatio)));
 
             // 노드를 반으로 자른다.
             if (size.width >= size.height)
@@ -147,23 +166,23 @@ public class CWorldMaker : MonoBehaviour
             node._rightTree._parentTree = node;
 
             // 재귀
-            loofCount++;
-            DivideTree(node._leftTree, loofCount);
-            DivideTree(node._rightTree, loofCount);
+            loopCount++;
+            DivideTree(node._leftTree, loopCount);
+            DivideTree(node._rightTree, loopCount);
         }
     }
 
-    private RectInt GenerateRoom(TreeNode node, int loofCount)
+    private RectInt GenerateRoom(TreeNode node, int loopCount)
     {
-        if (loofCount == _maxLoofCount)
+        if (loopCount == _maxLoopCount)
         {
             RectInt size = node._nodeRect;
 
-            int width = UnityEngine.Random.Range(Mathf.RoundToInt(size.width * _roomMinRatio), size.width);
-            int height = UnityEngine.Random.Range(Mathf.RoundToInt(size.height * _roomMinRatio), size.height);
+            int width = Random.Range(Mathf.RoundToInt(size.width * _roomMinRatio), size.width);
+            int height = Random.Range(Mathf.RoundToInt(size.height * _roomMinRatio), size.height);
 
-            int x = node._nodeRect.x + UnityEngine.Random.Range(0, size.width - width);
-            int y = node._nodeRect.y + UnityEngine.Random.Range(0, size.height - height);
+            int x = node._nodeRect.x + Random.Range(0, size.width - width);
+            int y = node._nodeRect.y + Random.Range(0, size.height - height);
 
             //
             for (int i = 0; i < width; i++)
@@ -176,9 +195,9 @@ public class CWorldMaker : MonoBehaviour
 
             return new RectInt(x, y, width, height);
         }
-        loofCount++;
-        node._leftTree._roomRect = GenerateRoom(node._leftTree, loofCount);
-        node._rightTree._roomRect = GenerateRoom(node._rightTree, loofCount);
+        loopCount++;
+        node._leftTree._roomRect = GenerateRoom(node._leftTree, loopCount);
+        node._rightTree._roomRect = GenerateRoom(node._rightTree, loopCount);
 
         // 자식들 중 중심에 더 가까운 방이 기준이다.
         float lDist = Vector2.SqrMagnitude(node._leftTree._roomRect.center - node._nodeRect.center);
@@ -187,15 +206,15 @@ public class CWorldMaker : MonoBehaviour
         return lDist > rDist ? node._rightTree._roomRect : node._leftTree._roomRect;
     }
 
-    private void GenerateRoad(TreeNode node, int loofCount)
+    private void GenerateRoad(TreeNode node, int loopCount)
     {
-        if (loofCount == _maxLoofCount) return;
+        if (loopCount == _maxLoopCount) return;
 
         // 자식 노드 2개의 _roomRect.center를 이어준다.
         RectInt lRect = node._leftTree._roomRect;
         RectInt rRect = node._rightTree._roomRect;
 
-        if (MathF.Abs(lRect.center.x - rRect.center.x) > MathF.Abs(lRect.center.y - rRect.center.y))
+        if (Mathf.Abs(lRect.center.x - rRect.center.x) > Mathf.Abs(lRect.center.y - rRect.center.y))
         {
             // 가로
         }
