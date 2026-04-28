@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -31,11 +32,20 @@ public enum EAreaType
     Shortcut,
     Boss,
 }
+[Flags]
 public enum ETileType
 {
-    Wall,
-    Floor,
-    Hole
+    None = 0,
+    Wall = 1 << 0,
+    Floor = 1 << 1,
+    Hole = 1 << 2,
+    End = 1 << 3,
+    PlayerSpawn = 1 << 16,
+    ItemSpawn = 1 << 17,
+    EnemySpawn = 1 << 18,
+    BossSpawn = 1 << 19,
+
+    SpawnMask = PlayerSpawn | ItemSpawn | EnemySpawn | BossSpawn,
 }
 
 public class CWorldMaker : MonoBehaviour
@@ -94,6 +104,9 @@ public class CWorldMaker : MonoBehaviour
     {
         // 타일맵 초기화
         _tileMap = new ETileType[_mapSize.x, _mapSize.y];
+        for (int x = 0; x < _mapSize.x; x++)
+            for (int y = 0; y < _mapSize.y; y++)
+                _tileMap[x, y] = ETileType.Wall;
         _bufferTileMap = new ETileType[_mapSize.x, _mapSize.y];
 
         // 타일맵 데이터 생성.
@@ -101,8 +114,8 @@ public class CWorldMaker : MonoBehaviour
         DivideTree(rootNode, 0);
         GenerateRoom(rootNode, 0);
         GenerateRoad(rootNode, 0);
-        // Cellular Automata - SmoothMap
 
+        // 스폰 위치 지정.
     }
 
     void Start()
@@ -116,6 +129,9 @@ public class CWorldMaker : MonoBehaviour
         {
             // 타일맵 초기화
             _tileMap = new ETileType[_mapSize.x, _mapSize.y];
+            for (int x = 0; x < _mapSize.x; x++)
+                for (int y = 0; y < _mapSize.y; y++)
+                    _tileMap[x, y] = ETileType.Wall;
             _bufferTileMap = new ETileType[_mapSize.x, _mapSize.y];
 
             // 타일맵 데이터 생성.
@@ -135,7 +151,7 @@ public class CWorldMaker : MonoBehaviour
                 for (int j = 0; j < cols; j++)
                 {
                     ETileType tile = _tileMap[i, j];
-                    mapData += tile == ETileType.Wall ? "■" : tile == ETileType.Floor ? "□" : "※";
+                    mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
                 }
                 mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
             }
@@ -162,7 +178,7 @@ public class CWorldMaker : MonoBehaviour
         {
             // 반으로 나누는 기준은?
             int longLength = size.width >= size.height ? size.width : size.height;
-            int splitLength = Mathf.RoundToInt(Random.Range(longLength * (0.5f - _divideRatio), longLength * (0.5f + _divideRatio)));
+            int splitLength = Mathf.RoundToInt(UnityEngine.Random.Range(longLength * (0.5f - _divideRatio), longLength * (0.5f + _divideRatio)));
 
             // 노드를 반으로 자른다.
             node.isHorizontal = size.width >= size.height;
@@ -197,11 +213,11 @@ public class CWorldMaker : MonoBehaviour
         {
             RectInt size = node._nodeRect;
 
-            int width = Random.Range(Mathf.RoundToInt(size.width * _roomMinRatio), size.width);
-            int height = Random.Range(Mathf.RoundToInt(size.height * _roomMinRatio), size.height);
+            int width = UnityEngine.Random.Range(Mathf.RoundToInt(size.width * _roomMinRatio), size.width);
+            int height = UnityEngine.Random.Range(Mathf.RoundToInt(size.height * _roomMinRatio), size.height);
 
-            int x = node._nodeRect.x + Random.Range(0, size.width - width);
-            int y = node._nodeRect.y + Random.Range(0, size.height - height);
+            int x = node._nodeRect.x + UnityEngine.Random.Range(0, size.width - width);
+            int y = node._nodeRect.y + UnityEngine.Random.Range(0, size.height - height);
 
             // 타일맵 반영
             for (int i = 0; i < width; i++)
@@ -209,8 +225,7 @@ public class CWorldMaker : MonoBehaviour
                 for (int j = 0; j < height; j++)
                 {
                     float total = _wallRatio + _floorRatio + _holeRatio;
-                    float flag = Random.Range(0f, total);
-                    //_tileMap[x + i, y + j] = flag < _floorRatio ? ETileType.Floor : ETileType.Wall;
+                    float flag = UnityEngine.Random.Range(0f, total);
                     _tileMap[x + i, y + j] = flag < _floorRatio ? ETileType.Floor : flag < _floorRatio + _holeRatio ? ETileType.Hole : ETileType.Wall;
                     _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j];
                 }
