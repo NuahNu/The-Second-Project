@@ -151,16 +151,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14031753ba8902847a0d332b81550435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
-  _mapSize: {x: 30, y: 100}
-  _maxLoopCount: 1
-  _divideRatio: 0.2
-  _roomMinRatio: 0.5
-  _wallRatio: 0.4
-  _floorRatio: 0.5
-  _holeRatio: 0.01
-  _smoothRatio: 4
-  _smoothCount: 0
+  _worldData:
+    mapSize: {x: 100, y: 100}
+    type: 0
+  _BSPData:
+    maxLoopCount: 5
+    divideRatio: 0.2
+    roomMinRatio: 0.5
+  _CAData:
+    wallRatio: 0.05
+    floorRatio: 0.5
+    holeRatio: 0.01
+    smoothRatio: 4
+    smoothCount: 2
   _makeData: 109
 --- !u!4 &1025983280
 Transform:

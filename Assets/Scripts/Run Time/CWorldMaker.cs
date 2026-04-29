@@ -82,6 +82,19 @@ public class BinarySpacePartitioningData
     public float roomMinRatio = 0.5f;
 }
 
+//[Serializable]
+//public class Rule
+//{
+//    // 자신은 ~가 ~개 이상일때 ~로 변한다.
+//    public int[] rules = new int[3] { 9, 9, 9 };
+
+//    public int this[int index]
+//    {
+//        get { return rules[index]; }
+//        //set { }
+//    }
+//}
+
 [Serializable]
 public class CellularAutomataData
 {
@@ -89,8 +102,10 @@ public class CellularAutomataData
     public float wallRatio = 0.05f;
     public float floorRatio = 0.5f;
     public float holeRatio = 0.01f;
-    public int smoothRatio = 4;
     public int smoothCount = 3;
+    public int smoothRatio = 4;
+
+    //public Rule[] rule = new Rule[3];
 }
 
 public class CWorldMaker
@@ -302,10 +317,12 @@ public class CWorldMaker
 
     private ETileType CellularAutomata(int x, int y)
     {
+        // 카운팅
         int wallCount = 0;
         int floorCount = 0;
         int holeCount = 0;
         int endCount = 0;
+
         // 현재 좌표를 기준으로 주변 8칸 검사
         for (int nX = x - 1; nX <= x + 1; nX++)
         {
@@ -330,6 +347,8 @@ public class CWorldMaker
                 }
             }
         }
+
+        // 규칙
         switch (_tileMap[x, y])
         {
             case ETileType.Wall:
