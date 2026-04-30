@@ -23,12 +23,23 @@ public class CWorldMakerTester : MonoBehaviour
     [SerializeField] private BinarySpacePartitioningData _BSPData;
     [SerializeField] private CellularAutomataData _CAData;
 
+    [Header("타일맵 관련")]
+    [SerializeField] private Grid _grid;
+    // 바닥 0 번
+    [SerializeField] private Tilemap _tilemap;
+    [SerializeField] private TilemapRenderer _tilemapRenderer;
+    // 바닥 위. 1번?
+    // 배열로 만들까?
+
+    [Header("타일맵 리소스")]
+    [SerializeField] private TileBase _tileBase;
+
     [Header("디버그 키")]
     [SerializeField] private KeyCode _makeData = KeyCode.M;
     #endregion
 
     #region 내부 변수
-    private ETileType[,] _tileMap;
+    private ETileType[,] _tileTypeArray;
 
     private CWorldMaker _worldMaker;
     #endregion
@@ -37,7 +48,7 @@ public class CWorldMakerTester : MonoBehaviour
     void Awake()
     {
         _worldMaker = new CWorldMaker();
-        _tileMap = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
+        _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
         // 스폰 위치 지정.
     }
 
@@ -50,35 +61,62 @@ public class CWorldMakerTester : MonoBehaviour
     {
         if (Input.GetKeyDown(_makeData))
         {
-            _tileMap = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
+            _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
 
-            int rows = _tileMap.GetLength(0);
-            int cols = _tileMap.GetLength(1);
+            int rows = _tileTypeArray.GetLength(0);
+            int cols = _tileTypeArray.GetLength(1);
             string mapData = $"TileMap 데이터: \n";
 
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    ETileType tile = _tileMap[i, j];
+                    ETileType tile = _tileTypeArray[i, j];
                     mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
                 }
                 mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
             }
 
             Debug.Log(mapData);
+
+            SetTile();
         }
     }
     #endregion
 
     #region public
-    public void CreateMap(Vector2Int mapSize)
-    {
 
-    }
     #endregion
 
     #region private
+    public void SetTile()
+    {
+        _tilemap.ClearAllTiles();
+        // 얘를 반복 돌면서 읽어와 타일을 깐다.
+        for (int i = 0; i < _tileTypeArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < _tileTypeArray.GetLength(1); j++)
+            {
+                ETileType tt = _tileTypeArray[i, j];
 
+                Vector3Int pos = new Vector3Int(i, j, 0);
+                if (tt.HasFlag(ETileType.Floor))
+                {
+
+                    _tilemap.SetTile(pos, _tileBase);
+                }
+                else if (tt.HasFlag(ETileType.Hole))
+                {
+                    // 트리거 타일 넣기.
+                    ;
+                }
+                else if (tt.HasFlag(ETileType.Wall))
+                {
+                    // 벽 바닥 그리기
+                    // 벽 타일맵에 벽 그리기
+                }
+            }
+        }
+    }
     #endregion
 }

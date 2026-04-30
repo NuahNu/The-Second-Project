@@ -20,7 +20,7 @@ public enum EAreaType
 {
     None,
     Start,
-    Shortcut,
+    Road,
     Boss,
 }
 [Flags]
@@ -41,9 +41,10 @@ public enum ETileType
 
 public class TreeNode
 {
-    public TreeNode leftTree;
-    public TreeNode rightTree;
-    public TreeNode parentTree;
+    public TreeNode leftNode;
+    public TreeNode rightNode;
+    public TreeNode parentNode;
+    public TreeNode roadNode;
     // 트리 노드의 Rect
     public RectInt nodeRect;
     // 실제 생성된 방의 기준 Rect
@@ -171,23 +172,23 @@ public class CWorldMaker
             node.isHorizontal = size.width >= size.height;
             if (node.isHorizontal)
             {
-                node.leftTree = new TreeNode(size.x, size.y, splitLength, size.height);
-                node.rightTree = new TreeNode(size.x + splitLength, size.y, size.width - splitLength, size.height);
+                node.leftNode = new TreeNode(size.x, size.y, splitLength, size.height);
+                node.rightNode = new TreeNode(size.x + splitLength, size.y, size.width - splitLength, size.height);
             }
             else
             {
-                node.leftTree = new TreeNode(size.x, size.y, size.width, splitLength);
-                node.rightTree = new TreeNode(size.x, size.y + splitLength, size.width, size.height - splitLength);
+                node.leftNode = new TreeNode(size.x, size.y, size.width, splitLength);
+                node.rightNode = new TreeNode(size.x, size.y + splitLength, size.width, size.height - splitLength);
             }
 
             // 자식 노드를 만들어 연결한다.
-            node.leftTree.parentTree = node;
-            node.rightTree.parentTree = node;
+            node.leftNode.parentNode = node;
+            node.rightNode.parentNode = node;
 
             // 재귀
             loopCount++;
-            DivideTree(node.leftTree, loopCount);
-            DivideTree(node.rightTree, loopCount);
+            DivideTree(node.leftNode, loopCount);
+            DivideTree(node.rightNode, loopCount);
         }
     }
 
@@ -243,19 +244,19 @@ public class CWorldMaker
         else
         {
             loopCount++;
-            GenerateRoom(node.leftTree, loopCount);
-            GenerateRoom(node.rightTree, loopCount);
+            GenerateRoom(node.leftNode, loopCount);
+            GenerateRoom(node.rightNode, loopCount);
 
             // 자식 추가.
-            List<TreeNode> lList = node.leftTree.nodeList;
-            List<TreeNode> rList = node.rightTree.nodeList;
+            List<TreeNode> lList = node.leftNode.nodeList;
+            List<TreeNode> rList = node.rightNode.nodeList;
 
             node.nodeList.AddRange(lList);
             node.nodeList.AddRange(rList);
 
             // 양쪽 자식들 중 제일 가까운 한 쌍이 기준이다.
-            int n = node.leftTree.nodeList.Count;
-            int m = node.rightTree.nodeList.Count;
+            int n = node.leftNode.nodeList.Count;
+            int m = node.rightNode.nodeList.Count;
 
             float minSqrDist = float.MaxValue;
 
@@ -274,8 +275,8 @@ public class CWorldMaker
                     if (sqrDist < minSqrDist)
                     {
                         minSqrDist = sqrDist;
-                        node.leftTree.standardRoomRect = lRoom;
-                        node.rightTree.standardRoomRect = rRoom;
+                        node.leftNode.standardRoomRect = lRoom;
+                        node.rightNode.standardRoomRect = rRoom;
                     }
                 }
             }
@@ -287,30 +288,37 @@ public class CWorldMaker
         if (loopCount == _BSPData.maxLoopCount) return;
 
         // 자식 노드 2개의 _roomRect.center를 이어준다.
-        RectInt lRect = node.leftTree.standardRoomRect;
-        RectInt rRect = node.rightTree.standardRoomRect;
+        RectInt lRect = node.leftNode.standardRoomRect;
+        RectInt rRect = node.rightNode.standardRoomRect;
 
         // 기준?
         Vector2 lRectCenter = lRect.center;
         Vector2 rRectCenter = rRect.center;
         Vector2 center = (lRectCenter + rRectCenter) / 2;
 
-        if (node.isHorizontal)
+        /*
+        2개의 문을 전부 포함하는 새로운 노드를 만든다는 느낌으로 작업한다.
+        -> 만든다로 변경.
+
+        1. 영역 계산하기
+        문을 기준으로 하는 '길' 영역을 계산해 만든다.
+
+        2. 길 만들기
+        만들어진 영역에 길을 만든다.
+
+        3. 세포 자동자.
+        여기는 전용 세포 자동자가 필요할 것으로 보인다.
+
+        */
+
+
+
+        // 연결하기.
+        if (rRectCenter.x < lRectCenter.x)
         {
-            // 연결하기.
-            if (rRectCenter.x < lRectCenter.x)
-            {
-                //for (int i = rRectCenter.x) ;
-            }
-            else
-            {
-
-            }
-
         }
         else
         {
-            // 연결하기.
 
         }
     }
