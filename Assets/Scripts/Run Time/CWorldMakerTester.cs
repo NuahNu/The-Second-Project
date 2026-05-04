@@ -25,11 +25,16 @@ public class CWorldMakerTester : MonoBehaviour
 
     [Header("타일맵 관련")]
     [SerializeField] private Grid _grid;
-    // 바닥 0 번
+    // 바닥 타일
+    // 제일 나중에 그려진다. 
     [SerializeField] private Tilemap _tilemap;
     [SerializeField] private TilemapRenderer _tilemapRenderer;
-    // 바닥 위. 1번?
-    // 배열로 만들까?
+
+    // 구조물 타일
+    // 플레이어와 같은 Order Layer에 있어야 한다.
+
+    // 콜라이더 타일
+    // 얘들은 그려지면 안되지
 
     [Header("타일맵 리소스")]
     [SerializeField] private TileBase _tileBase;
