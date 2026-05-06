@@ -44,7 +44,7 @@ public class TreeNode
     public TreeNode leftNode;
     public TreeNode rightNode;
     public TreeNode parentNode;
-    public TreeNode roadNode;
+    public TreeNode roadNode;   // 이거 노드로 해야하나?
     // 트리 노드의 Rect
     public RectInt nodeRect;
     // 실제 생성된 방의 기준 Rect
@@ -81,6 +81,9 @@ public class BinarySpacePartitioningData
     // 0.5 에 가까울수록 오류가 생길 가능성이 높다. 예외처리 없음.
     public float divideRatio = 0.2f;
     public float roomMinRatio = 0.5f;
+
+    // 다리 구역의 최소 너비 / 길이
+    public int minRoadSize = 4;
 }
 
 //[Serializable]
@@ -194,16 +197,18 @@ public class CWorldMaker
 
     private void GenerateRoom(TreeNode node, int loopCount)
     {
-        // 자신 추가
-        node.nodeList.Add(node);
-
         if (loopCount == _BSPData.maxLoopCount)
         {
+            // 자신 추가
+            node.nodeList.Add(node);
+
             RectInt size = node.nodeRect;
 
+            // 방의 크기
             int width = UnityEngine.Random.Range(Mathf.RoundToInt(size.width * _BSPData.roomMinRatio), size.width);
             int height = UnityEngine.Random.Range(Mathf.RoundToInt(size.height * _BSPData.roomMinRatio), size.height);
 
+            // 방의 위치
             int x = node.nodeRect.x + UnityEngine.Random.Range(0, size.width - width);
             int y = node.nodeRect.y + UnityEngine.Random.Range(0, size.height - height);
 
@@ -219,9 +224,9 @@ public class CWorldMaker
                 }
             }
             // smooth
-            // 버퍼에 작업
             for (int k = 0; k < _CAData.smoothCount; k++)
             {
+                // 버퍼에 작업
                 for (int i = 0; i < width; i++)
                 {
                     for (int j = 0; j < height; j++)
@@ -280,12 +285,18 @@ public class CWorldMaker
                     }
                 }
             }
+            // 자신 추가
+            node.nodeList.Add(node);
         }
     }
 
     private void GenerateRoad(TreeNode node, int loopCount)
     {
         if (loopCount == _BSPData.maxLoopCount) return;
+
+        loopCount++;
+        GenerateRoad(node.rightNode, loopCount);
+        GenerateRoad(node.leftNode, loopCount);
 
         // 자식 노드 2개의 _roomRect.center를 이어준다.
         RectInt lRect = node.leftNode.standardRoomRect;
@@ -296,31 +307,61 @@ public class CWorldMaker
         Vector2 rRectCenter = rRect.center;
         Vector2 center = (lRectCenter + rRectCenter) / 2;
 
-        /*
-        2개의 문을 전부 포함하는 새로운 노드를 만든다는 느낌으로 작업한다.
-        -> 만든다로 변경.
+        int minX = (int)Mathf.Min(lRectCenter.x, rRectCenter.x);
+        int minY = (int)Mathf.Min(lRectCenter.y, rRectCenter.y);
+        int maxX = (int)Mathf.Max(lRectCenter.x, rRectCenter.x);
+        int maxY = (int)Mathf.Max(lRectCenter.y, rRectCenter.y);
 
-        1. 영역 계산하기
-        문을 기준으로 하는 '길' 영역을 계산해 만든다.
+        // 영역 만들기
+        RectInt newRectInt = new RectInt(minX, minY, maxX - minX, maxY - minY);
 
-        2. 길 만들기
-        만들어진 영역에 길을 만든다.
+        int width = Math.Max(newRectInt.width, _BSPData.minRoadSize);
+        int height = Math.Max(newRectInt.height, _BSPData.minRoadSize);
+        int x = newRectInt.x;
+        int y = newRectInt.y;
 
-        3. 세포 자동자.
-        여기는 전용 세포 자동자가 필요할 것으로 보인다.
+        // 위에서 바뀌었다면...newRectInt
+        newRectInt.width = width;
+        newRectInt.height = height;
 
-        */
+        node.roadNode = new TreeNode(x, y, width, height);
 
+        Debug.Log($"loopCount : {loopCount} RectInt : {newRectInt}");
 
+        // 길이 생길 영역 계산하기
 
-        // 연결하기.
-        if (rRectCenter.x < lRectCenter.x)
+        // 길 만들기
+        for (int i = 0; i < width; i++)
         {
+            for (int j = 0; j < height; j++)
+            {
+                float total = _CAData.wallRatio + _CAData.floorRatio + _CAData.holeRatio;
+                float flag = UnityEngine.Random.Range(0f, total);
+                _tileMap[x + i, y + j] = flag < _CAData.floorRatio ? ETileType.Floor : flag < _CAData.floorRatio + _CAData.holeRatio ? ETileType.Hole : ETileType.Wall;
+                _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j];
+            }
         }
-        else
-        {
+        // 세포 자동자
 
-        }
+        //for (int k = 0; k < _CAData.smoothCount; k++)
+        //{
+        //// 버퍼
+        //for (int i = 0; i < width; i++)
+        //{
+        //for (int j = 0; j < height; j++)
+        //{
+        //_bufferTileMap[x + i, y + j] = CellularAutomata(x + i, y + j);
+        //}
+        //}
+        //// 적용
+        //for (int i = 0; i < width; i++)
+        //{
+        //for (int j = 0; j < height; j++)
+        //{
+        //_tileMap[x + i, y + j] = _bufferTileMap[x + i, y + j];
+        //}
+        //}
+        //}
     }
 
     private ETileType CellularAutomata(int x, int y)
