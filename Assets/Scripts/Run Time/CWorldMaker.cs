@@ -145,7 +145,7 @@ public class CWorldMaker
         _tileMap = new ETileType[_worldData.mapSize.x, _worldData.mapSize.y];
         for (int x = 0; x < _worldData.mapSize.x; x++)
             for (int y = 0; y < _worldData.mapSize.y; y++)
-                _tileMap[x, y] = ETileType.Wall;
+                _tileMap[x, y] = ETileType.Hole;
         _bufferTileMap = new ETileType[_worldData.mapSize.x, _worldData.mapSize.y];
 
         // 타일맵 데이터 생성.

@@ -51,7 +51,8 @@ public class CTileMapMaker : MonoBehaviour
         // 얘들은 그려지면 안되지
         Collider,
         // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
-        nvamesh
+        Nvamesh,
+        Count
     }
 
     #region 인스펙터
@@ -65,7 +66,8 @@ public class CTileMapMaker : MonoBehaviour
     // 이 경우 게임 전용 그리드 프리팹을 만드는게 좋을 듯.
 
     [Header("타일맵 리소스")]
-    [SerializeField] private TileBase _tileBase;
+    [SerializeField] private TileBase _floorTile;
+    [SerializeField] private TileBase _wallTile;
 
     [Header("네비메쉬")]
     [SerializeField] private NavMeshSurface _surfase2D;
@@ -93,6 +95,9 @@ public class CTileMapMaker : MonoBehaviour
         _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
 
         if (_surfase2D.IsNull("_surfase2D")) return;
+
+        if (_floorTile.IsNull("_floorTile")) return;
+        if (_wallTile.IsNull("_wallTile")) return;
 
         MakeTileMapDic();
         // 스폰 위치 지정.
@@ -137,8 +142,8 @@ public class CTileMapMaker : MonoBehaviour
         tilemapDic[TilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
         tilemapDic[TilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
 
-        tilemapDic[TilemapLayer.nvamesh] = FindTilemap(Define.NAME_NAVMESH);
-        tilemapDic[TilemapLayer.nvamesh].tilemapRenderer.sortingOrder = Define.ORDER_NAVMESH;
+        tilemapDic[TilemapLayer.Nvamesh] = FindTilemap(Define.NAME_NAVMESH);
+        tilemapDic[TilemapLayer.Nvamesh].tilemapRenderer.sortingOrder = Define.ORDER_NAVMESH;
     }
 
     private CTilemapData FindTilemap(string name)
@@ -168,7 +173,11 @@ public class CTileMapMaker : MonoBehaviour
 
     private void SetTile()
     {
-        tilemapDic[TilemapLayer.Floor].tilemap.ClearAllTiles();
+        for(int i = 0; i < (int)TilemapLayer.Count; i++)
+        {
+            tilemapDic[(TilemapLayer)i].tilemap.ClearAllTiles();
+        }
+
         // 얘를 반복 돌면서 읽어와 타일을 깐다.
         for (int i = 0; i < _tileTypeArray.GetLength(0); i++)
         {
@@ -179,8 +188,7 @@ public class CTileMapMaker : MonoBehaviour
                 Vector3Int pos = new Vector3Int(i, j, 0);
                 if (tt.HasFlag(ETileType.Floor))
                 {
-
-                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _tileBase);
+                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
                 }
                 else if (tt.HasFlag(ETileType.Hole))
                 {
@@ -191,6 +199,8 @@ public class CTileMapMaker : MonoBehaviour
                 {
                     // 벽 바닥 그리기
                     // 벽 타일맵에 벽 그리기
+                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
+                    tilemapDic[TilemapLayer.Structure].tilemap.SetTile(pos, _wallTile);
                 }
             }
         }
@@ -224,6 +234,7 @@ public class CTileMapMaker : MonoBehaviour
         SetTile();
         yield return null;
         _surfase2D.BuildNavMesh();
+        //yield return _surfase2D.BuildNavMeshAsync();
         //_surfase2D.UpdateNavMesh(_surfase2D.navMeshData);
         //NavMeshBuilder.UpdateNavMeshDataAsync(); // ???
     }
