@@ -326,7 +326,7 @@ public class CWorldMaker
 
         node.roadNode = new TreeNode(x, y, width, height);
 
-        Debug.Log($"loopCount : {loopCount} RectInt : {newRectInt}");
+        //Debug.Log($"loopCount : {loopCount} RectInt : {newRectInt}");
 
         // 길이 생길 영역 계산하기
 
@@ -338,10 +338,10 @@ public class CWorldMaker
                 float total = _CAData.wallRatio + _CAData.floorRatio;
                 float flag = UnityEngine.Random.Range(0f, total);
                 _tileMap[x + i, y + j] = flag < _CAData.floorRatio ? ETileType.Floor : ETileType.Wall;
-                _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j];
+                _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j]; 
             }
         }
-        // 세포 자동자
+        // 세포 자동자 
         for (int k = 0; k < _CAData.smoothCount; k++)
         {
             // 버퍼
