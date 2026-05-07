@@ -231,7 +231,7 @@ public class CWorldMaker
                 {
                     for (int j = 0; j < height; j++)
                     {
-                        _bufferTileMap[x + i, y + j] = CellularAutomata(x + i, y + j);
+                        _bufferTileMap[x + i, y + j] = CellularAutomata(x + i, y + j, ERuleFlag.ALL);
                     }
                 }
                 // 적용
@@ -335,36 +335,44 @@ public class CWorldMaker
         {
             for (int j = 0; j < height; j++)
             {
-                float total = _CAData.wallRatio + _CAData.floorRatio + _CAData.holeRatio;
+                float total = _CAData.wallRatio + _CAData.floorRatio;
                 float flag = UnityEngine.Random.Range(0f, total);
-                _tileMap[x + i, y + j] = flag < _CAData.floorRatio ? ETileType.Floor : flag < _CAData.floorRatio + _CAData.holeRatio ? ETileType.Hole : ETileType.Wall;
+                _tileMap[x + i, y + j] = flag < _CAData.floorRatio ? ETileType.Floor : ETileType.Wall;
                 _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j];
             }
         }
         // 세포 자동자
-
-        //for (int k = 0; k < _CAData.smoothCount; k++)
-        //{
-        //// 버퍼
-        //for (int i = 0; i < width; i++)
-        //{
-        //for (int j = 0; j < height; j++)
-        //{
-        //_bufferTileMap[x + i, y + j] = CellularAutomata(x + i, y + j);
-        //}
-        //}
-        //// 적용
-        //for (int i = 0; i < width; i++)
-        //{
-        //for (int j = 0; j < height; j++)
-        //{
-        //_tileMap[x + i, y + j] = _bufferTileMap[x + i, y + j];
-        //}
-        //}
-        //}
+        for (int k = 0; k < _CAData.smoothCount; k++)
+        {
+            // 버퍼
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    _bufferTileMap[x + i, y + j] = CellularAutomata(x + i, y + j, ERuleFlag.WTF);
+                }
+            }
+            // 적용
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    _tileMap[x + i, y + j] = _bufferTileMap[x + i, y + j];
+                }
+            }
+        }
     }
 
-    private ETileType CellularAutomata(int x, int y)
+    [Flags]
+    private enum ERuleFlag
+    {
+        WTF = 1 << 0,
+        FTH = 1 << 1,
+        FTW = 1 << 2,
+
+        ALL = WTF | FTH | FTW
+    }
+    private ETileType CellularAutomata(int x, int y, ERuleFlag flag = ERuleFlag.ALL)
     {
         // 카운팅
         int wallCount = 0;
@@ -402,17 +410,17 @@ public class CWorldMaker
         {
             case ETileType.Wall:
                 // 벽은 바닥이 될 수 있다.
-                if (wallCount + endCount < _CAData.smoothRatio)
+                if (flag.HasFlag(ERuleFlag.WTF) && (wallCount + endCount < _CAData.smoothRatio))
                     return ETileType.Floor;
 
                 return ETileType.Wall;
             case ETileType.Floor:
                 // 바닥은 구멍이 될 수 있다.
-                if (holeCount + wallCount > _CAData.smoothRatio)
+                if (flag.HasFlag(ERuleFlag.FTH) && holeCount + wallCount > _CAData.smoothRatio)
                     return ETileType.Hole;
 
                 // 바닥은 벽이 될 수 있다.
-                if (wallCount + endCount > _CAData.smoothRatio)
+                if (flag.HasFlag(ERuleFlag.FTW) && wallCount + endCount > _CAData.smoothRatio)
                     return ETileType.Wall;
 
                 return ETileType.Floor;
