@@ -26,6 +26,7 @@ public class CTilemapData
 {
     public Tilemap tilemap;
     public TilemapRenderer tilemapRenderer;
+    public TilemapCollider2D tilemapCollider2D;
 
     //public NavMeshModifier meshModifier;
 }
@@ -168,9 +169,15 @@ public class CTileMapMaker : MonoBehaviour
             return null;
         }
 
+        if(gameObject.TryGetComponent(out tilemapData.tilemapCollider2D))
+        {
+            Debug.Log($"프리팹의 {name}에 tilemapCollider2D이 있음");
+        }
+
         return tilemapData;
     }
 
+    // 얘를 매 프레임 해준다?
     private void SetTile()
     {
         for(int i = 0; i < (int)TilemapLayer.Count; i++)
@@ -233,10 +240,16 @@ public class CTileMapMaker : MonoBehaviour
 
         SetTile();
         yield return null;
-        _surfase2D.BuildNavMesh();
-        //yield return _surfase2D.BuildNavMeshAsync();
+        //_surfase2D.BuildNavMesh();
+        tilemapDic[TilemapLayer.Nvamesh].tilemapCollider2D.enabled = true;
+
+        yield return _surfase2D.BuildNavMeshAsync();
         //_surfase2D.UpdateNavMesh(_surfase2D.navMeshData);
         //NavMeshBuilder.UpdateNavMeshDataAsync(); // ???
+
+        // 비활성화 해야 하는 컴포넌트
+        // 내비메쉬 생성을 위한 콜라이더이다.
+        tilemapDic[TilemapLayer.Nvamesh].tilemapCollider2D.enabled = false;
     }
     #endregion
 }
