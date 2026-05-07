@@ -129,9 +129,16 @@ public class CTileMapMaker : MonoBehaviour
         tilemapDic = new Dictionary<TilemapLayer, CTilemapData>();
 
         tilemapDic[TilemapLayer.Floor] = FindTilemap(Define.NAME_FLOOR);
+        tilemapDic[TilemapLayer.Floor].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
+
         tilemapDic[TilemapLayer.Structure] = FindTilemap(Define.NAME_STRUCTURE);
+        tilemapDic[TilemapLayer.Structure].tilemapRenderer.sortingOrder = Define.ORDER_STRUCTURE;
+
         tilemapDic[TilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
+        tilemapDic[TilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
+
         tilemapDic[TilemapLayer.nvamesh] = FindTilemap(Define.NAME_NAVMESH);
+        tilemapDic[TilemapLayer.nvamesh].tilemapRenderer.sortingOrder = Define.ORDER_NAVMESH;
     }
 
     private CTilemapData FindTilemap(string name)
