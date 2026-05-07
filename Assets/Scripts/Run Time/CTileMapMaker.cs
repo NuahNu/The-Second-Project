@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using NavMeshPlus.Components;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 
 #region CWorldMaker
@@ -18,28 +20,49 @@ Cellular Automata로 부드럽게 만든다. - 언제까지?
 */
 #endregion
 
-public class CWorldMakerTester : MonoBehaviour
+
+[Serializable]
+public class CTilemapData
 {
+    public Tilemap tilemap;
+    public TilemapRenderer tilemapRenderer;
+
+    //public NavMeshModifier meshModifier;
+}
+
+// 보류
+//[Serializable]
+//public class CGridData
+//{
+//    
+//    public Grid grid;
+//
+//
+//}
+
+public class CTileMapMaker : MonoBehaviour
+{
+    public enum TilemapLayer
+    {
+        // 제일 아래에 그려진다.
+        Floor,
+        // 플레이어와 같은 Order Layer에 있어야 한다.
+        Structure,
+        // 얘들은 그려지면 안되지
+        Collider,
+        // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
+        nvamesh
+    }
+
     #region 인스펙터
     [SerializeField] private WorldData _worldData;
     [SerializeField] private BinarySpacePartitioningData _BSPData;
     [SerializeField] private CellularAutomataData _CAData;
 
     [Header("타일맵 관련")]
-    [SerializeField] private Grid _grid;
-    // 바닥 타일맵
-    // 제일 나중에 그려진다. 
-    [SerializeField] private Tilemap _tilemap;
-    [SerializeField] private TilemapRenderer _tilemapRenderer;
-
-    // 구조물 타일맵
-    // 플레이어와 같은 Order Layer에 있어야 한다.
-
-    // 콜라이더 타일맵
-    // 얘들은 그려지면 안되지
-
-    // 네비메쉬 타일맵
-    // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
+    [SerializeField] private GameObject _gridObeject;
+    // 그냥 그리드를 생성자에 넣으면 자동으로 데이터를 만드는 클래스를 고려해본다.
+    // 이 경우 게임 전용 그리드 프리팹을 만드는게 좋을 듯.
 
     [Header("타일맵 리소스")]
     [SerializeField] private TileBase _tileBase;
@@ -51,7 +74,6 @@ public class CWorldMakerTester : MonoBehaviour
     [SerializeField] private bool _showMapLog = false;
 
     [SerializeField] private KeyCode _makeDataKey = KeyCode.M;
-    [SerializeField] private KeyCode _bakeKey = KeyCode.B;
     #endregion
 
     #region 내부 변수
@@ -59,6 +81,8 @@ public class CWorldMakerTester : MonoBehaviour
 
     private CWorldMaker _worldMaker;
 
+    private Grid _grid;
+    private Dictionary<TilemapLayer, CTilemapData> tilemapDic;
     //private
     #endregion
 
@@ -70,6 +94,7 @@ public class CWorldMakerTester : MonoBehaviour
 
         if (_surfase2D.IsNull("_surfase2D")) return;
 
+        MakeTileMapDic();
         // 스폰 위치 지정.
     }
 
@@ -91,9 +116,52 @@ public class CWorldMakerTester : MonoBehaviour
     #endregion
 
     #region private
+    private void MakeTileMapDic()
+    {
+        if (_gridObeject.IsNull("_gridObeject")) return;
+
+        if (!_gridObeject.TryGetComponent(out _grid))
+        {
+            Debug.LogWarning("인스펙터 확인");
+            return;
+        }
+
+        tilemapDic = new Dictionary<TilemapLayer, CTilemapData>();
+
+        tilemapDic[TilemapLayer.Floor] = FindTilemap(Define.NAME_FLOOR);
+        tilemapDic[TilemapLayer.Structure] = FindTilemap(Define.NAME_STRUCTURE);
+        tilemapDic[TilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
+        tilemapDic[TilemapLayer.nvamesh] = FindTilemap(Define.NAME_NAVMESH);
+    }
+
+    private CTilemapData FindTilemap(string name)
+    {
+        Transform transform = _gridObeject.transform.Find(name);
+
+        if (transform.IsNull(name)) return null;
+
+        GameObject gameObject = transform.gameObject;
+
+        CTilemapData tilemapData = new CTilemapData();
+
+        if (!gameObject.TryGetComponent(out tilemapData.tilemap))
+        {
+            Debug.LogWarning($"프리팹의 {name}에 Tilemap이 없음");
+            return null;
+        }
+
+        if (!gameObject.TryGetComponent(out tilemapData.tilemapRenderer))
+        {
+            Debug.LogWarning($"프리팹의 {name}에 TilemapRenderer이 없음");
+            return null;
+        }
+
+        return tilemapData;
+    }
+
     private void SetTile()
     {
-        _tilemap.ClearAllTiles();
+        tilemapDic[TilemapLayer.Floor].tilemap.ClearAllTiles();
         // 얘를 반복 돌면서 읽어와 타일을 깐다.
         for (int i = 0; i < _tileTypeArray.GetLength(0); i++)
         {
@@ -105,7 +173,7 @@ public class CWorldMakerTester : MonoBehaviour
                 if (tt.HasFlag(ETileType.Floor))
                 {
 
-                    _tilemap.SetTile(pos, _tileBase);
+                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _tileBase);
                 }
                 else if (tt.HasFlag(ETileType.Hole))
                 {
