@@ -88,8 +88,11 @@ public class CTileMapMaker : MonoBehaviour
 
     private Grid _grid;
     private Dictionary<TilemapLayer, CTilemapData> tilemapDic;
-    //private
+
+    private Rect _gridRect;
     #endregion
+
+    public event Action<Rect> OnMakeMap;
 
     #region 유니티 이벤트
     void Awake()
@@ -118,6 +121,7 @@ public class CTileMapMaker : MonoBehaviour
         if (Input.GetKeyDown(_makeDataKey))
         {
             StartCoroutine(Co_MakeMap());
+            Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
         }
     }
     #endregion
@@ -173,7 +177,7 @@ public class CTileMapMaker : MonoBehaviour
             return null;
         }
 
-        if(gameObject.TryGetComponent(out tilemapData.tilemapCollider2D))
+        if (gameObject.TryGetComponent(out tilemapData.tilemapCollider2D))
         {
             Debug.Log($"프리팹의 {name}에 tilemapCollider2D이 있음");
         }
@@ -184,7 +188,7 @@ public class CTileMapMaker : MonoBehaviour
     // 얘를 매 프레임 해준다?
     private void SetTile()
     {
-        for(int i = 0; i < (int)TilemapLayer.Count; i++)
+        for (int i = 0; i < (int)TilemapLayer.Count; i++)
         {
             tilemapDic[(TilemapLayer)i].tilemap.ClearAllTiles();
         }
@@ -219,6 +223,15 @@ public class CTileMapMaker : MonoBehaviour
 
     private IEnumerator Co_MakeMap()
     {
+        Vector3 gridPos = Vector3.zero;
+        gridPos.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+        _grid.transform.position = gridPos;
+
+        _gridRect.x = 0;
+        _gridRect.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+        _gridRect.width = _grid.cellSize.x * _worldData.mapSize.x;
+        _gridRect.height = _grid.cellSize.y * _worldData.mapSize.y;
+
         _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
 
         if (_showMapLog)
@@ -258,6 +271,9 @@ public class CTileMapMaker : MonoBehaviour
         // 내비메쉬 생성을 위한 콜라이더이다.
         tilemapDic[TilemapLayer.Floor].tilemapCollider2D.enabled = false;
         tilemapDic[TilemapLayer.Hole].tilemapCollider2D.enabled = false;
+
+        OnMakeMap?.Invoke(_gridRect);
+        Debug.Log($"ReSizeRect {_gridRect}");
     }
     #endregion
 }
