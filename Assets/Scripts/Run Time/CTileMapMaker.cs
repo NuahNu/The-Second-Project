@@ -210,7 +210,7 @@ public class CTileMapMaker : MonoBehaviour
                 {
                     // 벽 바닥 그리기
                     // 벽 타일맵에 벽 그리기
-                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
+                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _structureFloorTile);
                     tilemapDic[TilemapLayer.Structure].tilemap.SetTile(pos, _wallTile);
                 }
             }

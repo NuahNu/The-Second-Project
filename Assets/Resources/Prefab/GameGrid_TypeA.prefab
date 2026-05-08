@@ -10,19 +10,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 921458116580519444, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_TileAnchor.x
-      value: 0.1
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 921458116580519444, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_TileAnchor.y
-      value: 0.1
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1092606244617309154, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_Name
-      value: GameGrid Variant
+      value: GameGrid_TypeA
       objectReference: {fileID: 0}
     - target: {fileID: 3363446095415082647, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_Offset.y
-      value: 0.2
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.y
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 4128609769899972350, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_TileAnchor.x

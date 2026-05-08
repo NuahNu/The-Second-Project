@@ -59,7 +59,6 @@ GameObject:
   - component: {fileID: 6931775388739415206}
   - component: {fileID: 3678372000289053724}
   - component: {fileID: 1790585515806163243}
-  - component: {fileID: 175127388591024977}
   m_Layer: 0
   m_Name: Structure Tilemap
   m_TagString: Untagged
@@ -197,22 +196,6 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &175127388591024977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466311142526184055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &1794582500412090497
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +440,7 @@ GameObject:
   - component: {fileID: 2578035618190255331}
   - component: {fileID: 7066694332594705528}
   - component: {fileID: 5682678850461523889}
+  - component: {fileID: 3319530974169355446}
   m_Layer: 0
   m_Name: Collider Tilemap
   m_TagString: Untagged
@@ -602,6 +586,22 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &3319530974169355446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043816387493454326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &7882361424370174784
 GameObject:
   m_ObjectHideFlags: 0
