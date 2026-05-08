@@ -31,9 +31,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7408187326810274273}
+  - {fileID: 2244927380671341318}
   - {fileID: 6931775388739415206}
   - {fileID: 6002504189864011417}
-  - {fileID: 2244927380671341318}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1714498579921518751
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 4685657014140021135}
   - component: {fileID: 3363446095415082647}
   m_Layer: 0
-  m_Name: Navmesh Tilemap
+  m_Name: Hole Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -681,7 +681,7 @@ TilemapRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7882361424370174784}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

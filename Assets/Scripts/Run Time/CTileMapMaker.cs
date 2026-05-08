@@ -46,13 +46,13 @@ public class CTileMapMaker : MonoBehaviour
     public enum TilemapLayer
     {
         // 제일 아래에 그려진다.
+        // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
         Floor,
+        Hole,
         // 플레이어와 같은 Order Layer에 있어야 한다.
         Structure,
         // 얘들은 그려지면 안되지
         Collider,
-        // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
-        Nvamesh,
         Count
     }
 
@@ -68,7 +68,9 @@ public class CTileMapMaker : MonoBehaviour
 
     [Header("타일맵 리소스")]
     [SerializeField] private TileBase _floorTile;
+    [SerializeField] private TileBase _structureFloorTile;
     [SerializeField] private TileBase _wallTile;
+    [SerializeField] private TileBase _holeTile;
 
     [Header("네비메쉬")]
     [SerializeField] private NavMeshSurface _surfase2D;
@@ -98,7 +100,9 @@ public class CTileMapMaker : MonoBehaviour
         if (_surfase2D.IsNull("_surfase2D")) return;
 
         if (_floorTile.IsNull("_floorTile")) return;
+        if (_structureFloorTile.IsNull("_structureFloorTile")) return;
         if (_wallTile.IsNull("_wallTile")) return;
+        if (_holeTile.IsNull("_holeTile")) return;
 
         MakeTileMapDic();
         // 스폰 위치 지정.
@@ -143,8 +147,8 @@ public class CTileMapMaker : MonoBehaviour
         tilemapDic[TilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
         tilemapDic[TilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
 
-        tilemapDic[TilemapLayer.Nvamesh] = FindTilemap(Define.NAME_NAVMESH);
-        tilemapDic[TilemapLayer.Nvamesh].tilemapRenderer.sortingOrder = Define.ORDER_NAVMESH;
+        tilemapDic[TilemapLayer.Hole] = FindTilemap(Define.NAME_HOLE);
+        tilemapDic[TilemapLayer.Hole].tilemapRenderer.sortingOrder = Define.ORDER_HOLE;
     }
 
     private CTilemapData FindTilemap(string name)
@@ -200,7 +204,7 @@ public class CTileMapMaker : MonoBehaviour
                 else if (tt.HasFlag(ETileType.Hole))
                 {
                     // 트리거 타일 넣기.
-                    ;
+                    tilemapDic[TilemapLayer.Hole].tilemap.SetTile(pos, _holeTile);
                 }
                 else if (tt.HasFlag(ETileType.Wall))
                 {
@@ -241,7 +245,10 @@ public class CTileMapMaker : MonoBehaviour
         SetTile();
         yield return null;
         //_surfase2D.BuildNavMesh();
-        tilemapDic[TilemapLayer.Nvamesh].tilemapCollider2D.enabled = true;
+
+        // Floor와 Hole을 기준으로 만든다.
+        tilemapDic[TilemapLayer.Floor].tilemapCollider2D.enabled = true;
+        tilemapDic[TilemapLayer.Hole].tilemapCollider2D.enabled = true;
 
         yield return _surfase2D.BuildNavMeshAsync();
         //_surfase2D.UpdateNavMesh(_surfase2D.navMeshData);
@@ -249,7 +256,8 @@ public class CTileMapMaker : MonoBehaviour
 
         // 비활성화 해야 하는 컴포넌트
         // 내비메쉬 생성을 위한 콜라이더이다.
-        tilemapDic[TilemapLayer.Nvamesh].tilemapCollider2D.enabled = false;
+        tilemapDic[TilemapLayer.Floor].tilemapCollider2D.enabled = false;
+        tilemapDic[TilemapLayer.Hole].tilemapCollider2D.enabled = false;
     }
     #endregion
 }
