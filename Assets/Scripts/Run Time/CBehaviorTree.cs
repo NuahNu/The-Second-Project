@@ -23,6 +23,7 @@ public interface IBTNode
     public EState Evaluate();
 }
 
+// 
 public class CActionNode : IBTNode
 {
     public Func<IBTNode.EState> action;
@@ -38,9 +39,7 @@ public class CActionNode : IBTNode
     }
 }
 
-/// <summary>
-/// OR
-/// </summary>
+// OR
 public class CSelectiorNode : IBTNode
 {
     private List<IBTNode> _children;
@@ -70,9 +69,7 @@ public class CSelectiorNode : IBTNode
     }
 }
 
-/// <summary>
-/// AND
-/// </summary>
+// AND
 public class CSequenceNode : IBTNode
 {
     private List<IBTNode> _children;
