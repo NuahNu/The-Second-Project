@@ -20,6 +20,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameGrid_TypeA
       objectReference: {fileID: 0}
+    - target: {fileID: 2578035618190255331, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2578035618190255331, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.y
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3363446095415082647, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_Offset.y
       value: 0.3
