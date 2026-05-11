@@ -1,0 +1,589 @@
+fileFormatVersion: 2
+guid: 463f31673a6e65f4f8af0a198f8b110a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: IdleToIdleAiming_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 61
+        height: 96
+      alignment: 9
+      pivot: {x: 0.23812291, y: 0.10081013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 880a3a5ae87bab390800000000000000
+      internalID: -7801721581173759864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_14
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 0
+        width: 61
+        height: 96
+      alignment: 9
+      pivot: {x: 0.23812291, y: 0.10081013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 758e654bafe60dc90800000000000000
+      internalID: -7147090585590503337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_15
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 0
+        width: 61
+        height: 94
+      alignment: 9
+      pivot: {x: 0.23812291, y: 0.10295503}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ea29abc58591390800000000000000
+      internalID: -7847143720425968074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_16
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 0
+        width: 60
+        height: 94
+      alignment: 9
+      pivot: {x: 0.24209163, y: 0.10295503}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 565baf308dc2dd4d0800000000000000
+      internalID: -3108278861524454043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 59
+        height: 93
+      alignment: 9
+      pivot: {x: 0.24619487, y: 0.10406207}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d764e0952f08b3c20800000000000000
+      internalID: 3187282939659306621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_12
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 96
+        width: 64
+        height: 92
+      alignment: 9
+      pivot: {x: 0.2269609, y: 0.10519318}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d51bb84cc1dcdc510800000000000000
+      internalID: 1571137368462438749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_18
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 96
+        width: 58
+        height: 92
+      alignment: 9
+      pivot: {x: 0.2504396, y: 0.10519318}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6b3e3569408b92b0800000000000000
+      internalID: -5576722660848682129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_19
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 96
+        width: 59
+        height: 91
+      alignment: 9
+      pivot: {x: 0.24619487, y: 0.10634915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f05f7c236111af70800000000000000
+      internalID: 9196651031713239283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 189
+        width: 55
+        height: 86
+      alignment: 9
+      pivot: {x: 0.5368272, y: 0.112532236}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d8bc7261adf1f850800000000000000
+      internalID: 6409182614308829392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_11
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 189
+        width: 65
+        height: 82
+      alignment: 9
+      pivot: {x: 0.2234692, y: 0.118021615}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f7239295dcc71c0800000000000000
+      internalID: -4504499744450379949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_3
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 189
+        width: 47
+        height: 81
+      alignment: 9
+      pivot: {x: 0.37288293, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18fd14a859d47c720800000000000000
+      internalID: 2866344992509648769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_4
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 189
+        width: 42
+        height: 81
+      alignment: 9
+      pivot: {x: 0.34584516, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbce8bf2f9065cd80800000000000000
+      internalID: -8231066507132998468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_6
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 189
+        width: 39
+        height: 81
+      alignment: 9
+      pivot: {x: 0.37244865, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9377ee84e4f12440800000000000000
+      internalID: 4909474331297805215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 275
+        width: 58
+        height: 81
+      alignment: 9
+      pivot: {x: 0.2504396, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c310b311e5b1ded0800000000000000
+      internalID: -2390929948854447168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_8
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 275
+        width: 58
+        height: 81
+      alignment: 9
+      pivot: {x: 0.2504396, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e34064d81f9ec210800000000000000
+      internalID: 1355195466876208098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_9
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 275
+        width: 62
+        height: 81
+      alignment: 9
+      pivot: {x: 0.23428221, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59564612d7a6fc200800000000000000
+      internalID: 202497593918645653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_10
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 275
+        width: 66
+        height: 81
+      alignment: 9
+      pivot: {x: 0.2200833, y: 0.11947867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c2f12dc1db02ded0800000000000000
+      internalID: -2390835456462687549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 356
+        width: 44
+        height: 80
+      alignment: 9
+      pivot: {x: 0.33012494, y: 0.12097216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f66d24f452a5d60800000000000000
+      internalID: 7879651520392097646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 356
+        width: 44
+        height: 80
+      alignment: 9
+      pivot: {x: 0.33012494, y: 0.12097216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9219eefb2fe5bfb0800000000000000
+      internalID: -4632533669441367398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleToIdleAiming_2
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 356
+        width: 47
+        height: 80
+      alignment: 9
+      pivot: {x: 0.35160634, y: 0.12097216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec74ff119451c42e0800000000000000
+      internalID: -2140312319329089586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 1dd47f4ff12168c4ba7d42b58678a720, type: 3}
+      name: _NormalMap
+    nameFileIdTable:
+      IdleToIdleAiming_10: -2390835456462687549
+      IdleToIdleAiming_3: 2866344992509648769
+      IdleToIdleAiming_4: -8231066507132998468
+      IdleToIdleAiming_12: 1571137368462438749
+      IdleToIdleAiming_2: -2140312319329089586
+      IdleToIdleAiming_11: -4504499744450379949
+      IdleToIdleAiming_16: -3108278861524454043
+      IdleToIdleAiming_15: -7847143720425968074
+      IdleToIdleAiming_7: -2390929948854447168
+      IdleToIdleAiming_1: -4632533669441367398
+      IdleToIdleAiming_14: -7147090585590503337
+      IdleToIdleAiming_13: -7801721581173759864
+      IdleToIdleAiming_6: 4909474331297805215
+      IdleToIdleAiming_9: 202497593918645653
+      IdleToIdleAiming_0: 7879651520392097646
+      IdleToIdleAiming_5: 6409182614308829392
+      IdleToIdleAiming_17: 3187282939659306621
+      IdleToIdleAiming_18: -5576722660848682129
+      IdleToIdleAiming_19: 9196651031713239283
+      IdleToIdleAiming_8: 1355195466876208098
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

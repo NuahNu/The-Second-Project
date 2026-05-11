@@ -1,0 +1,523 @@
+fileFormatVersion: 2
+guid: 38a0643a7b18e524f8033381bfa1d0e3
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: IdleNotAiming_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f7163069738a8510800000000000000
+      internalID: 1552197578910996468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_1
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe63e15b0c2bc5c20800000000000000
+      internalID: 3196626376268330735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_2
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 0
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1334ff73fe8b1a990800000000000000
+      internalID: -7376411377079991503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_3
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c546e09d4ad140280800000000000000
+      internalID: -9078098355018636196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_4
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 0
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81f0cba5001a0e3f0800000000000000
+      internalID: -873521304815530216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 76
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 699962df4401c7670800000000000000
+      internalID: 8537716882078603670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_11
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 76
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7adea68459cfdef10800000000000000
+      internalID: 2300772702751485351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_12
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 76
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966430854c78a2080800000000000000
+      internalID: -9211400810472978839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_13
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 76
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 291ae42a86fcec370800000000000000
+      internalID: 8344835207870718354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_14
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 76
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d123573ec7346520800000000000000
+      internalID: 2694339835905384917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee76037571d6d49b0800000000000000
+      internalID: -5094295656471697426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_16
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 152
+        width: 46
+        height: 76
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.061549637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c30eee7aa00044c80800000000000000
+      internalID: -8339540564216192964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_5
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 152
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.0623703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88bf0f934d4a5f0e0800000000000000
+      internalID: -2236700408507466872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_6
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 152
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.0623703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3939336872103630800000000000000
+      internalID: 3904641185200290109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_7
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 152
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.0623703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c792b4210e99b1210800000000000000
+      internalID: 1304805704712530300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.0623703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae5e30dd06f02d940800000000000000
+      internalID: 5319331018577274346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleNotAiming_9
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 228
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.6201195, y: 0.0623703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d24ca78609a3f7cd0800000000000000
+      internalID: -2558261671420574675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 6680001b55af1af4aaef02a16680fce0, type: 3}
+      name: _NormalMap
+    nameFileIdTable:
+      IdleNotAiming_0: 1552197578910996468
+      IdleNotAiming_12: -9211400810472978839
+      IdleNotAiming_8: 5319331018577274346
+      IdleNotAiming_14: 2694339835905384917
+      IdleNotAiming_4: -873521304815530216
+      IdleNotAiming_3: -9078098355018636196
+      IdleNotAiming_7: 1304805704712530300
+      IdleNotAiming_10: 8537716882078603670
+      IdleNotAiming_15: -5094295656471697426
+      IdleNotAiming_16: -8339540564216192964
+      IdleNotAiming_5: -2236700408507466872
+      IdleNotAiming_9: -2558261671420574675
+      IdleNotAiming_13: 8344835207870718354
+      IdleNotAiming_2: -7376411377079991503
+      IdleNotAiming_1: 3196626376268330735
+      IdleNotAiming_11: 2300772702751485351
+      IdleNotAiming_6: 3904641185200290109
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

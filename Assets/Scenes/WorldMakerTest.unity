@@ -169,6 +169,7 @@ MonoBehaviour:
   _floorTile: {fileID: 11400000, guid: fb059ea41d90c1347bfe9914c9dd4b10, type: 2}
   _structureFloorTile: {fileID: 11400000, guid: 471b6aead08519045955e51d050a3aeb, type: 2}
   _wallTile: {fileID: 11400000, guid: 5c27fc185faebf34bbdeac77023112b4, type: 2}
+  _wallColliderTile: {fileID: 11400000, guid: 3f4bb21da1e229c41bc2bb5679b32a10, type: 2}
   _holeTile: {fileID: 11400000, guid: 04a61e1cbd7d31e4683399698ac69d4f, type: 2}
   _surfase2D: {fileID: 1622810180}
   _showMapLog: 0
