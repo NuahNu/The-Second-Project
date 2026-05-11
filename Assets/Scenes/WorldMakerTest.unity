@@ -1087,6 +1087,10 @@ PrefabInstance:
       propertyPath: m_OverrideArea
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3773675457568330777, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_AffectedAgents.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1738868218230336510, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
     m_RemovedGameObjects: []

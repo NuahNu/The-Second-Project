@@ -101,6 +101,7 @@ public class CAnimationParamData
 
 public class CCharacterStateMachine : MonoBehaviour
 {
+    // 이건 애니메이터에 따라서 달라진다.
     public enum ECharacterStateMachine
     {
         Idle,
