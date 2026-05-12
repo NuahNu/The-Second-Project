@@ -37,8 +37,6 @@ public class CAgent : MonoBehaviour
 
     void Start()
     {
-        // 장애물 회피수준
-        //_agent.obstacleAvoidanceType = 0;
     }
 
     void Update()
@@ -58,7 +56,7 @@ public class CAgent : MonoBehaviour
             _agent.Move(dir * _speed * Time.deltaTime);
             return;
         }
-        _agent.SetDestination(_target.position);
+        SetDestination(_target);
     }
     #endregion
 
@@ -71,6 +69,15 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region private
-
+    static float agentDrift = 0.0001f; // minimal
+    void SetDestination(Transform target)
+    {
+        Vector3 driftPos = target.position;
+        if (Mathf.Abs(this.transform.position.x - target.transform.position.x) < agentDrift)
+        {
+            driftPos = target.transform.position + new Vector3(agentDrift, 0f, 0f);
+        }
+        _agent.SetDestination(driftPos);
+    }
     #endregion
 }
