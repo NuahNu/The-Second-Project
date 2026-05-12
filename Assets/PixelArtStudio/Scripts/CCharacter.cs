@@ -99,7 +99,7 @@ public class CAnimationParamData
     #endregion
 }
 
-public class CCharacterStateMachine : MonoBehaviour
+public class CCharacter : MonoBehaviour
 {
     // 이건 애니메이터에 따라서 달라진다.
     public enum ECharacterStateMachine
@@ -141,6 +141,8 @@ public class CCharacterStateMachine : MonoBehaviour
         InitAnimator();
         // FSM
         InitFSM();
+
+        ChangeState(_FSMDic[ECharacterStateMachine.Idle]);
     }
 
     void Start()
