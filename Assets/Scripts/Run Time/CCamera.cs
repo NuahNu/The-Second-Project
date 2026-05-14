@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -81,10 +80,15 @@ public class CCamera : MonoBehaviour
 
         _camera.transform.position += delta;
         // clamp
+        // 클램프 값을 함수로 뽑으면 되는거 아니냐?
+        // 그러기 위해 클램프를 2번 해야할듯 하다.
         if (_useClamp)
         {
             float x = Mathf.Clamp(_camera.transform.position.x, -_gridRect.width / 2, _gridRect.width / 2);
             float y = Mathf.Clamp(_camera.transform.position.y, -_gridRect.height / 2, _gridRect.height / 2);
+
+            // 2차 클램프
+
 
             _camera.transform.position = new Vector3(x, y, Define.CAMERA_Z);
         }
