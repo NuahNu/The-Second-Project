@@ -99,39 +99,26 @@ public class CAnimationParamData
     #endregion
 }
 
-public class CCharacter : MonoBehaviour
+public abstract class CCharacter : MonoBehaviour
 {
-    // 이건 애니메이터에 따라서 달라진다.
-    public enum ECharacterStateMachine
-    {
-        Idle,
-        Attack,
-        Block,
-        Boost,
-        Death,
-        GetHit,
-        Run,
-        Stunned,
-        Walk,
-        Count
-    }
 
     #region 인스펙터
     [Header("애니메이션")]
-    [SerializeField] private Animator _animator;
-    [SerializeField] private string[] _paramIDs;
+    [SerializeField] protected Animator _animator;
+    [SerializeField] protected string[] _paramIDs;
     [Header("애니메이션 (확인용)")]
-    [SerializeField] private CAnimationParamData[] _animationParams;
+    [SerializeField] protected CAnimationParamData[] _animationParams;
 
     #endregion
 
     #region 내부 변수
     // 애니메이션
-    private Dictionary<string, CAnimationParamData> _paramDic;
+    protected Dictionary<string, CAnimationParamData> _paramDic;
 
     // FSM
-    private Dictionary<ECharacterStateMachine, CStateMachine> _FSMDic;
-    private CStateMachine _currentState = null;
+    protected abstract string[] States { get; }
+    protected Dictionary<string, CStateMachine> _FSMDic;
+    protected CStateMachine _currentState = null;
     #endregion
 
     #region 유니티 이벤트
@@ -139,29 +126,34 @@ public class CCharacter : MonoBehaviour
     {
         // 애니메이션
         InitAnimator();
+        InitParams();
         // FSM
         InitFSM();
+        MakeState();
 
-        ChangeState(_FSMDic[ECharacterStateMachine.Idle]);
+        ChangeState(_FSMDic["Idle"]);
     }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-    #endregion
-
-    #region public
-
     #endregion
 
     #region protected
+     protected abstract void MakeState();
+    /*
+    // 내용 채우기.
+        _FSMDic["Idle"].OnEnter += () =>
+        {
 
+        };
+     */
+
+    protected void ChangeState(CStateMachine state)
+    {
+        if (state == _currentState)
+            return;
+
+        _currentState.Exit();
+        _currentState = state;
+        _currentState.Enter();
+    }
     #endregion
 
     #region private
@@ -182,7 +174,10 @@ public class CCharacter : MonoBehaviour
             Debug.LogError("_animator == null");
             return;
         }
+    }
 
+    private void InitParams()
+    {
         if (_paramDic == null)
         {
             _paramDic = new Dictionary<string, CAnimationParamData>();
@@ -209,37 +204,22 @@ public class CCharacter : MonoBehaviour
         }
     }
 
-    private void InitFSM()
+    protected virtual void InitFSM()
     {
         // 초기화
         if (_FSMDic == null)
         {
-            _FSMDic = new Dictionary<ECharacterStateMachine, CStateMachine>();
+            _FSMDic = new Dictionary<string, CStateMachine>();
         }
         else
         {
             _FSMDic.Clear();
         }
-        for (int i = 0; i < (int)ECharacterStateMachine.Count; i++)
+        foreach (string state in States)
         {
-            _FSMDic[(ECharacterStateMachine)i] = new CStateMachine();
+            _FSMDic[state] = new CStateMachine();
+
         }
-        // 내용 채우기.
-        _FSMDic[ECharacterStateMachine.Idle].OnEnter += () =>
-        {
-
-        };
     }
-
-    private void ChangeState(CStateMachine state)
-    {
-        if (state == _currentState)
-            return;
-
-        _currentState.Exit();
-        _currentState = state;
-        _currentState.Enter();
-    }
-
     #endregion
 }
