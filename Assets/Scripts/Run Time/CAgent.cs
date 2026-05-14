@@ -8,6 +8,7 @@ using UnityEngine.AI;
 */
 #endregion
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class CAgent : MonoBehaviour
 {
     #region 인스펙터

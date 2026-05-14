@@ -3,7 +3,7 @@ using System;
 
 #region CStateMachine
 /*
-
+그냥 얘를 상속하는 무언가로 만들어버리기?
 */
 #endregion
 

@@ -99,6 +99,7 @@ public class CAnimationParamData
     #endregion
 }
 
+[RequireComponent(typeof(CAgent))]
 public abstract class CCharacter : MonoBehaviour
 {
 
@@ -129,28 +130,52 @@ public abstract class CCharacter : MonoBehaviour
         InitParams();
         // FSM
         InitFSM();
-        MakeState();
+        SetStates();
 
         ChangeState(_FSMDic["Idle"]);
+    }
+
+    void Update()
+    {
+        _currentState.Update();
+    }
+
+    private void OnDestroy()
+    {
+        UnsetStates();
+        _paramDic.Clear();
+        _paramDic = null;
+        _FSMDic.Clear();
+        _FSMDic = null;
     }
     #endregion
 
     #region protected
-     protected abstract void MakeState();
-    /*
-    // 내용 채우기.
-        _FSMDic["Idle"].OnEnter += () =>
-        {
-
-        };
-     */
+    protected virtual void SetStates()
+    {
+        _FSMDic["Idle"].OnEnter += IdleEnter;
+    }
+    protected virtual void UnsetStates()
+    {
+        _FSMDic["Idle"].OnEnter -= IdleEnter;
+    }
 
     protected void ChangeState(CStateMachine state)
     {
-        if (state == _currentState)
+        if (state == null)
+        {
+            Debug.Log("state == null");
             return;
+        }
+        if (state == _currentState)
+        {
+            Debug.Log("state == _currentState");
+            return;
+        }
+        Debug.Log($"{state} -> {_currentState}");
 
-        _currentState.Exit();
+        // 기본값은 null 이다.
+        _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
     }
@@ -204,7 +229,7 @@ public abstract class CCharacter : MonoBehaviour
         }
     }
 
-    protected virtual void InitFSM()
+    private void InitFSM()
     {
         // 초기화
         if (_FSMDic == null)
@@ -218,8 +243,17 @@ public abstract class CCharacter : MonoBehaviour
         foreach (string state in States)
         {
             _FSMDic[state] = new CStateMachine();
-
         }
+    }
+
+    private void IdleEnter()
+    {
+        _paramDic["Idle"].SetParam();
+    }
+    private void IdleUpdate()
+    {
+        // 속도가 달라지면 이동하는코드.
+        // 달리는 상태냐 걷는 상태냐
     }
     #endregion
 }
