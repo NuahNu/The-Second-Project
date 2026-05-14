@@ -243,6 +243,7 @@ public abstract class CCharacter : MonoBehaviour
         foreach (string state in States)
         {
             _FSMDic[state] = new CStateMachine();
+            _FSMDic[state].Name = state;
         }
     }
 

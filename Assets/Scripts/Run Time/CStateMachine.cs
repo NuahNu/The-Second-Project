@@ -13,6 +13,8 @@ public class CStateMachine : IStateMachine
     public event Action OnUpdate;
     public event Action OnExit;
 
+    public string Name { get; set; }
+
     public void Enter()
     {
         OnEnter?.Invoke();
