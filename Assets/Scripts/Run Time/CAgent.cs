@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 
 #region CAgent
@@ -18,6 +19,8 @@ public class CAgent : MonoBehaviour
 
     #region 내부 변수
     private NavMeshAgent _agent;
+    private InputActions _actions;
+    private InputAction moveAction;
     #endregion
 
     #region 유니티 이벤트
@@ -34,24 +37,38 @@ public class CAgent : MonoBehaviour
 
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
+
+        InitAction();
     }
 
     void Start()
     {
     }
 
+    private void OnEnable()
+    {
+        moveAction.Enable();
+        //moveAction.started += Started;
+        //moveAction.performed += Performed;
+        //moveAction.canceled += Canceled;
+    }
+
+    private void OnDisable()
+    {
+        moveAction.Disable();
+        //moveAction.started -= Started;
+        //moveAction.performed -= Performed;
+        //moveAction.canceled -= Canceled;
+    }
+
     void Update()
     {
-        Vector3 dir = Vector3.zero;
+        Vector2 dir = moveAction.ReadValue<Vector2>();
 
-        if (Input.GetKey(KeyCode.W)) dir.y += 1;
-        if (Input.GetKey(KeyCode.S)) dir.y -= 1;
-        if (Input.GetKey(KeyCode.A)) dir.x -= 1;
-        if (Input.GetKey(KeyCode.D)) dir.x += 1;
-
-
-        if (dir != Vector3.zero || _target == null)
+        if (dir != Vector2.zero || _target == null)
         {
+            dir.Normalize();
+
             if (_agent.hasPath) _agent.ResetPath();
 
             _agent.Move(dir * _speed * Time.deltaTime);
@@ -70,8 +87,14 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region private
-    static float agentDrift = 0.0001f; // minimal
-    void SetDestination(Transform target)
+    private void InitAction()
+    {
+        _actions = new InputActions();
+        moveAction = _actions.Player.Move;
+    }
+
+    private static float agentDrift = 0.0001f; // minimal
+    private void SetDestination(Transform target)
     {
         Vector3 driftPos = target.position;
         if (Mathf.Abs(this.transform.position.x - target.transform.position.x) < agentDrift)
