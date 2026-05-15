@@ -42,7 +42,7 @@ public class CAgent : MonoBehaviour
 
     void Update()
     {
-        Vector2 dir = Vector2.zero;
+        Vector3 dir = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W)) dir.y += 1;
         if (Input.GetKey(KeyCode.S)) dir.y -= 1;
@@ -50,7 +50,7 @@ public class CAgent : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) dir.x += 1;
 
 
-        if (dir != Vector2.zero || _target == null)
+        if (dir != Vector3.zero || _target == null)
         {
             if (_agent.hasPath) _agent.ResetPath();
 
