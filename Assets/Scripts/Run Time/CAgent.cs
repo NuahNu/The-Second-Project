@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -19,12 +20,11 @@ public class CAgent : MonoBehaviour
 
     #region 내부 변수
     private NavMeshAgent _agent;
-    private InputActions _actions;
-    private InputAction moveAction;
+    protected Vector2 _dir;
     #endregion
 
     #region 유니티 이벤트
-    void Awake()
+    protected virtual void Awake()
     {
         if (_agent == null)
         {
@@ -37,41 +37,24 @@ public class CAgent : MonoBehaviour
 
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
-
-        InitAction();
     }
 
     void Start()
     {
+
     }
 
-    private void OnEnable()
-    {
-        moveAction.Enable();
-        //moveAction.started += Started;
-        //moveAction.performed += Performed;
-        //moveAction.canceled += Canceled;
-    }
+    
 
-    private void OnDisable()
+    protected virtual void Update()
     {
-        moveAction.Disable();
-        //moveAction.started -= Started;
-        //moveAction.performed -= Performed;
-        //moveAction.canceled -= Canceled;
-    }
-
-    void Update()
-    {
-        Vector2 dir = moveAction.ReadValue<Vector2>();
-
-        if (dir != Vector2.zero || _target == null)
+        if (_dir != Vector2.zero || _target == null)
         {
-            dir.Normalize();
+            _dir.Normalize();
 
             if (_agent.hasPath) _agent.ResetPath();
 
-            _agent.Move(dir * _speed * Time.deltaTime);
+            _agent.Move(_dir * _speed * Time.deltaTime);
             return;
         }
         SetDestination(_target);
@@ -87,12 +70,6 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region private
-    private void InitAction()
-    {
-        _actions = new InputActions();
-        moveAction = _actions.Player.Move;
-    }
-
     private static float agentDrift = 0.0001f; // minimal
     private void SetDestination(Transform target)
     {
