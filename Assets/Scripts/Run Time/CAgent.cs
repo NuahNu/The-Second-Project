@@ -20,7 +20,7 @@ public class CAgent : MonoBehaviour
 
     #region 내부 변수
     private NavMeshAgent _agent;
-    protected Vector2 _dir;
+    protected Vector2 _dir = Vector2.zero;
     #endregion
 
     #region 유니티 이벤트
@@ -55,8 +55,10 @@ public class CAgent : MonoBehaviour
             if (_agent.hasPath) _agent.ResetPath();
 
             _agent.Move(_dir * _speed * Time.deltaTime);
+            Debug.Log($"{_dir * _speed * Time.deltaTime}");
             return;
         }
+            Debug.Log($"_dir * _speed * Time.deltaTime");
         SetDestination(_target);
     }
     #endregion
@@ -73,6 +75,8 @@ public class CAgent : MonoBehaviour
     private static float agentDrift = 0.0001f; // minimal
     private void SetDestination(Transform target)
     {
+        if (target == null) return;
+
         Vector3 driftPos = target.position;
         if (Mathf.Abs(this.transform.position.x - target.transform.position.x) < agentDrift)
         {
