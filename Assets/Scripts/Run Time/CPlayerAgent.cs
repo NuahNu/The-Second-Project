@@ -54,7 +54,9 @@ public class CPlayerAgent : CAgent
     }
     protected override void Update()
     {
-        _dir = _actionDic["Move"].ReadValue<Vector2>();
+        _inputDir = _actionDic["Move"].ReadValue<Vector2>();
+        _inputDir.x *= _gridCellSize.x;
+        _inputDir.y *= _gridCellSize.y;
         base.Update();
     }
     #endregion

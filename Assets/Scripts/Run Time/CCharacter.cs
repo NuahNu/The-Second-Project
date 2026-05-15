@@ -123,6 +123,9 @@ public abstract class CCharacter : MonoBehaviour
     protected bool _isMove = false;
     protected bool _isWalk = true;
     protected Vector2 _dir;//??
+
+    // Agent
+    protected CAgent _cAgent;
     #endregion
 
     #region 유니티 이벤트
@@ -134,6 +137,8 @@ public abstract class CCharacter : MonoBehaviour
         // FSM
         InitFSM();
         SetStates();
+        // Agent
+        InitAgent();
 
         ChangeState(_FSMDic["Idle"]);
     }
@@ -150,6 +155,8 @@ public abstract class CCharacter : MonoBehaviour
         _paramDic = null;
         _FSMDic.Clear();
         _FSMDic = null;
+
+        _cAgent.OnDirChange -= OnDirChange;
     }
     #endregion
 
@@ -265,6 +272,22 @@ public abstract class CCharacter : MonoBehaviour
     private void ToggleWalk()
     {
         _isWalk = !_isWalk;
+    }
+
+    private void InitAgent()
+    {
+        if(!TryGetComponent(out _cAgent))
+        {
+            Debug.LogWarning("이게 왜 없죠?");
+            return;
+        }
+        _cAgent.OnDirChange += OnDirChange;
+    }
+
+    private void OnDirChange(Vector2 obj)
+    {
+        _paramDic["fHorizontal"].SetParam(obj.x);
+        _paramDic["fVertical"].SetParam(obj.y);
     }
     #endregion
 }
