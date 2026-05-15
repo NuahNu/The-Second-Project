@@ -3,7 +3,7 @@ using UnityEngine;
 
 #region CCommonSoldier
 /*
-
+이 스크립트를 컴포넌트로 추가하면, CAgent가 추가될 때 Agent 컴포넌트의 값이 이상해 버그가 생길 수 있다.
 */
 #endregion
 

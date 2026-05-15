@@ -110,6 +110,7 @@ public class CPlayerAgent : CAgent
 
     private void SetAim(bool flag)
     {
+        // 같으면 리턴하는 코드
         Debug.Log($"Aim {flag}");
     }
     #endregion
