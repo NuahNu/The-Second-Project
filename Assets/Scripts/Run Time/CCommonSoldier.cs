@@ -14,7 +14,7 @@ public class CCommonSoldier : CCharacter
     #endregion
 
     #region 내부 변수
-    protected override string[] States => new string[] { "Idle", };
+    protected override string[] States => new string[] { "Idle", "Move", "Action", "Attack", "GetHit", "Death" };
     #endregion
 
     #region 유니티 이벤트

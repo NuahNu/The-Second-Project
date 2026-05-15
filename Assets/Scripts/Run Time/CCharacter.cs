@@ -102,7 +102,6 @@ public class CAnimationParamData
 [RequireComponent(typeof(CAgent))]
 public abstract class CCharacter : MonoBehaviour
 {
-
     #region 인스펙터
     [Header("애니메이션")]
     [SerializeField] protected Animator _animator;
@@ -120,6 +119,10 @@ public abstract class CCharacter : MonoBehaviour
     protected abstract string[] States { get; }
     protected Dictionary<string, CStateMachine> _FSMDic;
     protected CStateMachine _currentState = null;
+
+    protected bool _isMove = false;
+    protected bool _isWalk = true;
+    protected Vector2 _dir;//??
     #endregion
 
     #region 유니티 이벤트
@@ -135,7 +138,7 @@ public abstract class CCharacter : MonoBehaviour
         ChangeState(_FSMDic["Idle"]);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         _currentState.Update();
     }
@@ -154,10 +157,12 @@ public abstract class CCharacter : MonoBehaviour
     protected virtual void SetStates()
     {
         _FSMDic["Idle"].OnEnter += IdleEnter;
+        _FSMDic["Idle"].OnUpdate += IdleUpdate;
     }
     protected virtual void UnsetStates()
     {
         _FSMDic["Idle"].OnEnter -= IdleEnter;
+        _FSMDic["Idle"].OnUpdate -= IdleUpdate;
     }
 
     protected void ChangeState(CStateMachine state)
@@ -255,6 +260,11 @@ public abstract class CCharacter : MonoBehaviour
     {
         // 속도가 달라지면 이동하는코드.
         // 달리는 상태냐 걷는 상태냐
+    }
+
+    private void ToggleWalk()
+    {
+        _isWalk = !_isWalk;
     }
     #endregion
 }
