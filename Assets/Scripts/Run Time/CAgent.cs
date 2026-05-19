@@ -81,7 +81,7 @@ public class CAgent : MonoBehaviour
     protected virtual void Update()
     {
         UpdateMove(false);
-        if (_inputDir != Vector2.zero || _target == null)
+        if (_inputDir != Vector2.zero)
         {
             _inputDir.Normalize();
 
