@@ -30,8 +30,10 @@ public class CAgent : MonoBehaviour
 
     public event Action<Vector2> OnDirChange;
     public event Action<bool> OnMoveChange;
+    public event Action<bool> OnWalkChange;
 
     private bool _isMoving = false;
+    private bool _isWalk = false;
     // 그리드 관련 값
     protected Vector2 _gridCellSize;
     #endregion
@@ -101,7 +103,10 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region protected
-
+    protected void ToggleWalk()
+    {
+        UpdateWalk(!_isWalk);
+    }
     #endregion
 
     #region private
@@ -156,6 +161,13 @@ public class CAgent : MonoBehaviour
         if (_isMoving == flag) return;
         _isMoving = flag;
         OnMoveChange?.Invoke(_isMoving);
+    }
+
+    private void UpdateWalk(bool  flag)
+    {
+        if(_isWalk == flag) return;
+        _isWalk = flag;
+        OnWalkChange?.Invoke(_isWalk);
     }
 
     private void InitGridData()

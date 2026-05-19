@@ -120,8 +120,6 @@ public abstract class CCharacter : MonoBehaviour
     protected Dictionary<string, CStateMachine> _FSMDic;
     protected CStateMachine _currentState = null;
 
-    protected bool _isMove = false;
-    protected bool _isWalk = true;
     protected Vector2 _dir;//??
 
     // Agent
@@ -156,8 +154,8 @@ public abstract class CCharacter : MonoBehaviour
         _FSMDic.Clear();
         _FSMDic = null;
 
-        _cAgent.OnDirChange -= OnDirChange;
-        _cAgent.OnMoveChange -= OnMoveChange;
+        UnsetAgentEvent();
+       
     }
     #endregion
 
@@ -270,12 +268,6 @@ public abstract class CCharacter : MonoBehaviour
         // 달리는 상태냐 걷는 상태냐
     }
 
-    private void ToggleWalk()
-    {
-        _isWalk = !_isWalk;
-        _paramDic["IsWalk"].SetParam(_isWalk);
-    }
-
     private void InitAgent()
     {
         if(!TryGetComponent(out _cAgent))
@@ -283,8 +275,21 @@ public abstract class CCharacter : MonoBehaviour
             Debug.LogWarning("이게 왜 없죠?");
             return;
         }
+        SetAgentEvent();
+    }
+
+    private void SetAgentEvent()
+    {
         _cAgent.OnDirChange += OnDirChange;
         _cAgent.OnMoveChange += OnMoveChange;
+        _cAgent.OnWalkChange += OnWalkChange;
+    }
+
+    private void UnsetAgentEvent()
+    {
+        _cAgent.OnDirChange -= OnDirChange;
+        _cAgent.OnMoveChange -= OnMoveChange;
+        _cAgent.OnWalkChange -= OnWalkChange;
     }
 
     private void OnDirChange(Vector2 obj)
@@ -296,6 +301,11 @@ public abstract class CCharacter : MonoBehaviour
     private void OnMoveChange(bool flag)
     {
         _paramDic["IsMove"].SetParam(flag);
+    }
+
+    private void OnWalkChange(bool flag)
+    {
+        _paramDic["IsWalk"].SetParam(flag);
     }
     #endregion
 }
