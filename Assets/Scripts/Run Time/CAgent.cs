@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 #region CAgent
 /*
-
+NavMeshAgent 관리 클래스
 */
 #endregion
 
@@ -14,12 +14,14 @@ public class CAgent : MonoBehaviour
 {
     #region 인스펙터
     [SerializeField] private Transform _target;
+    // NavMeshAgent의 속도를 사용하도록 변경 고려. 둘 중 하나만 써야지.
     [SerializeField] private float _speed = 5;
     [SerializeField] private Grid _grid;
     #endregion
 
     #region 내부 변수
     private NavMeshAgent _agent;
+    // 하위 클래스에서 입력한 값으로 인한 변화값
     protected Vector2 _inputDir = Vector2.zero;
 
     private Vector2[] _dirArr;
@@ -27,7 +29,9 @@ public class CAgent : MonoBehaviour
     private Vector2 _lastDir = new Vector2(0, -1);
 
     public event Action<Vector2> OnDirChange;
+    public event Action<bool> OnMoveChange;
 
+    private bool _isMoving = false;
     // 그리드 관련 값
     protected Vector2 _gridCellSize;
     #endregion
@@ -76,6 +80,7 @@ public class CAgent : MonoBehaviour
 
     protected virtual void Update()
     {
+        UpdateMove(false);
         if (_inputDir != Vector2.zero || _target == null)
         {
             _inputDir.Normalize();
@@ -83,6 +88,8 @@ public class CAgent : MonoBehaviour
             if (_agent.hasPath) _agent.ResetPath();
 
             _agent.Move(_inputDir * _speed * Time.deltaTime);
+
+            UpdateMove(true);
             UpdateDir(_inputDir);
             return;
         }
@@ -112,6 +119,12 @@ public class CAgent : MonoBehaviour
 
         Vector2 dv = _agent.desiredVelocity;
 
+        // 충분히 가까우면 그냥 리턴
+        if (dv.SqrMagnitude() == 0)
+        {
+            return;
+        }
+
         float max = 0;
         int index = -1;
         for (int i = 0; i < 8; i++)
@@ -124,6 +137,10 @@ public class CAgent : MonoBehaviour
             }
         }
         _agent.velocity = _dirArr[index] * _speed;
+
+        if (_agent.hasPath) _agent.ResetPath();
+
+        UpdateMove(true);
         UpdateDir(_dirArr[index]);
     }
 
@@ -132,6 +149,13 @@ public class CAgent : MonoBehaviour
         if (_lastDir == newDir) return;
         _lastDir = newDir;
         OnDirChange?.Invoke(_lastDir);
+    }
+
+    private void UpdateMove(bool flag)
+    {
+        if (_isMoving == flag) return;
+        _isMoving = flag;
+        OnMoveChange?.Invoke(_isMoving);
     }
 
     private void InitGridData()

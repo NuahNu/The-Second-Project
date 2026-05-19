@@ -5,7 +5,7 @@ using UnityEngine;
 
 #region CCharacterStateM
 /*
-
+캐릭터 애니메이션과 상태머신
 */
 #endregion
 
@@ -157,6 +157,7 @@ public abstract class CCharacter : MonoBehaviour
         _FSMDic = null;
 
         _cAgent.OnDirChange -= OnDirChange;
+        _cAgent.OnMoveChange -= OnMoveChange;
     }
     #endregion
 
@@ -272,6 +273,7 @@ public abstract class CCharacter : MonoBehaviour
     private void ToggleWalk()
     {
         _isWalk = !_isWalk;
+        _paramDic["IsWalk"].SetParam(_isWalk);
     }
 
     private void InitAgent()
@@ -282,12 +284,18 @@ public abstract class CCharacter : MonoBehaviour
             return;
         }
         _cAgent.OnDirChange += OnDirChange;
+        _cAgent.OnMoveChange += OnMoveChange;
     }
 
     private void OnDirChange(Vector2 obj)
     {
         _paramDic["fHorizontal"].SetParam(obj.x);
         _paramDic["fVertical"].SetParam(obj.y);
+    }
+
+    private void OnMoveChange(bool flag)
+    {
+        _paramDic["IsMove"].SetParam(flag);
     }
     #endregion
 }
