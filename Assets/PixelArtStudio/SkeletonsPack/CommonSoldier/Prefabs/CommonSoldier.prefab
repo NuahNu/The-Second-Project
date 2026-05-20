@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 2769495870178670970}
   - component: {fileID: 6015941759344605311}
   - component: {fileID: 3312735214392138655}
-  - component: {fileID: 4572781454651164096}
   - component: {fileID: 4322995136586178671}
+  - component: {fileID: 993839431447853832}
   m_Layer: 0
   m_Name: CommonSoldier
   m_TagString: Untagged
@@ -216,7 +216,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8385226143460851807}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.24
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -229,20 +229,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4572781454651164096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8385226143460851807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7cf60eb33f7a64f9b67dd2f887447e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _speed: 5
 --- !u!114 &4322995136586178671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +241,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87922d0f0b4b3164d9ddf53933140759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 8828367907157021089}
   _paramIDs: []
   _animationParams: []
+--- !u!114 &993839431447853832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385226143460851807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d620c6edfe120478cc7b3628c88226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _speed: 2
+  _grid: {fileID: 0}
