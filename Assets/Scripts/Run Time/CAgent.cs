@@ -85,20 +85,18 @@ public class CAgent : MonoBehaviour
         UpdateMove(false);
         if (_inputDir != Vector2.zero)
         {
-            _inputDir.Normalize();
+            Vector2 dir = _inputDir;
+            dir.x = _inputDir.x * _gridCellSize.x;
+            dir.y = _inputDir.y * _gridCellSize.y;
+
+            dir.Normalize();
 
             if (_agent.hasPath) _agent.ResetPath();
 
-            _agent.Move(_inputDir * _speed * Time.deltaTime);
+            _agent.Move(dir * _speed * Time.deltaTime);
 
             UpdateMove(true);
-            UpdateDir(_inputDir);
-            //int areaIndex = NavMesh.GetAreaFromName("Walkable");
-            //int mask = 1 << areaIndex;
-            //if(NavMesh.SamplePosition(_agent.nextPosition, out NavMeshHit hit, _speed, mask))
-            //{
-                //// 아이고 허무해라.
-            //}
+            UpdateDir(dir);
             return;
         }
         SetDestination(_target);
@@ -106,6 +104,11 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region public
+    public void SetInputDir(Vector2 input)
+    {
+        if(_inputDir != input)
+        _inputDir = input;
+    }
     #endregion
 
     #region protected

@@ -190,6 +190,20 @@ public abstract class CCharacter : MonoBehaviour
         _currentState = state;
         _currentState.Enter();
     }
+
+    protected virtual void SetAgentEvent()
+    {
+        _cAgent.OnDirChange += OnDirChange;
+        _cAgent.OnMoveChange += OnMoveChange;
+        _cAgent.OnWalkChange += OnWalkChange;
+    }
+
+    protected virtual void UnsetAgentEvent()
+    {
+        _cAgent.OnDirChange -= OnDirChange;
+        _cAgent.OnMoveChange -= OnMoveChange;
+        _cAgent.OnWalkChange -= OnWalkChange;
+    }
     #endregion
 
     #region private
@@ -276,20 +290,6 @@ public abstract class CCharacter : MonoBehaviour
             return;
         }
         SetAgentEvent();
-    }
-
-    private void SetAgentEvent()
-    {
-        _cAgent.OnDirChange += OnDirChange;
-        _cAgent.OnMoveChange += OnMoveChange;
-        _cAgent.OnWalkChange += OnWalkChange;
-    }
-
-    private void UnsetAgentEvent()
-    {
-        _cAgent.OnDirChange -= OnDirChange;
-        _cAgent.OnMoveChange -= OnMoveChange;
-        _cAgent.OnWalkChange -= OnWalkChange;
     }
 
     private void OnDirChange(Vector2 obj)
