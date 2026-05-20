@@ -178,4 +178,19 @@ public static partial class Function
         return (T)result;
     }
 
+    public static Vector2 GetClosestDirection(this Vector2 input)
+    {
+        float max = 0;
+        int index = -1;
+        for (int i = 0; i < 8; i++)
+        {
+            float dot = Vector2.Dot(Define.DIR_ARR[i], input);
+            if (dot > max)
+            {
+                max = dot;
+                index = i;
+            }
+        }
+        return Define.DIR_ARR[index];
+    }
 }
