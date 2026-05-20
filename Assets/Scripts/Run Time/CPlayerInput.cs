@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 */
 #endregion
 
-public class CPlayerAgent : MonoBehaviour
+public class CPlayerInput : MonoBehaviour
 {
     #region 인스펙터
     [SerializeField] private CAgent _agent;
