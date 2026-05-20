@@ -16,18 +16,21 @@ using UnityEngine.InputSystem;
 public class CPlayerInput : MonoBehaviour
 {
     #region 인스펙터
-    [SerializeField] private CAgent _agent;
+    [SerializeField] private GameObject _target;
     #endregion
 
     #region 내부 변수
     private InputActions _actions;
     private Dictionary<string, InputAction> _actionDic;
+
+    private CAgent _agent;
+    private CCharacter _character;
     #endregion
 
     #region 유니티 이벤트
     private void Awake()
     {
-        if (_agent.IsNull("_agent")) return;
+        InintTarget();
         InitAction();
     }
 
@@ -69,6 +72,19 @@ public class CPlayerInput : MonoBehaviour
     #endregion
 
     #region private
+    private void InintTarget()
+    {
+        if (_target.IsNull("_target")) return;
+
+        if(!_target.TryGetComponent(out _agent))
+        {
+            if (_agent.IsNull("_agent")) return;
+        }
+        if (!_target.TryGetComponent(out _character))
+        {
+            if (_character.IsNull("_agent")) return;
+        }
+    }
     private void InitAction()
     {
         _actions = new InputActions();
