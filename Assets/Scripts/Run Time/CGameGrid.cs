@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 #region CGameGrid
 /*
-
+현재 Grid에만 적용을 하고 있다. Grid의 TileMap들에도 적용을 해야 한다.
+TileMap의 Tile과 그 크기에 따라서도 달라져야한다.
 */
 #endregion
 
