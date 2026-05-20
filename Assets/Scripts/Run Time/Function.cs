@@ -193,4 +193,10 @@ public static partial class Function
         }
         return Define.DIR_ARR[index];
     }
+    public static Vector2 GetMouseDir(this Vector2 input)
+    {
+        Vector2 centerPos = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        Vector2 dir = input - centerPos;
+        return dir.normalized;
+    }
 }

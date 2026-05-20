@@ -25,6 +25,9 @@ public class CPlayerInput : MonoBehaviour
 
     private CAgent _agent;
     private CCharacter _character;
+
+    private bool _aimFlag = false;
+    private Vector2 _aimDir = Vector2.zero;
     #endregion
 
     #region 유니티 이벤트
@@ -64,7 +67,8 @@ public class CPlayerInput : MonoBehaviour
     #endregion
 
     #region public
-
+    public event Action<bool> OnAimChange;
+    public event Action<Vector2> OnAimDirChange;
     #endregion
 
     #region protected
@@ -76,7 +80,7 @@ public class CPlayerInput : MonoBehaviour
     {
         if (_target.IsNull("_target")) return;
 
-        if(!_target.TryGetComponent(out _agent))
+        if (!_target.TryGetComponent(out _agent))
         {
             if (_agent.IsNull("_agent")) return;
         }
@@ -100,19 +104,31 @@ public class CPlayerInput : MonoBehaviour
     private void Subscribe()
     {
         _actionDic["Aim"].started += AimTrue;
-        _actionDic["AimDir"].started += AimTrue;
-
         _actionDic["Aim"].canceled += AimFalse;
+
+        _actionDic["AimDir"].started += AimTrue;
         _actionDic["AimDir"].canceled += AimFalse;
+
+        _actionDic["AimAng"].performed += AimDir;
     }
 
     private void Unsubscribe()
     {
         _actionDic["Aim"].started -= AimTrue;
-        _actionDic["AimDir"].started -= AimTrue;
-
         _actionDic["Aim"].canceled -= AimFalse;
+
+        _actionDic["AimDir"].started -= AimTrue;
         _actionDic["AimDir"].canceled -= AimFalse;
+
+        _actionDic["AimAng"].performed -= AimDir;
+    }
+
+    private void AimDir(InputAction.CallbackContext obj)
+    {
+        Vector2 mousePos = obj.ReadValue<Vector2>();
+        // 연산량이 많다. 이걸 매번 한다고?
+        Vector2 dir = mousePos.GetMouseDir().GetClosestDirection();
+        SetAimDir(dir);
     }
 
     private void AimTrue(InputAction.CallbackContext obj)
@@ -127,8 +143,18 @@ public class CPlayerInput : MonoBehaviour
 
     private void SetAim(bool flag)
     {
-        // 같으면 리턴하는 코드
-        Debug.Log($"Aim {flag}");
+        if (_aimFlag == flag) return;
+        _aimFlag = flag;
+        //Debug.Log($"Aim {_aimFlag}");
+        OnAimChange?.Invoke(_aimFlag);
+    }
+
+    private void SetAimDir(Vector2 dir)
+    {
+        if( _aimDir == dir) return;
+        _aimDir = dir;
+        //Debug.Log($"Aim {_aimDir}");
+        OnAimDirChange?.Invoke(_aimDir);
     }
     #endregion
 }
