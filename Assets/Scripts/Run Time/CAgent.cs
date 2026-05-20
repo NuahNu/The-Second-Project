@@ -24,7 +24,7 @@ public class CAgent : MonoBehaviour
     // 하위 클래스에서 입력한 값으로 인한 변화값
     protected Vector2 _inputDir = Vector2.zero;
 
-    private Vector2[] _dirArr;
+    //private Vector2[] _dirArr;
 
     private Vector2 _lastDir = new Vector2(0, -1);
 
@@ -57,19 +57,19 @@ public class CAgent : MonoBehaviour
 
         InitGridData();
 
-        _dirArr = new Vector2[8];
+        //_dirArr = new Vector2[8];
 
-        float x = _gridCellSize.x;
-        float y = _gridCellSize.y;
+        //float x = _gridCellSize.x;
+        //float y = _gridCellSize.y;
 
-        _dirArr[0] = new Vector2(x, 0);
-        _dirArr[1] = new Vector2(x, y).normalized;
-        _dirArr[2] = new Vector2(0, y);
-        _dirArr[3] = new Vector2(-x, y).normalized;
-        _dirArr[4] = new Vector2(-x, 0);
-        _dirArr[5] = new Vector2(-x, -y).normalized;
-        _dirArr[6] = new Vector2(0, -y);
-        _dirArr[7] = new Vector2(x, -y).normalized;
+        //_dirArr[0] = new Vector2(x, 0);
+        //_dirArr[1] = new Vector2(x, y).normalized;
+        //_dirArr[2] = new Vector2(0, y);
+        //_dirArr[3] = new Vector2(-x, y).normalized;
+        //_dirArr[4] = new Vector2(-x, 0);
+        //_dirArr[5] = new Vector2(-x, -y).normalized;
+        //_dirArr[6] = new Vector2(0, -y);
+        //_dirArr[7] = new Vector2(x, -y).normalized;
     }
 
 
@@ -139,23 +139,14 @@ public class CAgent : MonoBehaviour
             return;
         }
 
-        float max = 0;
-        int index = -1;
-        for (int i = 0; i < 8; i++)
-        {
-            float dot = Vector2.Dot(_dirArr[i], dv);
-            if (dot > max)
-            {
-                max = dot;
-                index = i;
-            }
-        }
-        _agent.velocity = _dirArr[index] * _speed;
+        Vector2 dir = dv.GetClosestDirection();
+
+        _agent.velocity = dir * _speed;
 
         if (_agent.hasPath) _agent.ResetPath();
 
         UpdateMove(true);
-        UpdateDir(_dirArr[index]);
+        UpdateDir(dir);
     }
 
     private void UpdateDir(Vector2 newDir)
