@@ -93,6 +93,12 @@ public class CAgent : MonoBehaviour
 
             UpdateMove(true);
             UpdateDir(_inputDir);
+            //int areaIndex = NavMesh.GetAreaFromName("Walkable");
+            //int mask = 1 << areaIndex;
+            //if(NavMesh.SamplePosition(_agent.nextPosition, out NavMeshHit hit, _speed, mask))
+            //{
+                //// 아이고 허무해라.
+            //}
             return;
         }
         SetDestination(_target);
@@ -163,9 +169,9 @@ public class CAgent : MonoBehaviour
         OnMoveChange?.Invoke(_isMoving);
     }
 
-    private void UpdateWalk(bool  flag)
+    private void UpdateWalk(bool flag)
     {
-        if(_isWalk == flag) return;
+        if (_isWalk == flag) return;
         _isWalk = flag;
         OnWalkChange?.Invoke(_isWalk);
     }
