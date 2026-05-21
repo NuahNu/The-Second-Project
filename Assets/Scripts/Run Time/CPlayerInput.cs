@@ -62,6 +62,7 @@ public class CPlayerInput : MonoBehaviour
     }
     private void Update()
     {
+        // 이것도 아래처럼 분리..
         _agent.SetInputDir(_actionDic["Move"].ReadValue<Vector2>());
     }
     #endregion
@@ -107,9 +108,10 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["Aim"].canceled += AimFalse;
 
         _actionDic["AimDir"].started += AimTrue;
+        _actionDic["AimDir"].performed += AimDirKey;
         _actionDic["AimDir"].canceled += AimFalse;
 
-        _actionDic["AimAng"].performed += AimDir;
+        _actionDic["AimAng"].performed += AimDirMouse;
     }
 
     private void Unsubscribe()
@@ -118,16 +120,24 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["Aim"].canceled -= AimFalse;
 
         _actionDic["AimDir"].started -= AimTrue;
+        _actionDic["AimDir"].performed -= AimDirKey;
         _actionDic["AimDir"].canceled -= AimFalse;
 
-        _actionDic["AimAng"].performed -= AimDir;
+        _actionDic["AimAng"].performed -= AimDirMouse;
     }
 
-    private void AimDir(InputAction.CallbackContext obj)
+    private void AimDirMouse(InputAction.CallbackContext obj)
     {
         Vector2 mousePos = obj.ReadValue<Vector2>();
         // 연산량이 많다. 이걸 매번 한다고?
         Vector2 dir = mousePos.GetMouseDir().GetClosestDirection();
+        SetAimDir(dir);
+    }
+
+    private void AimDirKey(InputAction.CallbackContext obj)
+    {
+        Vector2 keyDir = obj.ReadValue<Vector2>();
+        Vector2 dir = keyDir.GetClosestDirection();
         SetAimDir(dir);
     }
 
@@ -151,7 +161,7 @@ public class CPlayerInput : MonoBehaviour
 
     private void SetAimDir(Vector2 dir)
     {
-        if( _aimDir == dir) return;
+        if (_aimDir == dir) return;
         _aimDir = dir;
         //Debug.Log($"Aim {_aimDir}");
         OnAimDirChange?.Invoke(_aimDir);
