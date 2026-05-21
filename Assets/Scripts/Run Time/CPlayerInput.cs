@@ -70,6 +70,13 @@ public class CPlayerInput : MonoBehaviour
     #region public
     public event Action<bool> OnAimChange;
     public event Action<Vector2> OnAimDirChange;
+
+    public void InitTarget(GameObject target)
+    {
+        if (target != null)
+            _target = target;
+        InintTarget();
+    }
     #endregion
 
     #region protected
