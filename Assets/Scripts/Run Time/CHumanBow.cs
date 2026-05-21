@@ -43,17 +43,22 @@ public class CHumanBow : CCharacter
     protected override void SetStates()
     {
         base.SetStates();
+        _FSMDic["Aim"].OnEnter += AimEnter;
 
     }
+
     protected override void UnsetStates()
     {
         base.UnsetStates();
-
+        _FSMDic["Aim"].OnEnter -= AimEnter;
 
     }
     #endregion
 
     #region private
-
+    private void AimEnter()
+    {
+        _paramDic["Aim"].SetParam();
+    }
     #endregion
 }
