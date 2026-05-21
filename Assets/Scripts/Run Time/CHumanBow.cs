@@ -30,6 +30,7 @@ public class CHumanBow : CCharacter
     {
         base.SetStates();
         _FSMDic["Aim"].OnEnter += AimEnter;
+        _FSMDic["Aim"].OnUpdate += AimUpdate;
 
     }
 
@@ -45,6 +46,10 @@ public class CHumanBow : CCharacter
     private void AimEnter()
     {
         _paramDic["Aim"].SetParam();
+    }
+    private void AimUpdate()
+    {
+        ChangeDir(_aimDir);
     }
     #endregion
 }

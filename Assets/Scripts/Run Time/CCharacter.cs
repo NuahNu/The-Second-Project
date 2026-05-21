@@ -120,7 +120,8 @@ public abstract class CCharacter : MonoBehaviour
     protected Dictionary<string, CStateMachine> _FSMDic;
     protected CStateMachine _currentState = null;
 
-    protected Vector2 _dir;//??
+    protected Vector2 _moveDir;
+    protected Vector2 _aimDir;
 
     // Agent
     protected CAgent _cAgent;
@@ -173,6 +174,17 @@ public abstract class CCharacter : MonoBehaviour
         Debug.LogWarning($"{stateName}라는 상태는 없다.");
     }
 
+    public void SetMoveDir(Vector2 input)
+    {
+        if (_moveDir != input)
+            _moveDir = input;
+    }
+
+    public void SetAimDir(Vector2 input)
+    {
+        if( _aimDir != input)
+            _aimDir = input;
+    }
 
     #region protected
     protected virtual void SetStates()
@@ -204,6 +216,11 @@ public abstract class CCharacter : MonoBehaviour
         _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
+    }
+
+    protected void ChangeDir(Vector2 input)
+    {
+        OnDirChange(input);
     }
 
     protected virtual void SetAgentEvent()
@@ -295,6 +312,7 @@ public abstract class CCharacter : MonoBehaviour
     {
         // 속도가 달라지면 이동하는코드.
         // 달리는 상태냐 걷는 상태냐
+        _cAgent.SetInputDir(_moveDir);
         _cAgent.MoveAgent();
     }
 

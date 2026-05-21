@@ -62,8 +62,8 @@ public class CPlayerInput : MonoBehaviour
     }
     private void Update()
     {
-        // 이것도 아래처럼 분리..
-        _agent.SetInputDir(_actionDic["Move"].ReadValue<Vector2>());
+        // 이것도 아래처럼 분리... {_character.SetAimDir(_aimDir);} 참고
+        _character.SetMoveDir(_actionDic["Move"].ReadValue<Vector2>());
     }
     #endregion
 
@@ -171,6 +171,9 @@ public class CPlayerInput : MonoBehaviour
         if (_aimDir == dir) return;
         _aimDir = dir;
         //Debug.Log($"Aim {_aimDir}");
+
+        _character.SetAimDir(_aimDir);
+
         OnAimDirChange?.Invoke(_aimDir);
     }
     #endregion
