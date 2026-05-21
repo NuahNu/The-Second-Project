@@ -19,20 +19,6 @@ public class CHumanBow : CCharacter
     #endregion
 
     #region 유니티 이벤트
-    void Awake()
-    {
-
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
     #endregion
 
     #region public
