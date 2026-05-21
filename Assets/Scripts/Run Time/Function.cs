@@ -199,4 +199,48 @@ public static partial class Function
         Vector2 dir = input - centerPos;
         return dir.normalized;
     }
+
+    public static void DrawStRectInt(this TreeNode node, bool wireFlag)
+    {
+        Vector3 center = node.standardRoomRect.center;
+        Vector2Int size2D = node.standardRoomRect.size;
+        Vector3 size = new Vector3(size2D.x, size2D.y, 0);
+
+        if (wireFlag)
+            Gizmos.DrawWireCube(center, size);
+        else
+            Gizmos.DrawCube(center, size);
+    }
+    public static void DrawAllStRectInt(this TreeNode rootNode, Color color, float ratio, bool wireFlag)
+    {
+        if (ratio > 1) ratio = 1;
+
+        Gizmos.color = color;
+        DrawStRectInt(rootNode, wireFlag);
+
+        rootNode.leftNode?.DrawAllStRectInt(color * ratio, ratio, wireFlag);
+        rootNode.rightNode?.DrawAllStRectInt(color * ratio, ratio, wireFlag);
+    }
+    public static void DrawRectInt(this TreeNode node, bool wireFlag)
+    {
+        Vector3 center = node.nodeRect.center;
+        Vector2Int size2D = node.nodeRect.size;
+        Vector3 size = new Vector3(size2D.x, size2D.y, 0);
+
+        if (wireFlag)
+            Gizmos.DrawWireCube(center, size);
+        else
+            Gizmos.DrawCube(center, size);
+    }
+
+    public static void DrawAllRectInt(this TreeNode rootNode, Color color, float ratio, bool wireFlag)
+    {
+        if (ratio > 1) ratio = 1;
+
+        Gizmos.color = color;
+        DrawRectInt(rootNode, wireFlag);
+
+        rootNode.leftNode?.DrawAllRectInt(color * ratio, ratio, wireFlag);
+        rootNode.rightNode?.DrawAllRectInt(color * ratio, ratio, wireFlag);
+    }
 }

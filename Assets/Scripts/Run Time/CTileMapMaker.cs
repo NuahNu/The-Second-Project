@@ -80,6 +80,20 @@ public class CTileMapMaker : MonoBehaviour
     [SerializeField] private bool _showMapLog = false;
 
     [SerializeField] private KeyCode _makeDataKey = KeyCode.M;
+
+
+    public enum EGizmoMode
+    {
+        Default
+    }
+
+    [Header("기즈모")]
+    [SerializeField] private bool _gizmoFlag = false;
+    [SerializeField] private bool _stFlag = false;
+    [SerializeField] private bool _wireFlag = false;
+    [SerializeField] private EGizmoMode _gizmoMode = EGizmoMode.Default;
+    [SerializeField] private float _gizmoColorRatio = 1f;
+    [SerializeField] private Color _gizmoDefualtColor = Color.red;
     #endregion
 
     #region 내부 변수
@@ -123,6 +137,32 @@ public class CTileMapMaker : MonoBehaviour
         {
             StartCoroutine(Co_MakeMap());
             Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!_gizmoFlag) return;
+
+        TreeNode rootNode = _worldMaker.RootNode;
+
+        List<TreeNode> nodeList = rootNode.nodeList;
+
+        switch (_gizmoMode)
+        {
+            case EGizmoMode.Default:
+                if (_stFlag)
+                    rootNode.DrawAllStRectInt(_gizmoDefualtColor, _gizmoColorRatio, _wireFlag);
+                else
+                    rootNode.DrawAllRectInt(_gizmoDefualtColor, _gizmoColorRatio, _wireFlag);
+                break;
+            default:
+                for (int i = 0; i < nodeList.Count; i++)
+                {
+                    Gizmos.color = _gizmoDefualtColor;
+                    rootNode.DrawAllStRectInt(_gizmoDefualtColor, _gizmoColorRatio, _wireFlag);
+                }
+                break;
         }
     }
     #endregion
