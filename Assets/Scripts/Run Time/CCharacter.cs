@@ -155,14 +155,22 @@ public abstract class CCharacter : MonoBehaviour
         _FSMDic = null;
 
         UnsetAgentEvent();
-       
+
     }
     #endregion
 
     public void ChangeState(string stateName)
     {
         // 있는지 검사
-        ChangeState(_FSMDic[stateName]);
+        for (int i = 0; i < States.Length; i++)
+        {
+            if (States[i] == stateName)
+            {
+                ChangeState(_FSMDic[stateName]);
+                return;
+            }
+        }
+        Debug.LogWarning($"{stateName}라는 상태는 없다.");
     }
 
 
@@ -292,7 +300,7 @@ public abstract class CCharacter : MonoBehaviour
 
     private void InitAgent()
     {
-        if(!TryGetComponent(out _cAgent))
+        if (!TryGetComponent(out _cAgent))
         {
             Debug.LogWarning("이게 왜 없죠?");
             return;
