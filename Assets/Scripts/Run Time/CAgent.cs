@@ -82,7 +82,14 @@ public class CAgent : MonoBehaviour
 
     protected virtual void Update()
     {
-        UpdateMove(false);
+        
+    }
+    #endregion
+
+    #region public
+    public void MoveAgent()
+    {
+        UpdateMoveFlag(false);
         if (_inputDir != Vector2.zero)
         {
             Vector2 dir = _inputDir;
@@ -95,15 +102,12 @@ public class CAgent : MonoBehaviour
 
             _agent.Move(dir * _speed * Time.deltaTime);
 
-            UpdateMove(true);
+            UpdateMoveFlag(true);
             UpdateDir(dir);
             return;
         }
         SetDestination(_target);
     }
-    #endregion
-
-    #region public
     public void SetInputDir(Vector2 input)
     {
         if(_inputDir != input)
@@ -145,7 +149,7 @@ public class CAgent : MonoBehaviour
 
         if (_agent.hasPath) _agent.ResetPath();
 
-        UpdateMove(true);
+        UpdateMoveFlag(true);
         UpdateDir(dir);
     }
 
@@ -156,7 +160,7 @@ public class CAgent : MonoBehaviour
         OnDirChange?.Invoke(_lastDir);
     }
 
-    private void UpdateMove(bool flag)
+    private void UpdateMoveFlag(bool flag)
     {
         if (_isMoving == flag) return;
         _isMoving = flag;

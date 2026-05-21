@@ -104,6 +104,7 @@ public class CPlayerInput : MonoBehaviour
 
     private void Subscribe()
     {
+
         _actionDic["Aim"].started += AimTrue;
         _actionDic["Aim"].canceled += AimFalse;
 
@@ -155,7 +156,13 @@ public class CPlayerInput : MonoBehaviour
     {
         if (_aimFlag == flag) return;
         _aimFlag = flag;
-        //Debug.Log($"Aim {_aimFlag}");
+        Debug.Log($"Aim {_aimFlag}");
+
+        if (_aimFlag == true)
+            _character.ChangeState("Aim");
+        else
+            _character.ChangeState("Idle");
+
         OnAimChange?.Invoke(_aimFlag);
     }
 

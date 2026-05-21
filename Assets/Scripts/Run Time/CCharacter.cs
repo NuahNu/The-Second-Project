@@ -159,6 +159,13 @@ public abstract class CCharacter : MonoBehaviour
     }
     #endregion
 
+    public void ChangeState(string stateName)
+    {
+        // 있는지 검사
+        ChangeState(_FSMDic[stateName]);
+    }
+
+
     #region protected
     protected virtual void SetStates()
     {
@@ -180,7 +187,7 @@ public abstract class CCharacter : MonoBehaviour
         }
         if (state == _currentState)
         {
-            Debug.Log("state == _currentState");
+            Debug.Log($"state == {_currentState.Name}");
             return;
         }
         Debug.Log($"{state} -> {_currentState}");
@@ -280,6 +287,7 @@ public abstract class CCharacter : MonoBehaviour
     {
         // 속도가 달라지면 이동하는코드.
         // 달리는 상태냐 걷는 상태냐
+        _cAgent.MoveAgent();
     }
 
     private void InitAgent()
