@@ -92,6 +92,8 @@ public class WorldData
 
     public ETileType[,] tileMap;
     public ETileType[,] bufferTileMap;
+
+    public int enemyCount;
 }
 
 [Serializable]
@@ -530,7 +532,7 @@ public class CWorldMaker
                     AddSpawnType(posList, 1, ETileType.PlayerSpawn);
                     break;
                 case ERoomType.Road:
-                    AddSpawnType(posList, 1, ETileType.EnemySpawn);
+                    AddSpawnType(posList, _worldData.enemyCount, ETileType.EnemySpawn);
                     break;
                 case ERoomType.Boss:
                     AddSpawnType(posList, 1, ETileType.BossSpawn);
