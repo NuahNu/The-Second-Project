@@ -151,7 +151,7 @@ public class CTileMapMaker : MonoBehaviour
         TreeNode rootNode = _worldMaker.RootNode?? null;
         if (rootNode == null) return;
 
-        List<TreeNode> nodeList = rootNode.nodeList;
+        List<TreeNode> leafnodeList = _worldMaker.leafNodeList;
 
         switch (_gizmoMode)
         {
@@ -163,9 +163,9 @@ public class CTileMapMaker : MonoBehaviour
                 break;
             default:
                 rootNode.DrawAllRead(Color.yellow, _gizmoColorRatio, _wireFlag);
-                for (int i = 0; i < nodeList.Count; i++)
+                for (int i = 0; i < leafnodeList.Count; i++)
                 {
-                    TreeNode node = nodeList[i];
+                    TreeNode node = leafnodeList[i];
                     switch (node.roomType)
                     {
                         case ERoomType.Start:

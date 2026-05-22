@@ -140,7 +140,7 @@ public class CWorldMaker
     private ETileType[,] _tileMap;
     private ETileType[,] _bufferTileMap;
     public TreeNode RootNode { get; private set; }
-    private List<TreeNode> _leafNodeList;
+    public List<TreeNode> leafNodeList;
     public TreeNode MultiRootNode { get; private set; }
     public Dictionary<TreeNode, int> NodeDepthDic;
     public int MultiTreeDepth { get; private set; }
@@ -172,9 +172,9 @@ public class CWorldMaker
         TreeNode rootNode = new TreeNode(0, 0, _worldData.mapSize.x, _worldData.mapSize.y);
 
 
-        if (_leafNodeList == null)
-            _leafNodeList = new List<TreeNode>();
-        _leafNodeList.Clear();
+        if (leafNodeList == null)
+            leafNodeList = new List<TreeNode>();
+        leafNodeList.Clear();
 
         if (NodeDepthDic == null)
             NodeDepthDic = new Dictionary<TreeNode, int>();
@@ -244,7 +244,7 @@ public class CWorldMaker
             node.nodeList.Add(node);
 
             // 리프노드 리스트에 추가.
-            _leafNodeList.Add(node);
+            leafNodeList.Add(node);
 
             RectInt size = node.nodeRect;
 
@@ -414,9 +414,9 @@ public class CWorldMaker
         int minNodeIndex = -1;
         float minDist = float.MaxValue;
 
-        for (int i = 0; i < _leafNodeList.Count; i++)
+        for (int i = 0; i < leafNodeList.Count; i++)
         {
-            Vector2 rectCenter = _leafNodeList[i].standardRoomRect.center;
+            Vector2 rectCenter = leafNodeList[i].standardRoomRect.center;
 
             var mapCenter = _worldData.mapSize / 2;
 
@@ -429,7 +429,7 @@ public class CWorldMaker
             }
         }
 
-        MultiRootNode = _leafNodeList[minNodeIndex];
+        MultiRootNode = leafNodeList[minNodeIndex];
 
         SetDepth(MultiRootNode, 0);
     }
@@ -468,31 +468,31 @@ public class CWorldMaker
 
     private void SetRoomType()
     {
-        for (int i = 0; i < _leafNodeList.Count; i++)
+        for (int i = 0; i < leafNodeList.Count; i++)
         {
-            if (!NodeDepthDic.ContainsKey(_leafNodeList[i]))
+            if (!NodeDepthDic.ContainsKey(leafNodeList[i]))
             {
                 Debug.LogWarning("이럴리가 없다.");
                 return;
             }
-            int depth = NodeDepthDic[_leafNodeList[i]];
+            int depth = NodeDepthDic[leafNodeList[i]];
             //if (depth == 0 || depth == MultiTreeDepth)
             //    Debug.Log($"depth = {depth}");
 
             // 루트 노드가 시작 방
             if (depth == 0)
             {
-                _leafNodeList[i].roomType = ERoomType.Start;
+                leafNodeList[i].roomType = ERoomType.Start;
             }
             // 가장 깊은 방이 보스방
             else if (depth == MultiTreeDepth)
             {
-                _leafNodeList[i].roomType = ERoomType.Boss;
+                leafNodeList[i].roomType = ERoomType.Boss;
             }
             // Road로 초기화.
             else
             {
-                _leafNodeList[i].roomType = ERoomType.Road;
+                leafNodeList[i].roomType = ERoomType.Road;
             }
             // 새로운 타입에 따른 조건 추가.
         }
