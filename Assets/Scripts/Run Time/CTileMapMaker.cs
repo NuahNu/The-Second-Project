@@ -1,9 +1,12 @@
+using NavMeshPlus.Components;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using NavMeshPlus.Components;
-using System.Collections;
-using System;
-using System.Collections.Generic;
 
 
 #region CWorldMaker
@@ -138,7 +141,6 @@ public class CTileMapMaker : MonoBehaviour
         {
             StartCoroutine(Co_MakeMap());
             Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
-            Debug.Log($"깊이{_worldMaker.MultiTreeDepth}");
         }
     }
 
@@ -162,7 +164,8 @@ public class CTileMapMaker : MonoBehaviour
                 rootNode.DrawAllRead(Color.yellow, _gizmoColorRatio, _wireFlag);
                 for (int i = 0; i < nodeList.Count; i++)
                 {
-                    switch (nodeList[i].roomType)
+                    TreeNode node = nodeList[i];
+                    switch (node.roomType)
                     {
                         case ERoomType.Start:
                             Gizmos.color = Color.red; break;
@@ -172,9 +175,13 @@ public class CTileMapMaker : MonoBehaviour
                             Gizmos.color = Color.blue; break;
                     }
                     if (_stFlag)
-                        nodeList[i].DrawStRectInt(_wireFlag);
+                        node.DrawStRectInt(_wireFlag);
                     else
-                        nodeList[i].DrawRectInt(_wireFlag);
+                        node.DrawRectInt(_wireFlag);
+#if UNITY_EDITOR
+                    if (_worldMaker.NodeDepthDic.ContainsKey(node))
+                        Handles.Label(node.standardRoomRect.center, _worldMaker.NodeDepthDic[node].ToString());
+#endif
                 }
                 break;
         }
@@ -330,6 +337,7 @@ public class CTileMapMaker : MonoBehaviour
 
         OnMakeMap?.Invoke(_gridRect);
         Debug.Log($"ReSizeRect {_gridRect}");
+        Debug.Log($"최대 깊이{_worldMaker.MultiTreeDepth}");
     }
     #endregion
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 #region CWorldMaker
@@ -187,7 +188,7 @@ public class CWorldMaker
 
         GenerateMultiTree(rootNode, 0);
         GenerateMultiTreeData();
-        SetRoomType(); 
+        SetRoomType();
         SetSpawnPos();
 
         RootNode = rootNode;
@@ -417,7 +418,7 @@ public class CWorldMaker
         {
             Vector2 rectCenter = _leafNodeList[i].standardRoomRect.center;
 
-            var mapCenter =  _worldData.mapSize / 2;
+            var mapCenter = _worldData.mapSize / 2;
 
             float dist = (mapCenter - rectCenter).sqrMagnitude;
 
@@ -439,7 +440,7 @@ public class CWorldMaker
         {
             NodeDepthDic.Add(node, depth);
 
-            if(MultiTreeDepth < depth)
+            if (MultiTreeDepth < depth)
                 MultiTreeDepth = depth;
 
             for (int i = 0; i < node.sibling.Count; i++)
@@ -469,13 +470,22 @@ public class CWorldMaker
     {
         for (int i = 0; i < _leafNodeList.Count; i++)
         {
+            if (!NodeDepthDic.ContainsKey(_leafNodeList[i]))
+            {
+                Debug.LogWarning("이럴리가 없다.");
+                return;
+            }
+            int depth = NodeDepthDic[_leafNodeList[i]];
+            if (depth == 0 || depth == MultiTreeDepth)
+                Debug.Log($"depth = {depth}");
+
             // 루트 노드가 시작 방
-            if(NodeDepthDic[_leafNodeList[i]] == 0)
+            if (depth == 0)
             {
                 _leafNodeList[i].roomType = ERoomType.Start;
             }
             // 가장 깊은 방이 보스방
-            else if(NodeDepthDic[_leafNodeList[i]] == MultiTreeDepth)
+            else if (depth == MultiTreeDepth)
             {
                 _leafNodeList[i].roomType = ERoomType.Boss;
             }
@@ -484,7 +494,7 @@ public class CWorldMaker
             {
                 _leafNodeList[i].roomType = ERoomType.Road;
             }
-        // 새로운 타입에 따른 조건 추가.
+            // 새로운 타입에 따른 조건 추가.
         }
     }
 
