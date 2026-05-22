@@ -4,7 +4,15 @@ using UnityEngine;
 
 #region CWorldMaker
 /*
+1 단 BSP 트리를 만들어
+2 제 standard를 정해.
+3. satandard로 길을 만들고, sibling를 연결
+4. sibling으로만 이루어진 트리의 root를 정하고
+5. 깊이 Dictionary를 완성.
+6. 이 Dictionary로 방의 타입을 결정
+7. 방의 타입별로 ETileType에 SpawnFlag 추가.
 
+이제 와서는 standardRoomRect를 리프만 갖도록 하고 나머지는 standardNode에 위임하도록 해도 될 듯.
 */
 #endregion
 
