@@ -187,9 +187,6 @@ public class CWorldMaker
 
         GenerateMultiTree(rootNode, 0);
         GenerateMultiTreeData();
-        //Debug.Log(MultiTreeDepth);
-        //Debug.Log(_leafNodeList.Count);
-        //Debug.Log(NodeDepthDic.Count);
         SetRoomType(); 
         SetSpawnPos();
 
@@ -316,12 +313,12 @@ public class CWorldMaker
             RectInt lRoom;
             RectInt rRoom;
 
-            for (int i = 0; i < n; i++)
+            for (int lIndex = 0; lIndex < n; lIndex++)
             {
-                for (int j = 0; j < m; j++)
+                for (int rIndex = 0; rIndex < m; rIndex++)
                 {
-                    lRoom = lList[i].standardRoomRect;
-                    rRoom = rList[j].standardRoomRect;
+                    lRoom = lList[lIndex].standardRoomRect;
+                    rRoom = rList[rIndex].standardRoomRect;
 
                     float sqrDist = Vector2.SqrMagnitude(lRoom.center - rRoom.center);
 
@@ -329,9 +326,9 @@ public class CWorldMaker
                     {
                         minSqrDist = sqrDist;
                         node.leftNode.standardRoomRect = lRoom;
-                        node.leftNode.standardNode = lList[i];
+                        node.leftNode.standardNode = lList[lIndex];
                         node.rightNode.standardRoomRect = rRoom;
-                        node.rightNode.standardNode = rList[i];
+                        node.rightNode.standardNode = rList[rIndex];
                     }
                 }
             }
