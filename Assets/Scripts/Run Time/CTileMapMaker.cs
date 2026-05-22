@@ -148,7 +148,7 @@ public class CTileMapMaker : MonoBehaviour
     {
         if (!_gizmoFlag) return;
 
-        TreeNode rootNode = _worldMaker.RootNode?? null;
+        TreeNode rootNode = _worldMaker.BSPRootNode?? null;
         if (rootNode == null) return;
 
         List<TreeNode> leafnodeList = _worldMaker.leafNodeList;

@@ -139,11 +139,11 @@ public class CWorldMaker
     // _tileMap
     private ETileType[,] _tileMap;
     private ETileType[,] _bufferTileMap;
-    public TreeNode RootNode { get; private set; }
+    public TreeNode BSPRootNode { get; private set; }
     public List<TreeNode> leafNodeList;
-    public TreeNode MultiRootNode { get; private set; }
+    public TreeNode MapRootNode { get; private set; }
     public Dictionary<TreeNode, int> NodeDepthDic;
-    public int MultiTreeDepth { get; private set; }
+    public int MapTreeDepth { get; private set; }
     #endregion
 
     #region public
@@ -180,18 +180,18 @@ public class CWorldMaker
             NodeDepthDic = new Dictionary<TreeNode, int>();
         NodeDepthDic.Clear();
 
-        MultiTreeDepth = int.MinValue;
+        MapTreeDepth = int.MinValue;
 
         DivideTree(rootNode, 0);
         GenerateRoom(rootNode, 0);
         GenerateRoad(rootNode, 0);
 
-        GenerateMultiTree(rootNode, 0);
-        GenerateMultiTreeData();
+        GenerateMapTree(rootNode, 0);
+        GenerateMapTreeData();
         SetRoomType();
         SetSpawnPos();
 
-        RootNode = rootNode;
+        BSPRootNode = rootNode;
         return _tileMap;
     }
 
@@ -409,7 +409,7 @@ public class CWorldMaker
         }
     }
 
-    private void GenerateMultiTreeData()
+    private void GenerateMapTreeData()
     {
         int minNodeIndex = -1;
         float minDist = float.MaxValue;
@@ -429,9 +429,9 @@ public class CWorldMaker
             }
         }
 
-        MultiRootNode = leafNodeList[minNodeIndex];
+        MapRootNode = leafNodeList[minNodeIndex];
 
-        SetDepth(MultiRootNode, 0);
+        SetDepth(MapRootNode, 0);
     }
 
     private void SetDepth(TreeNode node, int depth)
@@ -440,8 +440,8 @@ public class CWorldMaker
         {
             NodeDepthDic.Add(node, depth);
 
-            if (MultiTreeDepth < depth)
-                MultiTreeDepth = depth;
+            if (MapTreeDepth < depth)
+                MapTreeDepth = depth;
 
             for (int i = 0; i < node.sibling.Count; i++)
             {
@@ -451,7 +451,7 @@ public class CWorldMaker
     }
 
     // 기존 트리로 멀티 트리 만들기
-    private void GenerateMultiTree(TreeNode node, int loopCount)
+    private void GenerateMapTree(TreeNode node, int loopCount)
     {
         if (loopCount == _BSPData.maxLoopCount) return;
 
@@ -462,8 +462,8 @@ public class CWorldMaker
         lNode.sibling.Add(rNode);
 
         loopCount++;
-        GenerateMultiTree(node.rightNode, loopCount);
-        GenerateMultiTree(node.leftNode, loopCount);
+        GenerateMapTree(node.rightNode, loopCount);
+        GenerateMapTree(node.leftNode, loopCount);
     }
 
     private void SetRoomType()
@@ -485,7 +485,7 @@ public class CWorldMaker
                 leafNodeList[i].roomType = ERoomType.Start;
             }
             // 가장 깊은 방이 보스방
-            else if (depth == MultiTreeDepth)
+            else if (depth == MapTreeDepth)
             {
                 leafNodeList[i].roomType = ERoomType.Boss;
             }
