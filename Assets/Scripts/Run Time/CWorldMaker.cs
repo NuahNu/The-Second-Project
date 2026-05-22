@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 #region CWorldMaker
@@ -500,6 +499,69 @@ public class CWorldMaker
 
     private void SetSpawnPos()
     {
+        for (int i = 0; i < leafNodeList.Count; i++)
+        {
+            TreeNode node = leafNodeList[i];
+
+            List<Vector2Int> posList = GetETileTypePosList(node, ETileType.Floor);
+            if (posList.Count == 0) continue;
+
+            // posList 섞어줘야함.
+            for (int j = posList.Count - 1; j > 0; j--)
+            {
+                int k = UnityEngine.Random.Range(0, j + 1);
+
+                var value = posList[k];
+                posList[k] = posList[j];
+                posList[j] = value;
+            }
+
+            switch (node.roomType)
+            {
+                case ERoomType.Start:
+                    AddSpawnType(posList, 1, ETileType.PlayerSpawn);
+                    break;
+                case ERoomType.Road:
+                    AddSpawnType(posList, 1, ETileType.EnemySpawn);
+                    break;
+                case ERoomType.Boss:
+                    AddSpawnType(posList, 1, ETileType.BossSpawn);
+                    break;
+            }
+
+        }
+    }
+
+    private List<Vector2Int> GetETileTypePosList(TreeNode node, ETileType type)
+    {
+        List<Vector2Int> posList = new List<Vector2Int>();
+
+        Vector2Int size = node.standardRoomRect.size;
+        Vector2Int startPos = node.standardRoomRect.min;
+
+        for (int x = 0; x < size.x; x++)
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                if (_tileMap[startPos.x + x, startPos.y + y] == type)
+                {
+                    posList.Add(new Vector2Int(startPos.x + x, startPos.y + y));
+                }
+            }
+        }
+        return posList;
+    }
+
+    private void AddSpawnType(List<Vector2Int> posList, int spawnCount, ETileType type)
+    {
+        int loopCount = Math.Min(posList.Count, spawnCount);
+
+        for (int j = 0; j < loopCount; j++)
+        {
+            int x = posList[j].x;
+            int y = posList[j].y;
+            _tileMap[x, y] |= type;
+        }
     }
 
     [Flags]
