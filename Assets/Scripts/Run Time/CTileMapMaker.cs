@@ -173,6 +173,8 @@ public class CTileMapMaker : MonoBehaviour
                             Gizmos.color = Color.green; break;
                         case ERoomType.Boss:
                             Gizmos.color = Color.blue; break;
+                        default:
+                            Gizmos.color = Color.black; break;
                     }
                     if (_stFlag)
                         node.DrawStRectInt(_wireFlag);
@@ -337,7 +339,7 @@ public class CTileMapMaker : MonoBehaviour
 
         OnMakeMap?.Invoke(_gridRect);
         Debug.Log($"ReSizeRect {_gridRect}");
-        Debug.Log($"최대 깊이{_worldMaker.MultiTreeDepth}");
+        //Debug.Log($"최대 깊이{_worldMaker.MultiTreeDepth}");
     }
     #endregion
 }

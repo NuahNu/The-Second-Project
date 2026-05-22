@@ -476,8 +476,8 @@ public class CWorldMaker
                 return;
             }
             int depth = NodeDepthDic[_leafNodeList[i]];
-            if (depth == 0 || depth == MultiTreeDepth)
-                Debug.Log($"depth = {depth}");
+            //if (depth == 0 || depth == MultiTreeDepth)
+            //    Debug.Log($"depth = {depth}");
 
             // 루트 노드가 시작 방
             if (depth == 0)
