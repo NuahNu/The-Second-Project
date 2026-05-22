@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 #region Function
@@ -232,7 +233,6 @@ public static partial class Function
         else
             Gizmos.DrawCube(center, size);
     }
-
     public static void DrawAllRectInt(this TreeNode rootNode, Color color, float ratio, bool wireFlag)
     {
         if (ratio > 1) ratio = 1;
@@ -242,5 +242,28 @@ public static partial class Function
 
         rootNode.leftNode?.DrawAllRectInt(color * ratio, ratio, wireFlag);
         rootNode.rightNode?.DrawAllRectInt(color * ratio, ratio, wireFlag);
+    }
+
+    public static void DrawRoad(this TreeNode node, bool wireFlag)
+    {
+        if (node.roadNode == null) return;
+
+        Vector3 center = node.roadNode.nodeRect.center;
+        Vector2Int size2D = node.roadNode.nodeRect.size;
+        Vector3 size = new Vector3(size2D.x, size2D.y, 0);
+
+        if (wireFlag)
+            Gizmos.DrawWireCube(center, size);
+        else
+            Gizmos.DrawCube(center, size);
+    }
+
+    public static void DrawAllRead(this TreeNode rootNode, Color color, float ratio, bool wireFlag)
+    {
+        Gizmos.color = color;
+        DrawRoad(rootNode, wireFlag);
+
+        rootNode.leftNode?.DrawAllRead(color * ratio, ratio, wireFlag);
+        rootNode.rightNode?.DrawAllRead(color * ratio, ratio, wireFlag);
     }
 }

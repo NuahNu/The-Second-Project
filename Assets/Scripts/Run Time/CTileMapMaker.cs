@@ -84,7 +84,8 @@ public class CTileMapMaker : MonoBehaviour
 
     public enum EGizmoMode
     {
-        Default
+        Default,
+        New
     }
 
     [Header("기즈모")]
@@ -137,6 +138,7 @@ public class CTileMapMaker : MonoBehaviour
         {
             StartCoroutine(Co_MakeMap());
             Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
+            Debug.Log($"깊이{_worldMaker.MultiTreeDepth}");
         }
     }
 
@@ -157,10 +159,22 @@ public class CTileMapMaker : MonoBehaviour
                     rootNode.DrawAllRectInt(_gizmoDefualtColor, _gizmoColorRatio, _wireFlag);
                 break;
             default:
+                rootNode.DrawAllRead(Color.yellow, _gizmoColorRatio, _wireFlag);
                 for (int i = 0; i < nodeList.Count; i++)
                 {
-                    Gizmos.color = _gizmoDefualtColor;
-                    rootNode.DrawAllStRectInt(_gizmoDefualtColor, _gizmoColorRatio, _wireFlag);
+                    switch (nodeList[i].roomType)
+                    {
+                        case ERoomType.Start:
+                            Gizmos.color = Color.red; break;
+                        case ERoomType.Road:
+                            Gizmos.color = Color.green; break;
+                        case ERoomType.Boss:
+                            Gizmos.color = Color.blue; break;
+                    }
+                    if (_stFlag)
+                        nodeList[i].DrawStRectInt(_wireFlag);
+                    else
+                        nodeList[i].DrawRectInt(_wireFlag);
                 }
                 break;
         }

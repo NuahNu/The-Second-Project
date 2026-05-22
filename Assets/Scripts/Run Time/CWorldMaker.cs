@@ -16,7 +16,7 @@ public enum EThemeType
     Castle,
     Island, // ?
 }
-public enum EAreaType
+public enum ERoomType
 {
     None,
     Start,
@@ -34,6 +34,7 @@ public enum ETileType
     PlayerSpawn = 1 << 16,
     ItemSpawn = 1 << 17,
     EnemySpawn = 1 << 18,
+    // 보스 스폰이자 출구 위치.
     BossSpawn = 1 << 19,
 
     SpawnMask = PlayerSpawn | ItemSpawn | EnemySpawn | BossSpawn,
@@ -45,13 +46,26 @@ public class TreeNode
     public TreeNode rightNode;
     public TreeNode parentNode;
     public TreeNode roadNode;   // 이거 노드로 해야하나?
+
     // 트리 노드의 Rect
+    // 분리 되기 전의 영역
     public RectInt nodeRect;
-    // 실제 생성된 방의 기준 Rect
+
+    // 분리된 후 실제 생성된 방의 기준 Rect
+    // 원래는 리프 노드에만 존재하지만, 연결을 위해 각자 기준 방의 역할도 한다.
     public RectInt standardRoomRect;
+
+    // 위 Rect를 갖는 노드
+    public TreeNode standardNode;
+
+    // 다른 기준을 갖는 트리를 위한 포인터
+    public List<TreeNode> sibling = new List<TreeNode>();
+
     // 자신을 포함한 노드의 리스트
     public List<TreeNode> nodeList = new List<TreeNode>();
     public bool isHorizontal = false;
+
+    public ERoomType roomType;
     public TreeNode(int x, int y, int width, int height)
     {
         // 기준점은 좌하단
@@ -124,6 +138,11 @@ public class CWorldMaker
     // _tileMap
     private ETileType[,] _tileMap;
     private ETileType[,] _bufferTileMap;
+    public TreeNode RootNode { get; private set; }
+    private List<TreeNode> _leafNodeList;
+    public TreeNode MultiRootNode { get; private set; }
+    public Dictionary<TreeNode, int> NodeDepthDic;
+    public int MultiTreeDepth { get; private set; }
     #endregion
 
     #region public
@@ -150,12 +169,36 @@ public class CWorldMaker
 
         // 타일맵 데이터 생성.
         TreeNode rootNode = new TreeNode(0, 0, _worldData.mapSize.x, _worldData.mapSize.y);
+
+
+        if (_leafNodeList == null)
+            _leafNodeList = new List<TreeNode>();
+        _leafNodeList.Clear();
+
+        if (NodeDepthDic == null)
+            NodeDepthDic = new Dictionary<TreeNode, int>();
+        NodeDepthDic.Clear();
+
+        MultiTreeDepth = int.MinValue;
+
         DivideTree(rootNode, 0);
         GenerateRoom(rootNode, 0);
         GenerateRoad(rootNode, 0);
 
+        GenerateMultiTree(rootNode, 0);
+        GenerateMultiTreeData();
+        //Debug.Log(MultiTreeDepth);
+        //Debug.Log(_leafNodeList.Count);
+        //Debug.Log(NodeDepthDic.Count);
+        SetRoomType(); 
+        SetSpawnPos();
+
+        RootNode = rootNode;
         return _tileMap;
     }
+
+
+
     #endregion
 
     //BSP
@@ -202,6 +245,9 @@ public class CWorldMaker
             // 자신 추가
             node.nodeList.Add(node);
 
+            // 리프노드 리스트에 추가.
+            _leafNodeList.Add(node);
+
             RectInt size = node.nodeRect;
 
             // 방의 크기
@@ -244,6 +290,7 @@ public class CWorldMaker
                 }
             }
 
+            // 여기는 리프노드
             node.standardRoomRect = new RectInt(x, y, width, height);
         }
         else
@@ -259,6 +306,7 @@ public class CWorldMaker
             node.nodeList.AddRange(lList);
             node.nodeList.AddRange(rList);
 
+            // 여기는 기준 노드
             // 양쪽 자식들 중 제일 가까운 한 쌍이 기준이다.
             int n = node.leftNode.nodeList.Count;
             int m = node.rightNode.nodeList.Count;
@@ -281,7 +329,9 @@ public class CWorldMaker
                     {
                         minSqrDist = sqrDist;
                         node.leftNode.standardRoomRect = lRoom;
+                        node.leftNode.standardNode = lList[i];
                         node.rightNode.standardRoomRect = rRoom;
+                        node.rightNode.standardNode = rList[i];
                     }
                 }
             }
@@ -328,8 +378,6 @@ public class CWorldMaker
 
         //Debug.Log($"loopCount : {loopCount} RectInt : {newRectInt}");
 
-        // 길이 생길 영역 계산하기
-
         // 길 만들기
         for (int i = 0; i < width; i++)
         {
@@ -338,7 +386,7 @@ public class CWorldMaker
                 float total = _CAData.wallRatio + _CAData.floorRatio;
                 float flag = UnityEngine.Random.Range(0f, total);
                 _tileMap[x + i, y + j] = flag < _CAData.floorRatio ? ETileType.Floor : ETileType.Wall;
-                _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j]; 
+                _bufferTileMap[x + i, y + j] = _tileMap[x + i, y + j];
             }
         }
         // 세포 자동자 
@@ -361,6 +409,86 @@ public class CWorldMaker
                 }
             }
         }
+    }
+
+    private void GenerateMultiTreeData()
+    {
+        int minNodeIndex = -1;
+        float minDist = float.MaxValue;
+
+        for (int i = 0; i < _leafNodeList.Count; i++)
+        {
+            Vector2 center = _leafNodeList[i].standardRoomRect.center;
+            float dist = center.sqrMagnitude;
+            if (dist < minDist)
+            {
+                minNodeIndex = i;
+                minDist = dist;
+            }
+        }
+
+        MultiRootNode = _leafNodeList[minNodeIndex];
+
+        SetDepth(MultiRootNode, 0);
+    }
+
+    private void SetDepth(TreeNode node, int depth)
+    {
+        if (!NodeDepthDic.ContainsKey(node))
+        {
+            NodeDepthDic.Add(node, depth);
+
+            if(MultiTreeDepth < depth)
+                MultiTreeDepth = depth;
+
+            for (int i = 0; i < node.sibling.Count; i++)
+            {
+                SetDepth(node.sibling[i], depth + 1);
+            }
+        }
+    }
+
+    // 기존 트리로 멀티 트리 만들기
+    private void GenerateMultiTree(TreeNode node, int loopCount)
+    {
+        if (loopCount == _BSPData.maxLoopCount) return;
+
+        TreeNode rNode = node.rightNode.standardNode;
+        TreeNode lNode = node.leftNode.standardNode;
+
+        rNode.sibling.Add(lNode);
+        lNode.sibling.Add(rNode);
+
+        loopCount++;
+        GenerateMultiTree(node.rightNode, loopCount);
+        GenerateMultiTree(node.leftNode, loopCount);
+    }
+
+    private void SetRoomType()
+    {
+        for (int i = 0; i < _leafNodeList.Count; i++)
+        {
+            // 루트 노드가 시작 방
+            if(NodeDepthDic[_leafNodeList[i]] == 0)
+            {
+                _leafNodeList[i].roomType = ERoomType.Start;
+            }
+            // 가장 깊은 방이 보스방
+            else if(NodeDepthDic[_leafNodeList[i]] == MultiTreeDepth)
+            {
+                _leafNodeList[i].roomType = ERoomType.Boss;
+            }
+            // Road로 초기화.
+            else
+            {
+                _leafNodeList[i].roomType = ERoomType.Road;
+            }
+        // 새로운 타입에 따른 조건 추가.
+        }
+    }
+
+    private void SetSpawnPos()
+    {
     }
 
     [Flags]
