@@ -418,8 +418,12 @@ public class CWorldMaker
 
         for (int i = 0; i < _leafNodeList.Count; i++)
         {
-            Vector2 center = _leafNodeList[i].standardRoomRect.center;
-            float dist = center.sqrMagnitude;
+            Vector2 rectCenter = _leafNodeList[i].standardRoomRect.center;
+
+            var mapCenter =  _worldData.mapSize / 2;
+
+            float dist = (mapCenter - rectCenter).sqrMagnitude;
+
             if (dist < minDist)
             {
                 minNodeIndex = i;
