@@ -138,8 +138,9 @@ public class CPlayerInput : MonoBehaviour
     {
         Vector2 mousePos = obj.ReadValue<Vector2>();
         // 연산량이 많다. 이걸 매번 한다고?
-        Vector2 dir = mousePos.GetMouseDir().GetClosestDirection();
-        SetAimDir(dir);
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 dir = worldPos - _target.transform.position;
+        SetAimDir(dir.GetClosestDirection());
     }
 
     private void AimDirKey(InputAction.CallbackContext obj)
