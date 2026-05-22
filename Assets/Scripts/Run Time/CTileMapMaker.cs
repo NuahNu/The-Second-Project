@@ -147,8 +147,10 @@ public class CTileMapMaker : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!_gizmoFlag) return;
+        if (_worldMaker == null) return;
+        if (_worldMaker.BSPRootNode == null) return;
 
-        TreeNode rootNode = _worldMaker.BSPRootNode?? null;
+        TreeNode rootNode = _worldMaker.BSPRootNode;
         if (rootNode == null) return;
 
         List<TreeNode> leafnodeList = _worldMaker.leafNodeList;
