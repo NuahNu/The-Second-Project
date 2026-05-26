@@ -217,7 +217,7 @@ public class CTileMapMaker : MonoBehaviour
     public void MakeMap()
     {
         StartCoroutine(Co_MakeMap());
-        Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
+        Camera.main.transform.position = new Vector3(PlayerSpawnPos.x, PlayerSpawnPos.y, Define.CAMERA_Z);
     }
     #endregion
 
