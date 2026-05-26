@@ -110,6 +110,7 @@ public static partial class Function
 
             default:
                 // 이 분기로 들어오는 대부분은 파일 이름의 배열일것.
+
                 Type type = typeof(T);
 
                 if (type == typeof(Texture2D))
@@ -170,12 +171,57 @@ public static partial class Function
                         Debug.Log($"Mesh == null. {path}");
                     result = _mesh;
                 }
-                else
-                    result = null;
+                else if (type == typeof(CCharacter))
+                {
+                    path = CGSSLoader.Prefab_PATH + "/" + data.Trim().Replace("\r", "");
+                    CCharacter _mesh = Resources.Load<CCharacter>(path);
+                    if (_mesh == null)
+                        Debug.Log($"Prefab == null. {path}");
+                    result = _mesh;
+                }
+                result = null;
                 break;
         }
 
         return (T)result;
+    }
+
+    public static T LoadResource<T>(string data) where T : UnityEngine.Object
+    {
+        Type type = typeof(T);
+        string path;
+        T resource = null;
+
+        if (type.IsArray)
+        {
+            type = type.GetElementType();
+
+            string[] strings = data.Split(';');
+
+            Array resultArray = Array.CreateInstance(type, strings.Length);
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                path = CGSSLoader.Path_Map[type] + "/" + data.Trim().Replace("\r", "");
+
+                UnityEngine.Object asset = Resources.Load(path, type);
+
+                if (asset == null)
+                    Debug.Log($"resource == null. {path}");
+
+                resultArray.SetValue(asset, i);
+            }
+
+            return resultArray as T;
+        }
+        else
+        {
+            path = CGSSLoader.Path_Map[type] + "/" + data.Trim().Replace("\r", "");
+            resource = Resources.Load<T>(path);
+            if (resource == null)
+                Debug.Log($"resource == null. {path}");
+        }
+        return resource;
     }
 
     public static Vector2 GetClosestDirection(this Vector2 input)
