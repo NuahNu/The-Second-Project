@@ -73,6 +73,7 @@ public class CCamera : MonoBehaviour
         {
             case ECameraMode.Follow:
                 transform.position = new Vector3(_player.position.x, _player.position.y, Define.CAMERA_Z);
+                // 조준 상태일 경우, 커서와 캐릭터의 중심을 따라가도록 한다.
                 break;
             case ECameraMode.Dynamic:
                 Vector2 mousePos = Mouse.current.position.ReadValue();

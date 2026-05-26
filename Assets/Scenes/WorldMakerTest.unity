@@ -617,6 +617,7 @@ MonoBehaviour:
   _scrollRatio: 0.01
   _scrollClamp: {x: 1, y: 10}
   _scrollFlip: 0
+  _player: {fileID: 352391766}
 --- !u!1 &1586586877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1541965654435089229, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
