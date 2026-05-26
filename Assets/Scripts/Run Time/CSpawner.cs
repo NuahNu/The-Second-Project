@@ -11,6 +11,7 @@ public class CSpawner : MonoBehaviour
 {
     #region 인스펙터
     [SerializeField] private CDataArraySO _dataArraySO;
+    [SerializeField] private CCharacter _player;
     #endregion
 
     #region 내부 변수
@@ -21,6 +22,10 @@ public class CSpawner : MonoBehaviour
     void Awake()
     {
         if (_dataArraySO.IsNull("dataArraySO"))
+        {
+            return;
+        }
+        if (_player.IsNull("_player"))
         {
             return;
         }
