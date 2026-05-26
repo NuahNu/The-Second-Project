@@ -40,16 +40,16 @@ public class CSpawner : MonoBehaviour
     #region public
 
     // 선택 규칙 추가. 지금은 그냥 소환중
-    public CCharacter SpawnEnemy()
+    public CCharacter SpawnCharacter()
     {
         int index = Random.Range(0, 1);
-        CEnemyDataSO cEnemyDataSO = _dataArraySO[CDataArraySO.EDataType.EnemyData][index] as CEnemyDataSO;
+        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.EnemyData][index] as CCharacterDataSO;
 
-        CCharacter enemy = Instantiate(cEnemyDataSO.Prefab);
+        CCharacter character = Instantiate(data.Prefab);
 
-        enemy.InitData(cEnemyDataSO);
+        character.InitData(data);
 
-        return enemy;
+        return character;
     }
     #endregion
 

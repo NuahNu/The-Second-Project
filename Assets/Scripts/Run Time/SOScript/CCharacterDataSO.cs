@@ -8,9 +8,9 @@ using UnityEngine;
 */
 #endregion
 
-public class CEnemyDataSO : ScriptableObject, ICSVData
+public class CCharacterDataSO : ScriptableObject, ICSVData
 {
-    static readonly string NAME = "EnemyData";
+    static readonly string NAME = "CharacterData";
 
     public enum ECharactorType
     {

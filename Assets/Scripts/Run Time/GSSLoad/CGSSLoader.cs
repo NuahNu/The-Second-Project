@@ -78,7 +78,7 @@ public partial class CGSSLoader : MonoBehaviour
             switch (type)
             {
                 case ESheetType.EnemyData:
-                    ParseData<CEnemyDataSO>(dataArr[i]);
+                    ParseData<CCharacterDataSO>(dataArr[i]);
                     break;
             }
         }

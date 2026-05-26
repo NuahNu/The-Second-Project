@@ -29,7 +29,7 @@ public class CDataArraySO : ScriptableObject
     }
 
     #region 인스펙터
-    [SerializeField] private List<CEnemyDataSO> _enemyDataArr;
+    [SerializeField] private List<CCharacterDataSO> _enemyDataArr;
     // NEW
     #endregion
 

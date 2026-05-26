@@ -160,7 +160,7 @@ public abstract class CCharacter : MonoBehaviour
     }
     #endregion
 
-    public void InitData(CEnemyDataSO data)
+    public void InitData(CCharacterDataSO data)
     {
 
     }
