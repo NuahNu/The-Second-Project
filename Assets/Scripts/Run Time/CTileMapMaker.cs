@@ -119,7 +119,6 @@ public class CTileMapMaker : MonoBehaviour
     void Awake()
     {
         _worldMaker = new CWorldMaker();
-        _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
 
         if (_surfase2D.IsNull("_surfase2D")) return;
 
