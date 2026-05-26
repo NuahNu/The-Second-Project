@@ -12,11 +12,6 @@ public class CCharacterDataSO : ScriptableObject, ICSVData
 {
     static readonly string NAME = "CharacterData";
 
-    public enum ECharactorType
-    {
-        CommonSoldier
-    }
-
     // 시트에서 읽어올 데이터
     #region 인스펙터
     [SerializeField] private int _ID;
