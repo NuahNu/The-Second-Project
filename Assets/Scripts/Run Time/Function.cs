@@ -174,12 +174,13 @@ public static partial class Function
                 else if (type == typeof(CCharacter))
                 {
                     path = CGSSLoader.Prefab_PATH + "/" + data.Trim().Replace("\r", "");
-                    CCharacter _mesh = Resources.Load<CCharacter>(path);
-                    if (_mesh == null)
+                    CCharacter character = Resources.Load<CCharacter>(path);
+                    if (character == null)
                         Debug.Log($"Prefab == null. {path}");
-                    result = _mesh;
+                    result = character;
                 }
-                result = null;
+                else
+                    result = null;
                 break;
         }
 
