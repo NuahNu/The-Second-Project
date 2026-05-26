@@ -8,6 +8,8 @@
 */
 #endregion
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public partial class CGSSLoader : MonoBehaviour
@@ -18,8 +20,8 @@ public partial class CGSSLoader : MonoBehaviour
     static readonly string EXTRA_URL = "/export?format=";
     static readonly string LOAD_TYPE = "csv";
     // sheet 페이지별 gid의 배열.
-    static readonly string[] SHEET_NUMBER = new string[] 
-    { 
+    static readonly string[] SHEET_NUMBER = new string[]
+    {
         ""
     };
     #endregion
@@ -29,5 +31,13 @@ public partial class CGSSLoader : MonoBehaviour
     public static readonly string Texture2D_PATH = "Texture2D";
     public static readonly string Sprite_PATH = "Sprite";
     public static readonly string Mesh_PATH = "Mesh";
+    public static readonly string Prefab_PATH = "Prefab";
+    public static readonly Dictionary<Type, string> Path_Map = new Dictionary<Type, string>()
+    {
+        { typeof(Texture2D), Texture2D_PATH },
+        { typeof(Sprite),    Sprite_PATH },
+        { typeof(Mesh),      Mesh_PATH },
+        { typeof(CCharacter), Prefab_PATH }
+    };
     #endregion
 }

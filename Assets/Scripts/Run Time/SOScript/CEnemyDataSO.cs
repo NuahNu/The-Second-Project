@@ -25,7 +25,7 @@ public class CEnemyDataSO : ScriptableObject, ICSVData
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _maxHp;
-    [SerializeField] private ECharactorType _type;
+    [SerializeField] private CCharacter _prefab;
     [SerializeField] private Color _filterColor;
     #endregion
 
@@ -52,7 +52,7 @@ public class CEnemyDataSO : ScriptableObject, ICSVData
         _walkSpeed = float.Parse(dataArr[3]);
         _runSpeed = float.Parse(dataArr[4]);
         _maxHp = float.Parse(dataArr[5]);
-        _type = _type.ParseData(dataArr[6]);
+        _prefab = _prefab.ParseData(dataArr[6]);
 
 
         return CGSSLoader.SOSavePath(NAME) + $"/{NAME}SO_{_ID}.asset";
