@@ -160,6 +160,11 @@ public abstract class CCharacter : MonoBehaviour
     }
     #endregion
 
+    public void InitData(CEnemyDataSO data)
+    {
+
+    }
+
     public void ChangeState(string stateName)
     {
         // 있는지 검사

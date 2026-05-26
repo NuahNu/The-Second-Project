@@ -37,6 +37,13 @@ public class CEnemyDataSO : ScriptableObject, ICSVData
     // 실제로 사용할 데이터
     #region 프로퍼티
     public int ID => _ID;
+    public string Name => _name;
+    public float Att => _att;
+    public float WalkSpeed => _walkSpeed;
+    public float RunSpeed => _runSpeed;
+    public float MaxHp => _maxHp;
+    public CCharacter Prefab => _prefab;
+    public Color FilterColor => _filterColor;
 
 
     #endregion
