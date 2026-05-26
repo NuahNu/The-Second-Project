@@ -76,6 +76,8 @@ public class CTileMapMaker : MonoBehaviour
     [SerializeField] private TileBase _wallColliderTile;
     [SerializeField] private TileBase _holeTile;
 
+    [Header("트리거 스포너?")]
+
     [Header("네비메쉬")]
     [SerializeField] private NavMeshSurface _surfase2D;
 
