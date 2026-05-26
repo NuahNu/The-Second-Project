@@ -162,7 +162,7 @@ public abstract class CCharacter : MonoBehaviour
 
     public void InitData(CCharacterDataSO data)
     {
-
+        _cAgent.InitData(data);
     }
 
     public void ChangeState(string stateName)

@@ -87,6 +87,11 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region public
+    public void InitData(CCharacterDataSO data)
+    {
+        _speed = data.RunSpeed;
+        //_speed = data.WalkSpeed;
+    }
     public void MoveAgent()
     {
         UpdateMoveFlag(false);
