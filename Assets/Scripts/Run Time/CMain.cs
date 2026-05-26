@@ -74,15 +74,19 @@ public class CMain : MonoBehaviour
     private void Func()
     {
         // 맵 생성
+        // ㄴ 완료 이벤트 있음.
         _tileMapMaker.MakeMap();
         // 플레이어 스폰 포인트로 이동
+        // 이건 순간이동 시켜도 알 수 없을것이다. 배경이 없으니까?
         _player.Warp(_tileMapMaker.PlayerSpawnPos);
         // 적 스폰 및 가시화 
+        // 알파값을 천천히 변경하는 기능.
         _spawner.SpawnEnemy(_tileMapMaker.BossSpawnPos);
         // 시작
 
-        // 플레이어를 제외한 모두 비활성화
-        // '' 제거
+        // 플레이어를 제외한 모두 비활성화 / 비 가시화?
+        // 초기화 하거나 정리해주는 Clear() 작성.
+        // ㄴ 기존 생성 함수에 앞에서 정리해주는 녀석들도 있음.
     }
     #endregion
 }
