@@ -191,6 +191,11 @@ public abstract class CCharacter : MonoBehaviour
             _aimDir = input;
     }
 
+    public void Warp(Vector3 pos)
+    {
+        _cAgent.Warp(pos);
+    }
+
     #region protected
     protected virtual void SetStates()
     {

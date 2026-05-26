@@ -118,6 +118,10 @@ public class CAgent : MonoBehaviour
         if(_inputDir != input)
         _inputDir = input;
     }
+    public void Warp(Vector3 pos)
+    {
+        _agent.Warp(pos);
+    }
     #endregion
 
     #region protected

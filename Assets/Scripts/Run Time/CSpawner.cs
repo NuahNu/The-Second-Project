@@ -49,10 +49,10 @@ public class CSpawner : MonoBehaviour
         return SpawnCharacter(i);
     }
 
-    public CCharacter SpawnEnemy()
+    public CCharacter SpawnEnemy(Vector3 pos)
     {
         int id = Random.Range(1, 3);
-        return SpawnCharacter(id);
+        return SpawnCharacter(id, pos);
     }
     //
     private CCharacter SpawnCharacter(int id)
@@ -60,6 +60,17 @@ public class CSpawner : MonoBehaviour
         CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.EnemyData][id] as CCharacterDataSO;
 
         CCharacter character = Instantiate(data.Prefab);
+
+        character.InitData(data);
+
+        return character;
+    }
+
+    private CCharacter SpawnCharacter(int id, Vector3 pos)
+    {
+        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.EnemyData][id] as CCharacterDataSO;
+
+        CCharacter character = Instantiate(data.Prefab, pos, Quaternion.identity);
 
         character.InitData(data);
 

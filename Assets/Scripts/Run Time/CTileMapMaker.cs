@@ -83,7 +83,7 @@ public class CTileMapMaker : MonoBehaviour
 
     [Header("디버그 키")]
     [SerializeField] private bool _showMapLog = false;
-
+    [SerializeField] private bool _useDebugKey = false;
     [SerializeField] private KeyCode _makeDataKey = KeyCode.M;
 
 
@@ -111,7 +111,27 @@ public class CTileMapMaker : MonoBehaviour
     private Dictionary<TilemapLayer, CTilemapData> tilemapDic;
 
     private Rect _gridRect;
+
+    private Vector2Int _playerSpawnPos;
+    private Vector2Int _bossSpawnPos;
+    private List<Vector2Int> _enemySpawnPos;
     #endregion
+
+    public Vector3 PlayerSpawnPos
+    {
+        get
+        {
+            return _grid.CellToWorld(new Vector3Int(_playerSpawnPos.x, _playerSpawnPos.y, 0));
+        }
+    }
+
+    public Vector3 BossSpawnPos
+    {
+        get
+        {
+            return _grid.CellToWorld(new Vector3Int(_bossSpawnPos.x, _bossSpawnPos.y, 0));
+        }
+    }
 
     public event Action<Rect> OnMakeMap;
 
@@ -138,10 +158,9 @@ public class CTileMapMaker : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(_makeDataKey))
+        if (_useDebugKey && Input.GetKeyDown(_makeDataKey))
         {
-            StartCoroutine(Co_MakeMap());
-            Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
+            MakeMap();
         }
     }
 
@@ -195,6 +214,11 @@ public class CTileMapMaker : MonoBehaviour
     #endregion
 
     #region public
+    public void MakeMap()
+    {
+        StartCoroutine(Co_MakeMap());
+        Camera.main.transform.position = new Vector3(0, 0, Define.CAMERA_Z);
+    }
     #endregion
 
     #region private
@@ -261,17 +285,36 @@ public class CTileMapMaker : MonoBehaviour
             tilemapDic[(TilemapLayer)i].tilemap.ClearAllTiles();
         }
 
-        // 얘를 반복 돌면서 읽어와 타일을 깐다.
-        for (int i = 0; i < _tileTypeArray.GetLength(0); i++)
-        {
-            for (int j = 0; j < _tileTypeArray.GetLength(1); j++)
-            {
-                ETileType tt = _tileTypeArray[i, j];
+        _playerSpawnPos = Vector2Int.zero;
+        if (_enemySpawnPos == null)
+            _enemySpawnPos = new List<Vector2Int>();
+        _enemySpawnPos.Clear();
+        _bossSpawnPos = Vector2Int.zero;
 
-                Vector3Int pos = new Vector3Int(i, j, 0);
+        // 얘를 반복 돌면서 읽어와 타일을 깐다.
+        for (int x = 0; x < _tileTypeArray.GetLength(0); x++)
+        {
+            for (int y = 0; y < _tileTypeArray.GetLength(1); y++)
+            {
+                ETileType tt = _tileTypeArray[x, y];
+
+                Vector3Int pos = new Vector3Int(x, y, 0);
                 if (tt.HasFlag(ETileType.Floor))
                 {
                     tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
+
+                    if (tt.HasFlag(ETileType.PlayerSpawn))
+                    {
+                        _playerSpawnPos = new Vector2Int(x, y);
+                    }
+                    else if (tt.HasFlag(ETileType.EnemySpawn))
+                    {
+                        _enemySpawnPos.Add(new Vector2Int(x, y));
+                    }
+                    else if (tt.HasFlag(ETileType.BossSpawn))
+                    {
+                        _bossSpawnPos = new Vector2Int(x, y);
+                    }
                 }
                 else if (tt.HasFlag(ETileType.Hole))
                 {
