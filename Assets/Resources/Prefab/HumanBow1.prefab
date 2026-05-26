@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3446685292998065639}
   - component: {fileID: 6611164742175825069}
   - component: {fileID: 4384892774178218773}
-  - component: {fileID: 3776591847879590846}
-  - component: {fileID: 3201655794229565224}
+  - component: {fileID: 8835948774484849447}
+  - component: {fileID: 4166985600382208797}
   m_Layer: 0
   m_Name: HumanBow1
   m_TagString: Untagged
@@ -132,7 +132,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7836648898235916460}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.24
+  m_Radius: 0.26
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -145,7 +145,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!114 &3776591847879590846
+--- !u!114 &8835948774484849447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,13 +154,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7836648898235916460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7cf60eb33f7a64f9b67dd2f887447e, type: 3}
+  m_Script: {fileID: 11500000, guid: b7d620c6edfe120478cc7b3628c88226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _speed: 5
   _grid: {fileID: 0}
---- !u!114 &3201655794229565224
+--- !u!114 &4166985600382208797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,10 +169,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7836648898235916460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87922d0f0b4b3164d9ddf53933140759, type: 3}
+  m_Script: {fileID: 11500000, guid: fb074e28ac804da43be91843f9db48eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 4331141889370034742}
+  _animator: {fileID: 0}
   _paramIDs: []
   _animationParams: []
 --- !u!1 &7860280772626457144
