@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6a047e66eae2654a8c1631ea0a41569, type: 3}
-  m_Name: EnemyDataSO_0
+  m_Name: CharacterDataSO_0
   m_EditorClassIdentifier: 
   _ID: 0
-  _name: "\uB354\uBBF801"
-  _att: 10
-  _walkSpeed: 10
-  _runSpeed: 20
-  _maxHp: 30
-  _type: 0
+  _name: "\uD50C\uB808\uC774\uC5B4"
+  _att: 30
+  _walkSpeed: 2
+  _runSpeed: 3
+  _maxHp: 100
+  _prefab: {fileID: 0}
   _filterColor: {r: 0, g: 0, b: 0, a: 0}

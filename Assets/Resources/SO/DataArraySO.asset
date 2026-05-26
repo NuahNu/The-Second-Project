@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: DataArraySO
   m_EditorClassIdentifier: 
   _enemyDataArr:
-  - {fileID: 11400000, guid: c9e550f5cf1cc2541afd57f954563431, type: 2}
-  - {fileID: 11400000, guid: 37bc727cb107dad4ca8ed05d056fed7f, type: 2}
+  - {fileID: 11400000, guid: ec324cd96c596ad409d1e6858525c51f, type: 2}
+  - {fileID: 11400000, guid: 305b28da1f81f3349b71bff720facc47, type: 2}
+  - {fileID: 11400000, guid: eb252a9780bff0d46a3f8f26f91c40aa, type: 2}

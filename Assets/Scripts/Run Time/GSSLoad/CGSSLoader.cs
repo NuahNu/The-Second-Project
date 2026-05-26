@@ -51,7 +51,7 @@ public partial class CGSSLoader : MonoBehaviour
 
     public KeyCode RunKey = KeyCode.R;
 
-    public bool RunFlag = false;
+    private bool RunFlag = false;
     #endregion
 
 
