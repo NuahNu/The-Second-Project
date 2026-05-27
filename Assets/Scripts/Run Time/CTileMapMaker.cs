@@ -75,6 +75,7 @@ public class CTileMapMaker : MonoBehaviour
     [SerializeField] private TileBase _wallTile;
     [SerializeField] private TileBase _wallColliderTile;
     [SerializeField] private TileBase _holeTile;
+    [SerializeField] private TileBase _endTile;
 
     [Header("트리거 스포너?")]
 
@@ -156,7 +157,10 @@ public class CTileMapMaker : MonoBehaviour
         if (_floorTile.IsNull("_floorTile")) return;
         if (_structureFloorTile.IsNull("_structureFloorTile")) return;
         if (_wallTile.IsNull("_wallTile")) return;
+        if (_wallColliderTile.IsNull("_wallColliderTile")) return;
         if (_holeTile.IsNull("_holeTile")) return;
+        if (_endTile.IsNull("_endTile")) return;
+
 
         MakeTileMapDic();
         // 스폰 위치 지정.
@@ -331,6 +335,7 @@ public class CTileMapMaker : MonoBehaviour
                     }
                     else if (tt.HasFlag(ETileType.BossSpawn))
                     {
+                        tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _endTile);
                         _bossSpawnPos = new Vector2Int(x, y);
                         _bossWorldSpawnPos = _grid.CellToWorld(pos);
                     }

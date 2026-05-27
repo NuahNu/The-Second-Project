@@ -292,7 +292,8 @@ MonoBehaviour:
   _gameCamera: {fileID: 1576085016}
   _playerInput: {fileID: 375807483}
   _useDebugKey: 1
-  _DebugKey: 109
+  _startKey: 282
+  _endKey: 283
 --- !u!4 &490329896
 Transform:
   m_ObjectHideFlags: 0
@@ -405,6 +406,7 @@ MonoBehaviour:
   _wallTile: {fileID: 11400000, guid: 5c27fc185faebf34bbdeac77023112b4, type: 2}
   _wallColliderTile: {fileID: 11400000, guid: 3f4bb21da1e229c41bc2bb5679b32a10, type: 2}
   _holeTile: {fileID: 11400000, guid: 04a61e1cbd7d31e4683399698ac69d4f, type: 2}
+  _endTile: {fileID: 11400000, guid: 0ba8615652f21114db0d85c6d002ff70, type: 2}
   _surfase2D: {fileID: 1622810180}
   _showMapLog: 0
   _useDebugKey: 0
