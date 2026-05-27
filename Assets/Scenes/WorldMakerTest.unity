@@ -339,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataArraySO: {fileID: 11400000, guid: c00eac1c170f5e3489bc5877798e75a5, type: 2}
   _player: {fileID: 352391767}
+  _grid: {fileID: 1586586878}
 --- !u!4 &1010004187
 Transform:
   m_ObjectHideFlags: 0
@@ -618,6 +619,7 @@ MonoBehaviour:
   _scrollClamp: {x: 1, y: 10}
   _scrollFlip: 0
   _player: {fileID: 352391766}
+  _cameraMode: 0
 --- !u!1 &1586586877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1541965654435089229, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}

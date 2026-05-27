@@ -113,15 +113,26 @@ public class CTileMapMaker : MonoBehaviour
     private Rect _gridRect;
 
     private Vector2Int _playerSpawnPos;
+    private Vector3 _playerWorldSpawnPos;
     private Vector2Int _bossSpawnPos;
+    private Vector3 _bossWorldSpawnPos;
     private List<Vector2Int> _enemySpawnPos;
+    private List<Vector3> _enemyWorldSpawnPos;
     #endregion
 
     public Vector3 PlayerSpawnPos
     {
         get
         {
-            return _grid.CellToWorld(new Vector3Int(_playerSpawnPos.x, _playerSpawnPos.y, 0));
+            return _playerWorldSpawnPos;
+        }
+    }
+
+    public List<Vector3> EnemySpawnPos
+    {
+        get
+        {
+            return _enemyWorldSpawnPos;
         }
     }
 
@@ -129,7 +140,7 @@ public class CTileMapMaker : MonoBehaviour
     {
         get
         {
-            return _grid.CellToWorld(new Vector3Int(_bossSpawnPos.x, _bossSpawnPos.y, 0));
+            return _bossWorldSpawnPos;
         }
     }
 
@@ -286,10 +297,15 @@ public class CTileMapMaker : MonoBehaviour
         }
 
         _playerSpawnPos = Vector2Int.zero;
+        _playerWorldSpawnPos = Vector3.zero;
         if (_enemySpawnPos == null)
             _enemySpawnPos = new List<Vector2Int>();
+        if (_enemyWorldSpawnPos == null)
+            _enemyWorldSpawnPos = new List<Vector3>();
         _enemySpawnPos.Clear();
+        _enemyWorldSpawnPos.Clear();
         _bossSpawnPos = Vector2Int.zero;
+        _bossWorldSpawnPos = Vector3.zero;
 
         // 얘를 반복 돌면서 읽어와 타일을 깐다.
         for (int x = 0; x < _tileTypeArray.GetLength(0); x++)
@@ -306,14 +322,17 @@ public class CTileMapMaker : MonoBehaviour
                     if (tt.HasFlag(ETileType.PlayerSpawn))
                     {
                         _playerSpawnPos = new Vector2Int(x, y);
+                        _playerWorldSpawnPos = _grid.CellToWorld(pos);
                     }
                     else if (tt.HasFlag(ETileType.EnemySpawn))
                     {
                         _enemySpawnPos.Add(new Vector2Int(x, y));
+                        _enemyWorldSpawnPos.Add(_grid.CellToWorld(pos));
                     }
                     else if (tt.HasFlag(ETileType.BossSpawn))
                     {
                         _bossSpawnPos = new Vector2Int(x, y);
+                        _bossWorldSpawnPos = _grid.CellToWorld(pos);
                     }
                 }
                 else if (tt.HasFlag(ETileType.Hole))

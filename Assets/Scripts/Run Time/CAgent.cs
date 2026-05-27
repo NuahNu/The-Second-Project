@@ -53,9 +53,12 @@ public class CAgent : MonoBehaviour
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
 
+        // InitData를 호출하지 않는 녀석들은 이게 필요함.
         if (_grid.IsNull("_grid")) return;
 
         InitGridData();
+        //
+
 
         //_dirArr = new Vector2[8];
 
@@ -87,10 +90,12 @@ public class CAgent : MonoBehaviour
     #endregion
 
     #region public
-    public void InitData(CCharacterDataSO data)
+    public void InitData(CCharacterDataSO data, Grid grid)
     {
         _speed = data.RunSpeed;
         //_speed = data.WalkSpeed;
+        _grid = grid;
+        InitGridData();
     }
     public void MoveAgent()
     {

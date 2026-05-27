@@ -160,9 +160,9 @@ public abstract class CCharacter : MonoBehaviour
     }
     #endregion
 
-    public void InitData(CCharacterDataSO data)
+    public void InitData(CCharacterDataSO data, Grid grid)
     {
-        _cAgent.InitData(data);
+        _cAgent.InitData(data, grid);
     }
 
     public void ChangeState(string stateName)
@@ -196,6 +196,12 @@ public abstract class CCharacter : MonoBehaviour
         _cAgent.Warp(pos);
     }
 
+    public void Kill()
+    {
+        Debug.Log("kill");
+        Destroy(gameObject);
+    }
+
     #region protected
     protected virtual void SetStates()
     {
@@ -220,7 +226,7 @@ public abstract class CCharacter : MonoBehaviour
             Debug.Log($"state == {_currentState.Name}");
             return;
         }
-        Debug.Log($"{state} -> {_currentState}");
+        Debug.Log($"{_currentState?.Name ?? "None"} -> {state.Name} ");
 
         // 기본값은 null 이다.
         _currentState?.Exit();
