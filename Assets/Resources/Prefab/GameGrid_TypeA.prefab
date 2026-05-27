@@ -32,6 +32,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 3638270895949265829, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638270895949265829, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
+      propertyPath: m_TileAnchor.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3678372000289053724, guid: 8cf04b8b65043164499b765174366dbc, type: 3}
       propertyPath: m_Color.b
       value: 1

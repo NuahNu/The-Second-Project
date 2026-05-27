@@ -56,6 +56,7 @@ public class CTileMapMaker : MonoBehaviour
         Structure,
         // 얘들은 그려지면 안되지
         Collider,
+        EndTrigger,
         Count
     }
 
@@ -76,6 +77,7 @@ public class CTileMapMaker : MonoBehaviour
     [SerializeField] private TileBase _wallColliderTile;
     [SerializeField] private TileBase _holeTile;
     [SerializeField] private TileBase _endTile;
+    [SerializeField] private TileBase _endTriggerTile;
 
     [Header("트리거 스포너?")]
 
@@ -160,6 +162,7 @@ public class CTileMapMaker : MonoBehaviour
         if (_wallColliderTile.IsNull("_wallColliderTile")) return;
         if (_holeTile.IsNull("_holeTile")) return;
         if (_endTile.IsNull("_endTile")) return;
+        if (_endTriggerTile.IsNull("_endTriggerTile")) return;
 
 
         MakeTileMapDic();
@@ -260,6 +263,9 @@ public class CTileMapMaker : MonoBehaviour
 
         tilemapDic[TilemapLayer.Hole] = FindTilemap(Define.NAME_HOLE);
         tilemapDic[TilemapLayer.Hole].tilemapRenderer.sortingOrder = Define.ORDER_HOLE;
+
+        tilemapDic[TilemapLayer.EndTrigger] = FindTilemap(Define.NAME_END);
+        tilemapDic[TilemapLayer.EndTrigger].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
     }
 
     private CTilemapData FindTilemap(string name)
@@ -326,18 +332,19 @@ public class CTileMapMaker : MonoBehaviour
                     if (tt.HasFlag(ETileType.PlayerSpawn))
                     {
                         _playerSpawnPos = new Vector2Int(x, y);
-                        _playerWorldSpawnPos = _grid.CellToWorld(pos);
+                        _playerWorldSpawnPos = _grid.GetCellCenterWorld(pos);
                     }
                     else if (tt.HasFlag(ETileType.EnemySpawn))
                     {
                         _enemySpawnPos.Add(new Vector2Int(x, y));
-                        _enemyWorldSpawnPos.Add(_grid.CellToWorld(pos));
+                        _enemyWorldSpawnPos.Add(_grid.GetCellCenterWorld(pos));
                     }
                     else if (tt.HasFlag(ETileType.BossSpawn))
                     {
                         tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _endTile);
+                        tilemapDic[TilemapLayer.EndTrigger].tilemap.SetTile(pos, _endTriggerTile);
                         _bossSpawnPos = new Vector2Int(x, y);
-                        _bossWorldSpawnPos = _grid.CellToWorld(pos);
+                        _bossWorldSpawnPos = _grid.GetCellCenterWorld(pos);
                     }
                 }
                 else if (tt.HasFlag(ETileType.Hole))

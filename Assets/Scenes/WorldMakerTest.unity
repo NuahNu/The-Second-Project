@@ -407,6 +407,7 @@ MonoBehaviour:
   _wallColliderTile: {fileID: 11400000, guid: 3f4bb21da1e229c41bc2bb5679b32a10, type: 2}
   _holeTile: {fileID: 11400000, guid: 04a61e1cbd7d31e4683399698ac69d4f, type: 2}
   _endTile: {fileID: 11400000, guid: 0ba8615652f21114db0d85c6d002ff70, type: 2}
+  _endTriggerTile: {fileID: 11400000, guid: 886306252fd27054a967f643082517d2, type: 2}
   _surfase2D: {fileID: 1622810180}
   _showMapLog: 0
   _useDebugKey: 0
