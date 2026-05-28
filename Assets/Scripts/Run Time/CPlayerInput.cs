@@ -107,6 +107,7 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimDir"] = _actions.Player.AimDirectional;
         _actionDic["AimAng"] = _actions.Player.AimAngular;
         _actionDic["Aim"] = _actions.Player.Aim;
+        _actionDic["InterAction"] = _actions.Player.InterAction;
     }
 
     private void Subscribe()
@@ -120,7 +121,10 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimDir"].canceled += AimFalse;
 
         _actionDic["AimAng"].performed += AimDirMouse;
+
+        _actionDic["InterAction"].performed += OnInterAction;
     }
+
 
     private void Unsubscribe()
     {
@@ -132,6 +136,8 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimDir"].canceled -= AimFalse;
 
         _actionDic["AimAng"].performed -= AimDirMouse;
+
+        _actionDic["InterAction"].performed -= OnInterAction;
     }
 
     private void AimDirMouse(InputAction.CallbackContext obj)
@@ -183,6 +189,22 @@ public class CPlayerInput : MonoBehaviour
         _character.SetAimDir(_aimDir);
 
         OnAimDirChange?.Invoke(_aimDir);
+    }
+
+    private void OnInterAction(InputAction.CallbackContext context)
+    {
+        var list = _character.CheckTrigger();
+
+        foreach (var item in list)
+        {
+            if(item.isTrigger)
+            {
+                if(item.CompareTag("EndTrigger"))
+                {
+                    Debug.Log("끼얏호우! 드디어 여기까지");
+                }
+            }
+        }
     }
     #endregion
 }

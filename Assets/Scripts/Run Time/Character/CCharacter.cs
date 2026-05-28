@@ -158,6 +158,7 @@ public abstract class CCharacter : MonoBehaviour
         UnsetAgentEvent();
 
     }
+
     #endregion
 
     public void InitData(CCharacterDataSO data, Grid grid)
@@ -202,6 +203,10 @@ public abstract class CCharacter : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public Collider2D[] CheckTrigger()
+    {
+        return Physics2D.OverlapPointAll(this.transform.position);
+    }
     #region protected
     protected virtual void SetStates()
     {
@@ -302,6 +307,7 @@ public abstract class CCharacter : MonoBehaviour
         }
     }
 
+    // fsm
     private void InitFSM()
     {
         // 초기화
@@ -357,5 +363,6 @@ public abstract class CCharacter : MonoBehaviour
     {
         _paramDic["IsWalk"].SetParam(flag);
     }
+    //
     #endregion
 }
