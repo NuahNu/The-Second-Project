@@ -201,7 +201,8 @@ public class CPlayerInput : MonoBehaviour
             {
                 if(item.CompareTag("EndTrigger"))
                 {
-                    Debug.Log("끼얏호우! 드디어 여기까지");
+                    CMain.Instance.FuncEnd();
+                    CMain.Instance.FuncStart();
                 }
             }
         }

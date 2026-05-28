@@ -36,12 +36,20 @@ public class CMain : MonoBehaviour
     #endregion
 
     #region 내부 변수
-
+    public static CMain Instance;
     #endregion
 
     #region 유니티 이벤트
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log("Instance != null && Instance != this");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         if (_player.IsNull("_player")) return;
         if (_tileMapMaker.IsNull("_tileMapMaker")) return;
         if (_spawner.IsNull("_spawner")) return;
@@ -68,18 +76,16 @@ public class CMain : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
     #endregion
 
     #region public
-
-    #endregion
-
-    #region protected
-
-    #endregion
-
-    #region private
-    private void FuncStart()
+    public void FuncStart()
     {
         // 맵 생성
         // ㄴ 완료 이벤트 있음.
@@ -100,9 +106,17 @@ public class CMain : MonoBehaviour
         // 초기화 하거나 정리해주는 Clear() 작성.
         // ㄴ 기존 생성 함수에 앞에서 정리해주는 녀석들도 있음.
     }
-    private void FuncEnd()
+    public void FuncEnd()
     {
         _spawner.Clear();
     }
+    #endregion
+
+    #region protected
+
+    #endregion
+
+    #region private
+
     #endregion
 }
