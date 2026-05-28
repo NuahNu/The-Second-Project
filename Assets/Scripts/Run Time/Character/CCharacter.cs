@@ -207,6 +207,9 @@ public abstract class CCharacter : MonoBehaviour
     {
         return Physics2D.OverlapPointAll(this.transform.position);
     }
+
+    public abstract void AnimationEventHandler(string eventName);
+
     #region protected
     protected virtual void SetStates()
     {

@@ -16,13 +16,22 @@ public class CHumanBow : CCharacter
     #region 내부 변수
     protected override string[] States => new string[] { "Idle", "Move", "Aim", "Action", "Attack", "GetHit", "Death" };
 
+
+    protected bool readyToFire = false; 
     #endregion
 
     #region 유니티 이벤트
     #endregion
 
     #region public
-
+    public override void AnimationEventHandler(string eventName)
+    {
+        if(eventName == "ReadyToFire")
+        {
+            //Debug.Log(eventName);
+            ReadyToFire();
+        }
+    }
     #endregion
 
     #region protected
@@ -39,6 +48,13 @@ public class CHumanBow : CCharacter
         base.UnsetStates();
         _FSMDic["Aim"].OnEnter -= AimEnter;
 
+    }
+
+    protected void ReadyToFire()
+    {
+        if (readyToFire) return;
+        readyToFire = true;
+        Debug.Log("ReadyToFire");
     }
     #endregion
 

@@ -30,7 +30,10 @@ public class CCommonSoldier : CCharacter
     #endregion
 
     #region public
-
+    public override void AnimationEventHandler(string eventName)
+    {
+        ;
+    }
     #endregion
 
     #region protected

@@ -765,6 +765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7836648898235916460, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8835948774484849447, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: _grid
       value: 
@@ -788,6 +792,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 186598164657799556, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_ChunkCullingBounds.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 191470356237445166, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 974045664602177584, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
@@ -1449,6 +1457,10 @@ PrefabInstance:
     - target: {fileID: 5353141143614165537, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_Area
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686346719765650514, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_TagString
+      value: EndTrigger
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1738868218230336510, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
