@@ -372,14 +372,27 @@ public class CWorldMaker
         // 영역 만들기
         RectInt newRectInt = new RectInt(minX, minY, maxX - minX, maxY - minY);
 
-        int width = Math.Max(newRectInt.width, _BSPData.minRoadSize);
-        int height = Math.Max(newRectInt.height, _BSPData.minRoadSize);
+
+        if (newRectInt.width < _BSPData.minRoadSize)
+        {
+            newRectInt.x -= (_BSPData.minRoadSize - newRectInt.width) / 2;
+            newRectInt.width = _BSPData.minRoadSize;
+        }
+        if (newRectInt.height < _BSPData.minRoadSize)
+        {
+            newRectInt.y -= (_BSPData.minRoadSize - newRectInt.height) / 2;
+            newRectInt.height = _BSPData.minRoadSize;
+        }
+
+        newRectInt.xMax = Math.Clamp(newRectInt.xMax, 0, _worldData.mapSize.x);
+        newRectInt.xMin = Math.Clamp(newRectInt.xMin, 0, _worldData.mapSize.x);
+        newRectInt.yMax = Math.Clamp(newRectInt.yMax, 0, _worldData.mapSize.y);
+        newRectInt.yMin = Math.Clamp(newRectInt.yMin, 0, _worldData.mapSize.y);
+
+        int width = newRectInt.width;
+        int height = newRectInt.height;
         int x = newRectInt.x;
         int y = newRectInt.y;
-
-        // 위에서 바뀌었다면...newRectInt
-        newRectInt.width = width;
-        newRectInt.height = height;
 
         node.roadNode = new TreeNode(x, y, width, height);
 
