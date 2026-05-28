@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -36,7 +37,7 @@ public static class Define
     // Grid
     public static Vector2 GRID_CELL_SIZE = new Vector2(1f, 0.56f);
 
-    public static Vector2[] DIR_ARR = new Vector2[8] {
+    public static Vector2[] DIR_VECTOR2 = new Vector2[8] {
         new Vector2(GRID_CELL_SIZE.x, 0),
         new Vector2(GRID_CELL_SIZE.x, GRID_CELL_SIZE.y).normalized,
         new Vector2(0, GRID_CELL_SIZE.y),
@@ -44,5 +45,18 @@ public static class Define
         new Vector2(-GRID_CELL_SIZE.x, 0),
         new Vector2(-GRID_CELL_SIZE.x, -GRID_CELL_SIZE.y).normalized,
         new Vector2(0, -GRID_CELL_SIZE.y).normalized,
-        new Vector2(GRID_CELL_SIZE.x, -GRID_CELL_SIZE.y).normalized };
+        new Vector2(GRID_CELL_SIZE.x, -GRID_CELL_SIZE.y).normalized
+    };
+
+    public enum EDIR_NAME
+    {
+        Top,
+        RightTop,
+        Right,
+        RightBot,
+        Bot,
+        LeftBot,
+        Left,
+        LeftTop
+    }
 }

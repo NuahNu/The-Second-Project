@@ -231,14 +231,14 @@ public static partial class Function
         int index = -1;
         for (int i = 0; i < 8; i++)
         {
-            float dot = Vector2.Dot(Define.DIR_ARR[i], input);
+            float dot = Vector2.Dot(Define.DIR_VECTOR2[i], input);
             if (dot > max)
             {
                 max = dot;
                 index = i;
             }
         }
-        return Define.DIR_ARR[index];
+        return Define.DIR_VECTOR2[index];
     }
     public static Vector2 GetMouseDir(this Vector2 input)
     {
