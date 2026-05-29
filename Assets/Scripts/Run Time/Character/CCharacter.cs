@@ -100,6 +100,7 @@ public class CAnimationParamData
 }
 
 [RequireComponent(typeof(CAgent))]
+[RequireComponent(typeof(CircleCollider2D))]
 public abstract class CCharacter : MonoBehaviour
 {
     #region 인스펙터
@@ -208,7 +209,6 @@ public abstract class CCharacter : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("kill");
         Destroy(gameObject);
     }
 
@@ -218,6 +218,15 @@ public abstract class CCharacter : MonoBehaviour
     }
 
     public abstract void AnimationEventHandler(string eventName);
+
+    public void GetDamage(float damage)
+    {
+        Debug.Log($"{gameObject.name}: {_currentHP} -> {_currentHP - damage}");
+        _currentHP -= damage;
+
+        if (_currentHP < 0)
+            Kill();
+    }
 
     #region protected
     protected virtual void SetStates()

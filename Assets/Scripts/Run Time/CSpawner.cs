@@ -77,7 +77,12 @@ public class CSpawner : MonoBehaviour
     public CCharacter SpawnEnemy(Vector3 pos)
     {
         int id = Random.Range(1, 3);
-        return SpawnCharacter(id, pos);
+
+        CCharacter character = SpawnCharacter(id, pos);
+
+        character.tag = "Enemy";
+
+        return character;
     }
     //
 

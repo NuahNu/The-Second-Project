@@ -56,6 +56,7 @@ public class CProjectile : MonoBehaviour
 
     void Start()
     {
+
     }
 
     private void OnEnable()
@@ -74,6 +75,25 @@ public class CProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_collider != null)
+        {
+            Debug.Log($"{name} with {collision.gameObject.name}");
+            // 아군이 아니고
+            if (tag != collision.gameObject.tag)
+            {
+                // 캐릭터라면
+                if (collision.gameObject.TryGetComponent(out CCharacter character))
+                {
+                    character.GetDamage(_att);
+                }
+                _lifeTime = 0;
+            }
+        }
+    }
+
     #endregion
 
     #region public
@@ -106,7 +126,6 @@ public class CProjectile : MonoBehaviour
         _spriteRenderer.sprite = _sprites[index];
 
         Vector2 offset = _colliderPos[index];
-        offset.y -= _heightOffset;
 
         _collider.offset = offset;
     }

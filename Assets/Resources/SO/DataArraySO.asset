@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fad1c90c89c954c92efb52cc83ee12, type: 3}
   m_Name: DataArraySO
   m_EditorClassIdentifier: 
-  _enemyDataArr:
+  _characterDataArr:
   - {fileID: 11400000, guid: ec324cd96c596ad409d1e6858525c51f, type: 2}
   - {fileID: 11400000, guid: 305b28da1f81f3349b71bff720facc47, type: 2}
   - {fileID: 11400000, guid: eb252a9780bff0d46a3f8f26f91c40aa, type: 2}
