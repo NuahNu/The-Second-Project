@@ -397,7 +397,7 @@ MonoBehaviour:
     roomMinRatio: 0.5
     minRoadSize: 4
   _CAData:
-    wallRatio: 0.4
+    wallRatio: 0.3
     floorRatio: 0.5
     holeRatio: 0.01
     smoothCount: 2
