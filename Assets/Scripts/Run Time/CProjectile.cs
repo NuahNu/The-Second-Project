@@ -12,27 +12,33 @@ using UnityEngine;
 */
 #endregion
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class CProjectile : MonoBehaviour
 {
     #region 인스펙터
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private Vector2[] _colliderPos;
+
+    // 2D 화면상의 높이를 표현하기 위한 값.
+    [SerializeField] private float _heightOffset;
+
     [SerializeField] private float _speed;
     [SerializeField] private Vector2 _dir;
 
     #endregion
 
     #region 내부 변수
-    private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
     #endregion
 
     #region 유니티 이벤트
     void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        if(!TryGetComponent(out _collider))
+        if (_spriteRenderer.IsNull("_spriteRenderer"))return;
+
+        _spriteRenderer.transform.localPosition = new Vector3(0, _heightOffset, 0);
+
+        if (!TryGetComponent(out _collider))
         {
             Debug.LogWarning("_collider == null");
             return;
@@ -78,7 +84,11 @@ public class CProjectile : MonoBehaviour
     {
         int index = _dir.GetClosestIndex();
         _spriteRenderer.sprite = _sprites[index];
-        _collider.offset = _colliderPos[index];
+
+        Vector2 offset = _colliderPos[index];
+        offset.y -= _heightOffset;
+
+        _collider.offset = offset;
     }
     #endregion
 }
