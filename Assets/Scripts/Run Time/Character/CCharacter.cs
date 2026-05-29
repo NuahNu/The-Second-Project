@@ -224,7 +224,7 @@ public abstract class CCharacter : MonoBehaviour
         Debug.Log($"{gameObject.name}: {_currentHP} -> {_currentHP - damage}");
         _currentHP -= damage;
 
-        if (_currentHP < 0)
+        if (_currentHP <= float.Epsilon)
             Kill();
     }
 
