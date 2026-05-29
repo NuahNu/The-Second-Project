@@ -79,7 +79,7 @@ public class CHumanBow : CCharacter
             projectile.transform.position = transform.position;
             projectile.SetDir(_aimDir);
             projectile.tag = this.tag;
-            projectile.ATT = 10;
+            projectile.ATT = _att;
             //projectile.SetLifeTime(1);
         }
     }
