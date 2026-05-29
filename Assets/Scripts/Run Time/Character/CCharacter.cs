@@ -125,6 +125,11 @@ public abstract class CCharacter : MonoBehaviour
 
     // Agent
     protected CAgent _cAgent;
+
+    //
+    protected float _att;
+    protected float _maxHP;
+    protected float _currentHP;
     #endregion
 
     #region 유니티 이벤트
@@ -163,6 +168,10 @@ public abstract class CCharacter : MonoBehaviour
 
     public void InitData(CCharacterDataSO data, Grid grid)
     {
+        _att = data.Att;
+        _maxHP = data.MaxHp;
+        _currentHP = data.MaxHp;
+
         _cAgent.InitData(data, grid);
     }
 

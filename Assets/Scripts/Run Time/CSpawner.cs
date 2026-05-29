@@ -58,7 +58,7 @@ public class CSpawner : MonoBehaviour
 
     void Start()
     {
-
+        _player.InitData(_dataArraySO[CDataArraySO.EDataType.CharacterData][0] as CCharacterDataSO, _grid);
     }
 
     void Update()
@@ -123,7 +123,7 @@ public class CSpawner : MonoBehaviour
     }
     private CCharacter SpawnCharacter(int id)
     {
-        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.EnemyData][id] as CCharacterDataSO;
+        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.CharacterData][id] as CCharacterDataSO;
 
         CCharacter character = Instantiate(data.Prefab, _root);
 
@@ -136,7 +136,7 @@ public class CSpawner : MonoBehaviour
 
     private CCharacter SpawnCharacter(int id, Vector3 pos)
     {
-        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.EnemyData][id] as CCharacterDataSO;
+        CCharacterDataSO data = _dataArraySO[CDataArraySO.EDataType.CharacterData][id] as CCharacterDataSO;
 
         CCharacter character = Instantiate(data.Prefab, pos, Quaternion.identity, _root);
 

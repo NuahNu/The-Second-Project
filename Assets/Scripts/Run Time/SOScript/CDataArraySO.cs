@@ -24,12 +24,12 @@ public class CDataArraySO : ScriptableObject
     static readonly string NAME = "DataArraySO";
     public enum EDataType
     {
-        EnemyData,
+        CharacterData,
         // NEW
     }
 
     #region 인스펙터
-    [SerializeField] private List<CCharacterDataSO> _enemyDataArr;
+    [SerializeField] private List<CCharacterDataSO> _characterDataArr;
     // NEW
     #endregion
 
@@ -41,13 +41,13 @@ public class CDataArraySO : ScriptableObject
     #region 프로퍼티
     // 있으면 반환, 없으면 만든다.
     // 얘는 public 일 필요가 있나?
-    public IReadOnlyDictionary<int, ICSVData> EnemyDataDic => _enemyDataDic ??= InitDataDic(_enemyDataArr);
+    public IReadOnlyDictionary<int, ICSVData> EnemyDataDic => _enemyDataDic ??= InitDataDic(_characterDataArr);
     // NEW
 
     // 읽기 전용 딕셔너리를 반환하는 인덱서.
     public IReadOnlyDictionary<int, ICSVData> this[EDataType dataType] => dataType switch
     {
-        EDataType.EnemyData => EnemyDataDic,
+        EDataType.CharacterData => EnemyDataDic,
         // NEW
         _ => null
     };
@@ -57,7 +57,7 @@ public class CDataArraySO : ScriptableObject
 #if UNITY_EDITOR
         Debug.Log("Set DataArraySO");
 
-        SetSOAsset(ref _enemyDataArr);
+        SetSOAsset(ref _characterDataArr);
         // NEW
 #endif
         return Path.Combine(CGSSLoader.SO_PATH, NAME + ".asset");

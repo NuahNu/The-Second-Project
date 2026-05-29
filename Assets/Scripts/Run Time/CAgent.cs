@@ -85,7 +85,7 @@ public class CAgent : MonoBehaviour
 
     protected virtual void Update()
     {
-        
+
     }
     #endregion
 
@@ -94,7 +94,8 @@ public class CAgent : MonoBehaviour
     {
         _speed = data.RunSpeed;
         //_speed = data.WalkSpeed;
-        _grid = grid;
+        if (grid != null)
+            _grid = grid;
         InitGridData();
     }
     public void MoveAgent()
@@ -120,8 +121,8 @@ public class CAgent : MonoBehaviour
     }
     public void SetInputDir(Vector2 input)
     {
-        if(_inputDir != input)
-        _inputDir = input;
+        if (_inputDir != input)
+            _inputDir = input;
     }
     public void Warp(Vector3 pos)
     {

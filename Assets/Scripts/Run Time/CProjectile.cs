@@ -26,6 +26,7 @@ public class CProjectile : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Vector2 _dir;
 
+    [SerializeField] private float _att;
     #endregion
 
     #region 내부 변수
@@ -33,10 +34,12 @@ public class CProjectile : MonoBehaviour
     private float _timeElapsed;
     #endregion
 
+    public float ATT { get { return _att; } set { _att = value; } }
+
     #region 유니티 이벤트
     void Awake()
     {
-        if (_spriteRenderer.IsNull("_spriteRenderer"))return;
+        if (_spriteRenderer.IsNull("_spriteRenderer")) return;
 
         _spriteRenderer.transform.localPosition = new Vector3(0, _heightOffset, 0);
 
@@ -45,7 +48,7 @@ public class CProjectile : MonoBehaviour
             Debug.LogWarning("_collider == null");
             return;
         }
-        if(_collider is CircleCollider2D CC)
+        if (_collider is CircleCollider2D CC)
         {
             CC.radius = 0.01f;
         }
@@ -66,7 +69,7 @@ public class CProjectile : MonoBehaviour
         transform.position = transform.position + speed * Time.deltaTime;
 
         _timeElapsed += Time.deltaTime;
-        if(_timeElapsed > _lifeTime)
+        if (_timeElapsed > _lifeTime)
         {
             Destroy(gameObject);
         }
