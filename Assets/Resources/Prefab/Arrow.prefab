@@ -99,17 +99,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 237528149, guid: 502bb24ac422784409208144df818d3f, type: 3}
-  - {fileID: 137547407, guid: 502bb24ac422784409208144df818d3f, type: 3}
-  - {fileID: 2127453830, guid: 502bb24ac422784409208144df818d3f, type: 3}
-  - {fileID: 1926064287, guid: 502bb24ac422784409208144df818d3f, type: 3}
   - {fileID: -1749264407, guid: 502bb24ac422784409208144df818d3f, type: 3}
-  - {fileID: 1457961420, guid: 502bb24ac422784409208144df818d3f, type: 3}
   - {fileID: 1371575018, guid: 502bb24ac422784409208144df818d3f, type: 3}
   - {fileID: -34607300, guid: 502bb24ac422784409208144df818d3f, type: 3}
-  _longLength: 0.15
-  _shortLength: 0.08
-  _angle: 30
+  - {fileID: 1926064287, guid: 502bb24ac422784409208144df818d3f, type: 3}
+  - {fileID: 137547407, guid: 502bb24ac422784409208144df818d3f, type: 3}
+  - {fileID: 2127453830, guid: 502bb24ac422784409208144df818d3f, type: 3}
+  - {fileID: 237528149, guid: 502bb24ac422784409208144df818d3f, type: 3}
+  - {fileID: 1457961420, guid: 502bb24ac422784409208144df818d3f, type: 3}
+  _colliderPos:
+  - {x: 0.143, y: 0}
+  - {x: 0.103, y: 0.06}
+  - {x: 0, y: 0.08}
+  - {x: -0.103, y: 0.06}
+  - {x: -0.143, y: 0}
+  - {x: -0.103, y: -0.06}
+  - {x: 0, y: -0.08}
+  - {x: 0.103, y: -0.06}
+  _speed: 5
+  _dir: {x: 1, y: 0}
 --- !u!58 &6733576681610989872
 CircleCollider2D:
   m_ObjectHideFlags: 0

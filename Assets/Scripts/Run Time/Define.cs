@@ -50,13 +50,13 @@ public static class Define
 
     public enum EDIR_NAME
     {
-        Top,
-        RightTop,
         Right,
-        RightBot,
-        Bot,
-        LeftBot,
+        RightTop,
+        Top,
+        LeftTop,
         Left,
-        LeftTop
+        LeftBot,
+        Bot,
+        RightBot,
     }
 }

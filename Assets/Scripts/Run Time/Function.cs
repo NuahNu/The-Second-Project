@@ -240,6 +240,23 @@ public static partial class Function
         }
         return Define.DIR_VECTOR2[index];
     }
+
+    public static int GetClosestIndex(this Vector2 input)
+    {
+        float max = 0;
+        int index = -1;
+        for (int i = 0; i < 8; i++)
+        {
+            float dot = Vector2.Dot(Define.DIR_VECTOR2[i], input);
+            if (dot > max)
+            {
+                max = dot;
+                index = i;
+            }
+        }
+        return index;
+    }
+
     public static Vector2 GetMouseDir(this Vector2 input)
     {
         Vector2 centerPos = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
