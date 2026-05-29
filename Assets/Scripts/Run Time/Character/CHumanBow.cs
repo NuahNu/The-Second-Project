@@ -40,14 +40,15 @@ public class CHumanBow : CCharacter
         base.SetStates();
         _FSMDic["Aim"].OnEnter += AimEnter;
         _FSMDic["Aim"].OnUpdate += AimUpdate;
-
+        _FSMDic["Aim"].OnExit += AimExit;
     }
 
     protected override void UnsetStates()
     {
         base.UnsetStates();
         _FSMDic["Aim"].OnEnter -= AimEnter;
-
+        _FSMDic["Aim"].OnUpdate -= AimUpdate;
+        _FSMDic["Aim"].OnExit -= AimExit;
     }
 
     protected void ReadyToFire()
@@ -63,9 +64,23 @@ public class CHumanBow : CCharacter
     {
         _paramDic["Aim"].SetParam();
     }
+
     private void AimUpdate()
     {
         ChangeDir(_aimDir);
+    }
+
+    private void AimExit()
+    {
+        if(readyToFire)
+        {
+            readyToFire = false;
+            CProjectile projectile = CMain.Instance.SpawnProjectile(EProjectileType.Arrow);
+            projectile.transform.position = transform.position;
+            projectile.SetDir(_aimDir);
+            projectile.tag = this.tag;
+            //projectile.SetLifeTime(1);
+        }
     }
     #endregion
 }

@@ -8,16 +8,25 @@ using UnityEngine;
 */
 #endregion
 
+public enum EProjectileType
+{
+    Arrow,
+    Count
+}
+
 public class CSpawner : MonoBehaviour
 {
     #region 인스펙터
     [SerializeField] private CDataArraySO _dataArraySO;
     [SerializeField] private CCharacter _player;
     [SerializeField] private Grid _grid;
+
+    [SerializeField] private CProjectile[] _projectilePrefabs;
     #endregion
 
     #region 내부 변수
-    private List<CCharacter> _eEnemeyList = new List<CCharacter>();
+    private List<CCharacter> _enemeyList = new List<CCharacter>();
+    private List<CProjectile> _projectileList = new List<CProjectile>();
     private Transform _root;
     #endregion
 
@@ -37,6 +46,12 @@ public class CSpawner : MonoBehaviour
             return;
         }
         InitRoot();
+
+        if(_projectilePrefabs.Length != (int)EProjectileType.Count)
+        {
+            Debug.LogWarning($"_ProjectilePrefabs.Length != (int)EProjectileType.Count {(int)EProjectileType.Count}");
+            return;
+        }
 
         Debug.Log("SpawnerAwakeDone");
     }
@@ -69,15 +84,29 @@ public class CSpawner : MonoBehaviour
     public void Clear()
     {
         //
-        foreach (var c in _eEnemeyList)
+        foreach (var c in _enemeyList)
         {
             c.Kill();
         }
-        _eEnemeyList.Clear();
+        _enemeyList.Clear();
+
+        foreach(var c in _projectileList)
+        {
+            c.SetLifeTime(0);
+        }
+        _projectileList.Clear();
         //// 아니면 그냥 root을 삭제하고 다시 만들자.
         //InitRoot();
     }
 
+    public CProjectile SpawnProjectile(EProjectileType type)
+    {
+        CProjectile pro = Instantiate(_projectilePrefabs[(int)type], _root);
+
+        _projectileList.Add(pro);
+
+        return pro;
+    }
     #endregion
 
     #region protected
@@ -100,7 +129,7 @@ public class CSpawner : MonoBehaviour
 
         character.InitData(data, _grid);
 
-        _eEnemeyList.Add(character);
+        _enemeyList.Add(character);
 
         return character;
     }
@@ -113,7 +142,7 @@ public class CSpawner : MonoBehaviour
 
         character.InitData(data, _grid);
 
-        _eEnemeyList.Add(character);
+        _enemeyList.Add(character);
 
         return character;
     }

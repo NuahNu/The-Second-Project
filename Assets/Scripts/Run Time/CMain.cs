@@ -110,6 +110,11 @@ public class CMain : MonoBehaviour
     {
         _spawner.Clear();
     }
+
+    public CProjectile SpawnProjectile(EProjectileType type)
+    {
+        return _spawner.SpawnProjectile(type);
+    }
     #endregion
 
     #region protected

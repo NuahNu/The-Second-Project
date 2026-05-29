@@ -18,6 +18,7 @@ public class CProjectile : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private Vector2[] _colliderPos;
+    [SerializeField] private float _lifeTime = 3;
 
     // 2D 화면상의 높이를 표현하기 위한 값.
     [SerializeField] private float _heightOffset;
@@ -29,6 +30,7 @@ public class CProjectile : MonoBehaviour
 
     #region 내부 변수
     private Collider2D _collider;
+    private float _timeElapsed;
     #endregion
 
     #region 유니티 이벤트
@@ -51,13 +53,23 @@ public class CProjectile : MonoBehaviour
 
     void Start()
     {
-        
+    }
+
+    private void OnEnable()
+    {
+        _timeElapsed = 0;
     }
 
     void Update()
     {
         Vector3 speed = _dir.GetClosestDirection() * _speed;
         transform.position = transform.position + speed * Time.deltaTime;
+
+        _timeElapsed += Time.deltaTime;
+        if(_timeElapsed > _lifeTime)
+        {
+            Destroy(gameObject);
+        }
     }
     #endregion
 
@@ -71,6 +83,11 @@ public class CProjectile : MonoBehaviour
     public void SetSpeed(float speed)
     {
         _speed = speed;
+    }
+
+    public void SetLifeTime(float lifeTime)
+    {
+        _lifeTime = lifeTime;
     }
     #endregion
 
