@@ -86,7 +86,7 @@ public class CEnemyCO : MonoBehaviour
     #region private
     IBTNode.EState Attack()
     {
-        Debug.Log("공격중");
+        //Debug.Log("공격중");
         return IBTNode.EState.Run;
     }
 
@@ -118,7 +118,7 @@ public class CEnemyCO : MonoBehaviour
 
     IBTNode.EState IdleAction()
     {
-        Debug.Log("Idle..");
+        //Debug.Log("Idle..");
         return IBTNode.EState.Run;
     }
 

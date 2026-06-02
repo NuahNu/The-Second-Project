@@ -256,7 +256,7 @@ public abstract class CCharacter : MonoBehaviour
         }
         if (state == _currentState)
         {
-            Debug.Log($"state == {_currentState.Name}");
+            //Debug.Log($"state == {_currentState.Name}");
             return;
         }
         Debug.Log($"{_currentState?.Name ?? "None"} -> {state.Name} ");

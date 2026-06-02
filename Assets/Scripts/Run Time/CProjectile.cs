@@ -87,7 +87,7 @@ public class CProjectile : MonoBehaviour
     {
         if (_collider != null)
         {
-            Debug.Log($"{name} with {collision.gameObject.name}");
+            //Debug.Log($"{name} with {collision.gameObject.name}");
             // 아군이 아니고
             if (tag != collision.gameObject.tag)
             {
@@ -104,8 +104,6 @@ public class CProjectile : MonoBehaviour
                 }
                 else
                 {
-
-                    // 캐릭터라면
                     if (collision.gameObject.TryGetComponent(out CCharacter character))
                     {
                         character.GetDamage(_att);
@@ -145,7 +143,6 @@ public class CProjectile : MonoBehaviour
     private void SetDir()
     {
         int index = _dir.GetClosestIndex();
-        Debug.Log(index);
         _spriteRenderer.sprite = _sprites[index];
 
         Vector2 offset = _colliderPos[index];
