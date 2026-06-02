@@ -16,6 +16,8 @@ public class CCommonSoldier : CCharacter
 
     #region 내부 변수
     protected override string[] States => new string[] { "Idle", "Move", "Attack", "GetHit", "Death" };
+
+    private bool _attackingThisFrame = false;
     #endregion
 
     #region 유니티 이벤트
@@ -36,12 +38,7 @@ public class CCommonSoldier : CCharacter
         // 왜 Hit 이야?
         if (eventName == "Hit")
         {
-            // 공격을 위한 무언가 생성.
-            CProjectile projectile = CMain.Instance.SpawnProjectile(EProjectileType.Common);
-            projectile.transform.position = transform.position;
-            projectile.SetDir(_aimDir);
-            projectile.tag = this.tag;
-            projectile.ATT = _att;
+            Attack();
         }
     }
     #endregion
@@ -77,13 +74,27 @@ public class CCommonSoldier : CCharacter
     #endregion
 
     #region private
+    private void Attack()
+    {
+        if (_attackingThisFrame) return;
+        // 공격을 위한 무언가 생성.
+        CProjectile projectile = CMain.Instance.SpawnProjectile(EProjectileType.Common);
+        projectile.transform.position = transform.position;
+        projectile.SetDir(_aimDir);
+        projectile.tag = this.tag;
+        projectile.ATT = _att;
+        _attackingThisFrame = true;
+    }
+
     private void AttackEnter()
     {
         _paramDic["Attack"].SetParam();
+        _attackingThisFrame = false;
     }
 
     private void AttackUpdate()
     {
+        _attackingThisFrame = false;
     }
 
     private void AttackExit()
