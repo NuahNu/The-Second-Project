@@ -90,6 +90,7 @@ public class CCommonSoldier : CCharacter
     {
         _paramDic["Attack"].SetParam();
         _attackingThisFrame = false;
+        _cAgent.IsStopped(true);
     }
 
     private void AttackUpdate()
@@ -99,6 +100,7 @@ public class CCommonSoldier : CCharacter
 
     private void AttackExit()
     {
+        _cAgent.IsStopped(false);
     }
     private void OnDirChangeCommonSoldier(Vector2 obj)
     {

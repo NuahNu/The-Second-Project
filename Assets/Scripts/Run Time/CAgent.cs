@@ -133,6 +133,11 @@ public class CAgent : MonoBehaviour
         if(_target ==  target) return;
         _target = target;
     }
+
+    public void IsStopped(bool value)
+    {
+        _agent.isStopped = value;
+    }
     #endregion
 
     #region protected
