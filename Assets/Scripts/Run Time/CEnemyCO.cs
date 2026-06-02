@@ -68,9 +68,14 @@ public class CEnemyCO : MonoBehaviour
     #endregion
 
     #region public
-    public void SetOriginPos(Transform origin)
+    // 그냥 복귀지점이라는 객체를 따로 만들어 스포너에서 관리하는것도...
+    public void SetOriginPos(Transform inputTr)
     {
-        _origin = origin;
+        if(_origin!= null) Destroy(_origin.gameObject);
+
+        GameObject newGO = new GameObject();
+        newGO.transform.position = inputTr.position;
+        _origin = newGO.transform;
     }
 
     public void SetPlayer(Transform player)
