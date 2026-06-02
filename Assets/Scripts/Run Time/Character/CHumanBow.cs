@@ -14,7 +14,7 @@ public class CHumanBow : CCharacter
     #endregion
 
     #region 내부 변수
-    protected override string[] States => new string[] { "Idle", "Move", "Aim", "Action", "Attack", "GetHit", "Death" };
+    protected override string[] States => new string[] { "Idle", "Move", "Aim", "GetHit", "Death" };
 
 
     protected bool readyToFire = false; 
