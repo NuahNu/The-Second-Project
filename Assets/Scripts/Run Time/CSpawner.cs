@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -47,7 +48,7 @@ public class CSpawner : MonoBehaviour
         }
         InitRoot();
 
-        if(_projectilePrefabs.Length != (int)EProjectileType.Count)
+        if (_projectilePrefabs.Length != (int)EProjectileType.Count)
         {
             Debug.LogWarning($"_ProjectilePrefabs.Length != (int)EProjectileType.Count {(int)EProjectileType.Count}");
             return;
@@ -81,6 +82,12 @@ public class CSpawner : MonoBehaviour
         CCharacter character = SpawnCharacter(id, pos);
 
         character.tag = "Enemy";
+        character.AddComponent<CEnemyCO>();
+        if (character.TryGetComponent(out CEnemyCO eco))
+        {
+            //eco.SetOriginPos(pos);
+            eco.SetPlayer(_player.transform);
+        }
 
         return character;
     }
@@ -95,7 +102,7 @@ public class CSpawner : MonoBehaviour
         }
         _enemeyList.Clear();
 
-        foreach(var c in _projectileList)
+        foreach (var c in _projectileList)
         {
             c.SetLifeTime(0);
         }
@@ -121,7 +128,7 @@ public class CSpawner : MonoBehaviour
     #region private
     private void InitRoot()
     {
-        if( _root != null)
+        if (_root != null)
             Destroy(_root.gameObject);
         _root = new GameObject("root").transform;
         _root.parent = this.transform;

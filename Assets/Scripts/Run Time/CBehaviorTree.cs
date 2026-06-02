@@ -5,10 +5,9 @@ using UnityEngine;
 
 #region CBehaviorTree
 /*
-노드를 조립하고 액션노드에 연결할 함수를 구현한다.
+
 */
 #endregion
-
 
 public interface IBTNode
 {
@@ -40,11 +39,11 @@ public class CActionNode : IBTNode
 }
 
 // OR
-public class CSelectiorNode : IBTNode
+public class CSelectorNode : IBTNode
 {
     private List<IBTNode> _children;
 
-    public CSelectiorNode() { _children = new List<IBTNode>(); }
+    public CSelectorNode() { _children = new List<IBTNode>(); }
 
     public void Add(IBTNode node) { _children.Add(node); }
 
@@ -99,17 +98,14 @@ public class CSequenceNode : IBTNode
     }
 }
 
-
 public class CBehaviorTree : MonoBehaviour
 {
     #region 인스펙터
-
+    
     #endregion
-
     #region 내부 변수
-
+    
     #endregion
-
     #region 유니티 이벤트
     void Awake()
     {
@@ -118,24 +114,21 @@ public class CBehaviorTree : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
     {
-
+        
     }
     #endregion
-
     #region public
-
+    
     #endregion
-
     #region protected
-
+    
     #endregion
-
     #region private
-
+    
     #endregion
 }

@@ -208,6 +208,11 @@ public abstract class CCharacter : MonoBehaviour
         _cAgent.Warp(pos);
     }
 
+    public void SetTarget(Transform target)
+    {
+        _cAgent.SetTarget(target);
+    }
+
     public void Kill()
     {
         if(this.IsDestroyed()) return;

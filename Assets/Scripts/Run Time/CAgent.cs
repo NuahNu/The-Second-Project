@@ -128,6 +128,11 @@ public class CAgent : MonoBehaviour
     {
         _agent.Warp(pos);
     }
+    public void SetTarget(Transform target)
+    {
+        if(_target ==  target) return;
+        _target = target;
+    }
     #endregion
 
     #region protected
@@ -141,7 +146,11 @@ public class CAgent : MonoBehaviour
     private static float agentDrift = 0.0001f; // minimal
     private void SetDestination(Transform target)
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            if (_agent.hasPath) _agent.ResetPath();
+            return;
+        }
 
         Vector3 driftPos = target.position;
         if (Mathf.Abs(this.transform.position.x - target.transform.position.x) < agentDrift)
@@ -162,7 +171,7 @@ public class CAgent : MonoBehaviour
 
         _agent.velocity = dir * _speed;
 
-        if (_agent.hasPath) _agent.ResetPath();
+        //if (_agent.hasPath) _agent.ResetPath();
 
         UpdateMoveFlag(true);
         UpdateDir(dir);
