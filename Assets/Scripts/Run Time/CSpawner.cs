@@ -12,6 +12,7 @@ using UnityEngine;
 public enum EProjectileType
 {
     Arrow,
+    Common,
     Count
 }
 

@@ -73,15 +73,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1124982580, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4756054231747678943
@@ -142,19 +142,20 @@ MonoBehaviour:
   - {fileID: 237528149, guid: 502bb24ac422784409208144df818d3f, type: 3}
   - {fileID: 1457961420, guid: 502bb24ac422784409208144df818d3f, type: 3}
   _colliderPos:
-  - {x: 0.143, y: 0}
-  - {x: 0.103, y: 0.06}
-  - {x: 0, y: 0.08}
-  - {x: -0.103, y: 0.06}
-  - {x: -0.143, y: 0}
-  - {x: -0.103, y: -0.06}
-  - {x: 0, y: -0.08}
-  - {x: 0.103, y: -0.06}
+  - {x: 0.614, y: 0.127}
+  - {x: 0.348, y: 0.441}
+  - {x: -0.109, y: 0.471}
+  - {x: -0.51, y: 0.384}
+  - {x: -0.61, y: 0.153}
+  - {x: -0.571, y: -0.108}
+  - {x: 0.048, y: -0.183}
+  - {x: 0.514, y: 0.009}
   _lifeTime: 3
   _heightOffset: 0
   _speed: 5
   _dir: {x: 1, y: 0}
   _att: 0
+  _isEffect: 0
 --- !u!58 &6733576681610989872
 CircleCollider2D:
   m_ObjectHideFlags: 0

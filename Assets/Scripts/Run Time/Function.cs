@@ -241,6 +241,7 @@ public static partial class Function
         return Define.DIR_VECTOR2[index];
     }
 
+    // input 벡터가 0일 경우, 내적값은 항상 0이 되어 인덱스가 -1이 되는 버그가 있다.
     public static int GetClosestIndex(this Vector2 input)
     {
         float max = 0;

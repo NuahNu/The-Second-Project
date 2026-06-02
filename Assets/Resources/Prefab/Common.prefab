@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5307254423973461827
+--- !u!1001 &4810969952524689879
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -48,41 +48,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 417450438998536367, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280841039789442628, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: m_Size.x
-      value: 0.3069307
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280841039789442628, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: m_Size.y
-      value: 0.02970297
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280841039789442628, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1749264407, guid: 502bb24ac422784409208144df818d3f, type: 3}
-    - target: {fileID: 1280841039789442628, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
       propertyPath: _speed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
       propertyPath: _isEffect
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
-      propertyPath: _heightOffset
-      value: 0.55
+      propertyPath: _lifeTime
+      value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -1517370925, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: -1908949881, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 1205917964, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 1025759127, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[4]
+      value: 
+      objectReference: {fileID: -1990964643, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 1124982580, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[6]
+      value: 
+      objectReference: {fileID: -365719941, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
+    - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
+      propertyPath: _sprites.Array.data[7]
+      value: 
+      objectReference: {fileID: -1202257397, guid: 6411bfc856922df44a52ebaf7502dde9, type: 3}
     - target: {fileID: 4756054231747678943, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
       propertyPath: m_Name
-      value: Arrow
+      value: Common
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -98,8 +98,10 @@ public class CEnemyCO : MonoBehaviour
         {
             //Debug.Log("공격 범위에 대상 감지 됨");
             _character.SetTarget(null);
+            _character.ChangeState("Attack");
             return IBTNode.EState.Success;
         }
+        _character.ChangeState("Idle");
         return IBTNode.EState.Failed;
     }
 

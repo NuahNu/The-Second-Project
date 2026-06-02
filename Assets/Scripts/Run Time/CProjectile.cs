@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -27,11 +28,13 @@ public class CProjectile : MonoBehaviour
     [SerializeField] private Vector2 _dir;
 
     [SerializeField] private float _att;
+    [SerializeField] private bool _isEffect = false;
     #endregion
 
     #region 내부 변수
     private Collider2D _collider;
     private float _timeElapsed;
+    private Dictionary<CCharacter, bool> _damagedCharacter;
     #endregion
 
     public float ATT { get { return _att; } set { _att = value; } }
@@ -52,6 +55,7 @@ public class CProjectile : MonoBehaviour
         {
             CC.radius = 0.01f;
         }
+        _damagedCharacter = new Dictionary<CCharacter, bool>();
     }
 
     void Start()
@@ -66,8 +70,11 @@ public class CProjectile : MonoBehaviour
 
     void Update()
     {
-        Vector3 speed = _dir.GetClosestDirection() * _speed;
-        transform.position = transform.position + speed * Time.deltaTime;
+        if (_speed != 0)
+        {
+            Vector3 speed = _dir.GetClosestDirection() * _speed;
+            transform.position = transform.position + speed * Time.deltaTime;
+        }
 
         _timeElapsed += Time.deltaTime;
         if (_timeElapsed > _lifeTime)
@@ -84,12 +91,27 @@ public class CProjectile : MonoBehaviour
             // 아군이 아니고
             if (tag != collision.gameObject.tag)
             {
-                // 캐릭터라면
-                if (collision.gameObject.TryGetComponent(out CCharacter character))
+                if (_isEffect)
                 {
-                    character.GetDamage(_att);
+                    if (collision.gameObject.TryGetComponent(out CCharacter character))
+                    {
+                        if (!_damagedCharacter.ContainsKey(character))
+                        {
+                            character.GetDamage(_att);
+                            _damagedCharacter.Add(character, true );
+                        }
+                    }
                 }
-                _lifeTime = 0;
+                else
+                {
+
+                    // 캐릭터라면
+                    if (collision.gameObject.TryGetComponent(out CCharacter character))
+                    {
+                        character.GetDamage(_att);
+                    }
+                    _lifeTime = 0;
+                }
             }
         }
     }
@@ -123,6 +145,7 @@ public class CProjectile : MonoBehaviour
     private void SetDir()
     {
         int index = _dir.GetClosestIndex();
+        Debug.Log(index);
         _spriteRenderer.sprite = _sprites[index];
 
         Vector2 offset = _colliderPos[index];
