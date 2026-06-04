@@ -238,6 +238,11 @@ public static partial class Function
                 index = i;
             }
         }
+        if(index == -1)
+        {
+            Debug.LogWarning($"index == {index} 확인해볼것.");
+            index = 0;
+        }
         return Define.DIR_VECTOR2[index];
     }
 
