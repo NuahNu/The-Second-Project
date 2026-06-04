@@ -211,12 +211,14 @@ public class CWorldMaker
                     _tileMap[1, 2] = ETileType.Hole;
                     _tileMap[1, 3] = ETileType.Hole;
                     _tileMap[1, 4] = ETileType.Hole;
+                    _tileMap[1, 5] = ETileType.Hole;
                     _tileMap[2, 0] = ETileType.Hole;
                     _tileMap[3, 0] = ETileType.Hole;
                     _tileMap[3, 1] = ETileType.Hole;
                     _tileMap[3, 2] = ETileType.Hole;
                     _tileMap[3, 3] = ETileType.Hole;
                     _tileMap[3, 4] = ETileType.Hole;
+                    _tileMap[3, 5] = ETileType.Hole;
 
                     _tileMap[2, 1] = ETileType.Floor;
                     _tileMap[2, 2] = ETileType.Floor;
