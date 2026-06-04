@@ -139,12 +139,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""CameraMode"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""27429976-9058-4bb4-ac1d-054cc16bd0fe"",
-                    ""expectedControlType"": ""Digital"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
