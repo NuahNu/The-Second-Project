@@ -73,7 +73,11 @@ public class CSpawner : MonoBehaviour
     // 선택 규칙 추가. 지금은 그냥 소환중
     public CCharacter SpawnPlayer(int i = 0)
     {
-        return SpawnCharacter(i);
+        CCharacter character = SpawnCharacter(i);
+
+        character.tag = "Player";
+
+        return character;
     }
 
     public CCharacter SpawnEnemy(Vector3 pos)

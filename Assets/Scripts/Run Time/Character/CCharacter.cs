@@ -215,8 +215,14 @@ public abstract class CCharacter : MonoBehaviour
 
     public void Kill()
     {
-        if(this.IsDestroyed()) return;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //if(this.IsDestroyed()) return;
+        //Destroy(gameObject);
+    }
+
+    public void Respawn()
+    {
+        _currentHP = _maxHP;
     }
 
     public Collider2D[] CheckTrigger()

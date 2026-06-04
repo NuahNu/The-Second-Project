@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 #region CMain
@@ -74,6 +76,14 @@ public class CMain : MonoBehaviour
             {
                 FuncEnd();
             }
+        }
+        if(!_player.gameObject.activeSelf)
+        {
+            _player.gameObject.SetActive(true);
+            _player.Respawn();
+
+            FuncEnd();
+            FuncStart(false);
         }
     }
 
