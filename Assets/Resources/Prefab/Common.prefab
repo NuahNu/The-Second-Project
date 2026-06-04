@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
       propertyPath: _speed
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2152780570507934180, guid: b0946adc24aa0d9438fd656483872f84, type: 3}
       propertyPath: _isEffect
