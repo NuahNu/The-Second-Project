@@ -55,7 +55,8 @@ public class CProjectile : MonoBehaviour
         {
             CC.radius = 0.01f;
         }
-        _damagedCharacter = new Dictionary<CCharacter, bool>();
+        if (_isEffect)
+            _damagedCharacter = new Dictionary<CCharacter, bool>();
     }
 
     void Start()
@@ -98,7 +99,7 @@ public class CProjectile : MonoBehaviour
                         if (!_damagedCharacter.ContainsKey(character))
                         {
                             character.GetDamage(_att);
-                            _damagedCharacter.Add(character, true );
+                            _damagedCharacter.Add(character, true);
                         }
                     }
                 }

@@ -59,7 +59,7 @@ public class CMain : MonoBehaviour
 
     void Start()
     {
-        FuncStart();
+        FuncStart(false);
     }
 
     void Update()
@@ -85,11 +85,11 @@ public class CMain : MonoBehaviour
     #endregion
 
     #region public
-    public void FuncStart()
+    public void FuncStart(bool flag = true)
     {
         // 맵 생성
         // ㄴ 완료 이벤트 있음.
-        _tileMapMaker.MakeMap();
+        _tileMapMaker.MakeNewMap(flag);
         // 플레이어 스폰 포인트로 이동
         // 이건 순간이동 시켜도 알 수 없을것이다. 배경이 없으니까?
         _player.Warp(_tileMapMaker.PlayerSpawnPos);

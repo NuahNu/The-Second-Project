@@ -178,7 +178,7 @@ public class CTileMapMaker : MonoBehaviour
     {
         if (_useDebugKey && Input.GetKeyDown(_makeDataKey))
         {
-            MakeMap();
+            MakeNewMap();
         }
     }
 
@@ -232,9 +232,9 @@ public class CTileMapMaker : MonoBehaviour
     #endregion
 
     #region public
-    public void MakeMap()
+    public void MakeNewMap(bool flag = true)
     {
-        StartCoroutine(Co_MakeMap());
+        StartCoroutine(Co_MakeMap(flag));
         Camera.main.transform.position = new Vector3(PlayerSpawnPos.x, PlayerSpawnPos.y, Define.CAMERA_Z);
     }
     #endregion
@@ -364,42 +364,46 @@ public class CTileMapMaker : MonoBehaviour
         }
     }
 
-    private IEnumerator Co_MakeMap()
+    private IEnumerator Co_MakeMap(bool flag = true)
     {
-        Vector3 gridPos = Vector3.zero;
-        gridPos.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
-        _grid.transform.position = gridPos;
-
-        _gridRect.x = 0;
-        _gridRect.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
-        _gridRect.width = _grid.cellSize.x * _worldData.mapSize.x;
-        _gridRect.height = _grid.cellSize.y * _worldData.mapSize.y;
-
-        _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
-
-        if (_showMapLog)
+        if (flag)
         {
-            int rows = _tileTypeArray.GetLength(0);
-            int cols = _tileTypeArray.GetLength(1);
-            string mapData = $"TileMap 데이터: \n";
 
-            for (int i = 0; i < rows; i++)
+            Vector3 gridPos = Vector3.zero;
+            gridPos.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+            _grid.transform.position = gridPos;
+
+            _gridRect.x = 0;
+            _gridRect.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+            _gridRect.width = _grid.cellSize.x * _worldData.mapSize.x;
+            _gridRect.height = _grid.cellSize.y * _worldData.mapSize.y;
+
+            _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
+
+            if (_showMapLog)
             {
-                for (int j = 0; j < cols; j++)
+                int rows = _tileTypeArray.GetLength(0);
+                int cols = _tileTypeArray.GetLength(1);
+                string mapData = $"TileMap 데이터: \n";
+
+                for (int i = 0; i < rows; i++)
                 {
-                    ETileType tile = _tileTypeArray[i, j];
-                    mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
+                    for (int j = 0; j < cols; j++)
+                    {
+                        ETileType tile = _tileTypeArray[i, j];
+                        mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
+                    }
+                    mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
                 }
-                mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
+
+                Debug.Log(mapData);
             }
 
-            Debug.Log(mapData);
+            //Physics2D.SyncTransforms();
+
+            SetTile();
+            yield return null;
         }
-
-        //Physics2D.SyncTransforms();
-
-        SetTile();
-        yield return null;
         //_surfase2D.BuildNavMesh();
 
         // Floor와 Hole을 기준으로 만든다.
