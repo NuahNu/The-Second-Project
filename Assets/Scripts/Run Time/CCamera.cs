@@ -130,7 +130,12 @@ public class CCamera : MonoBehaviour
     #endregion
 
     #region public
-
+    public void ChangeCameraMode(ECameraMode mode)
+    {
+        if(_cameraMode == mode) return;
+        //Debug.Log($"{_cameraMode} -> {mode}");
+        _cameraMode = mode;
+    }
     #endregion
 
     #region protected

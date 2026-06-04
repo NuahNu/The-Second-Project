@@ -108,6 +108,7 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimAng"] = _actions.Player.AimAngular;
         _actionDic["Aim"] = _actions.Player.Aim;
         _actionDic["InterAction"] = _actions.Player.InterAction;
+        _actionDic["CameraMode"] = _actions.Player.CameraMode;
     }
 
     private void Subscribe()
@@ -123,6 +124,9 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimAng"].performed += AimDirMouse;
 
         _actionDic["InterAction"].started += OnInterAction;
+
+        _actionDic["CameraMode"].started += PressModeButton;
+        _actionDic["CameraMode"].canceled += ReleaseModeButton;
     }
 
 
@@ -138,6 +142,9 @@ public class CPlayerInput : MonoBehaviour
         _actionDic["AimAng"].performed -= AimDirMouse;
 
         _actionDic["InterAction"].started -= OnInterAction;
+
+        _actionDic["CameraMode"].started -= PressModeButton;
+        _actionDic["CameraMode"].canceled -= ReleaseModeButton;
     }
 
     private void AimDirMouse(InputAction.CallbackContext obj)
@@ -205,6 +212,21 @@ public class CPlayerInput : MonoBehaviour
                     CMain.Instance.FuncStart();
                 }
             }
+        }
+    }
+
+    private void PressModeButton(InputAction.CallbackContext obj)
+    {
+        if(Camera.main.TryGetComponent(out CCamera camera))
+        {
+            camera.ChangeCameraMode(CCamera.ECameraMode.Dynamic);
+        }
+    }
+    private void ReleaseModeButton(InputAction.CallbackContext obj)
+    {
+        if (Camera.main.TryGetComponent(out CCamera camera))
+        {
+            camera.ChangeCameraMode(CCamera.ECameraMode.Follow);
         }
     }
     #endregion
