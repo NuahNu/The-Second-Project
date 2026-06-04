@@ -99,7 +99,9 @@ public class CMain : MonoBehaviour
         {
             _spawner.SpawnEnemy(pos);
         }
-        _spawner.SpawnEnemy(_tileMapMaker.BossSpawnPos);
+
+        //_spawner.SpawnEnemy(_tileMapMaker.BossSpawnPos);
+
         // 시작
 
         // 플레이어를 제외한 모두 비활성화 / 비 가시화?
