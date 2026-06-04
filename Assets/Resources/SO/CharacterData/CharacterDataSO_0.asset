@@ -17,6 +17,6 @@ MonoBehaviour:
   _att: 30
   _walkSpeed: 2
   _runSpeed: 3
-  _maxHp: 100
+  _maxHp: 10
   _prefab: {fileID: 4166985600382208797, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
   _filterColor: {r: 0, g: 0, b: 0, a: 0}
