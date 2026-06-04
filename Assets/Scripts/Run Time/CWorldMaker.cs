@@ -47,6 +47,10 @@ public enum ETileType
 
     SpawnMask = PlayerSpawn | ItemSpawn | EnemySpawn | BossSpawn,
 }
+public enum EMapType
+{
+    Loby
+}
 
 public class TreeNode
 {
@@ -148,6 +152,15 @@ public class CWorldMaker
     // _tileMap
     private ETileType[,] _tileMap;
     private ETileType[,] _bufferTileMap;
+
+    private static Dictionary<EMapType, ETileType[,]> preGeneratedMap;
+    private static Dictionary<EMapType, ETileType[,]> _preGeneratedMap
+    {
+        get { return preGeneratedMap ??= new Dictionary<EMapType, ETileType[,]>(); }
+        set { preGeneratedMap = value; }
+    }
+
+
     public TreeNode BSPRootNode { get; private set; }
     public List<TreeNode> leafNodeList;
     public TreeNode MapRootNode { get; private set; }
@@ -156,7 +169,8 @@ public class CWorldMaker
     #endregion
 
     #region public
-    public void Init(WorldData worldData, BinarySpacePartitioningData BSPData, CellularAutomataData CAData)
+    // 입력받는 정보를 SO에서 가져오도록 하거나 내부에서 정한다.
+    public void InitData(WorldData worldData, BinarySpacePartitioningData BSPData, CellularAutomataData CAData)
     {
         _worldData = worldData;
         _BSPData = BSPData;
@@ -164,9 +178,72 @@ public class CWorldMaker
     }
     public ETileType[,] MakeWorld(WorldData worldData, BinarySpacePartitioningData BSPData, CellularAutomataData CAData)
     {
-        Init(worldData, BSPData, CAData);
+        InitData(worldData, BSPData, CAData);
 
         return MakeWorld();
+    }
+    // Enum이 아니라 SO를 사용하도록 한다.
+    public ETileType[,] MakeWorld(EMapType type)
+    {
+        switch (type)
+        {
+            case EMapType.Loby:
+                if (_worldData.mapSize.x < 10 || _worldData.mapSize.y < 10)
+                {
+                    Debug.LogError("맵 사이즈가 너무 작음");
+                    return MakeWorld();
+                }
+
+                if (!_preGeneratedMap.ContainsKey(EMapType.Loby))
+                {
+                    _tileMap = new ETileType[_worldData.mapSize.x, _worldData.mapSize.y];
+
+                    _tileMap[0, 1] = ETileType.Wall;
+                    _tileMap[0, 3] = ETileType.Wall;
+                    _tileMap[0, 5] = ETileType.Wall;
+
+                    _tileMap[4, 1] = ETileType.Wall;
+                    _tileMap[4, 3] = ETileType.Wall;
+                    _tileMap[4, 5] = ETileType.Wall;
+
+                    _tileMap[1, 0] = ETileType.Hole;
+                    _tileMap[1, 1] = ETileType.Hole;
+                    _tileMap[1, 2] = ETileType.Hole;
+                    _tileMap[1, 3] = ETileType.Hole;
+                    _tileMap[1, 4] = ETileType.Hole;
+                    _tileMap[2, 0] = ETileType.Hole;
+                    _tileMap[3, 0] = ETileType.Hole;
+                    _tileMap[3, 1] = ETileType.Hole;
+                    _tileMap[3, 2] = ETileType.Hole;
+                    _tileMap[3, 3] = ETileType.Hole;
+                    _tileMap[3, 4] = ETileType.Hole;
+
+                    _tileMap[2, 1] = ETileType.Floor;
+                    _tileMap[2, 2] = ETileType.Floor;
+                    _tileMap[2, 3] = ETileType.Floor;
+                    _tileMap[2, 4] = ETileType.Floor;
+                    _tileMap[2, 5] = ETileType.Floor;
+                    _tileMap[2, 6] = ETileType.Floor;
+                    _tileMap[2, 7] = ETileType.Floor;
+                    _tileMap[2, 8] = ETileType.Floor;
+                    _tileMap[1, 6] = ETileType.Floor;
+                    _tileMap[1, 7] = ETileType.Floor;
+                    _tileMap[1, 8] = ETileType.Floor;
+                    _tileMap[3, 6] = ETileType.Floor;
+                    _tileMap[3, 7] = ETileType.Floor;
+                    _tileMap[3, 8] = ETileType.Floor;
+
+                    _tileMap[2, 7] |= ETileType.PlayerSpawn;
+                    _tileMap[2, 1] |= ETileType.BossSpawn;
+
+                    _preGeneratedMap[EMapType.Loby] = _tileMap;
+                }
+
+                return _preGeneratedMap[EMapType.Loby];
+
+            default:
+                return MakeWorld();
+        }
     }
     public ETileType[,] MakeWorld()
     {

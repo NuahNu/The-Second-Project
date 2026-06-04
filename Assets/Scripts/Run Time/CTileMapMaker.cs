@@ -46,7 +46,7 @@ public class CTilemapData
 
 public class CTileMapMaker : MonoBehaviour
 {
-    public enum TilemapLayer
+    public enum ETilemapLayer
     {
         // 제일 아래에 그려진다.
         // 화면에 그려지지는 않지만 네비메쉬 생성에 사용할 타일맵
@@ -111,7 +111,7 @@ public class CTileMapMaker : MonoBehaviour
     private CWorldMaker _worldMaker;
 
     private Grid _grid;
-    private Dictionary<TilemapLayer, CTilemapData> tilemapDic;
+    private Dictionary<ETilemapLayer, CTilemapData> tilemapDic;
 
     private Rect _gridRect;
 
@@ -250,22 +250,22 @@ public class CTileMapMaker : MonoBehaviour
             return;
         }
 
-        tilemapDic = new Dictionary<TilemapLayer, CTilemapData>();
+        tilemapDic = new Dictionary<ETilemapLayer, CTilemapData>();
 
-        tilemapDic[TilemapLayer.Floor] = FindTilemap(Define.NAME_FLOOR);
-        tilemapDic[TilemapLayer.Floor].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
+        tilemapDic[ETilemapLayer.Floor] = FindTilemap(Define.NAME_FLOOR);
+        tilemapDic[ETilemapLayer.Floor].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
 
-        tilemapDic[TilemapLayer.Structure] = FindTilemap(Define.NAME_STRUCTURE);
-        tilemapDic[TilemapLayer.Structure].tilemapRenderer.sortingOrder = Define.ORDER_STRUCTURE;
+        tilemapDic[ETilemapLayer.Structure] = FindTilemap(Define.NAME_STRUCTURE);
+        tilemapDic[ETilemapLayer.Structure].tilemapRenderer.sortingOrder = Define.ORDER_STRUCTURE;
 
-        tilemapDic[TilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
-        tilemapDic[TilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
+        tilemapDic[ETilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
+        tilemapDic[ETilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
 
-        tilemapDic[TilemapLayer.Hole] = FindTilemap(Define.NAME_HOLE);
-        tilemapDic[TilemapLayer.Hole].tilemapRenderer.sortingOrder = Define.ORDER_HOLE;
+        tilemapDic[ETilemapLayer.Hole] = FindTilemap(Define.NAME_HOLE);
+        tilemapDic[ETilemapLayer.Hole].tilemapRenderer.sortingOrder = Define.ORDER_HOLE;
 
-        tilemapDic[TilemapLayer.EndTrigger] = FindTilemap(Define.NAME_END);
-        tilemapDic[TilemapLayer.EndTrigger].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
+        tilemapDic[ETilemapLayer.EndTrigger] = FindTilemap(Define.NAME_END);
+        tilemapDic[ETilemapLayer.EndTrigger].tilemapRenderer.sortingOrder = Define.ORDER_FLOOR;
     }
 
     private CTilemapData FindTilemap(string name)
@@ -301,9 +301,9 @@ public class CTileMapMaker : MonoBehaviour
     // 얘를 매 프레임 해준다?
     private void SetTile()
     {
-        for (int i = 0; i < (int)TilemapLayer.Count; i++)
+        for (int i = 0; i < (int)ETilemapLayer.Count; i++)
         {
-            tilemapDic[(TilemapLayer)i].tilemap.ClearAllTiles();
+            tilemapDic[(ETilemapLayer)i].tilemap.ClearAllTiles();
         }
 
         _playerSpawnPos = Vector2Int.zero;
@@ -327,7 +327,7 @@ public class CTileMapMaker : MonoBehaviour
                 Vector3Int pos = new Vector3Int(x, y, 0);
                 if (tt.HasFlag(ETileType.Floor))
                 {
-                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
+                    tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, _floorTile);
 
                     if (tt.HasFlag(ETileType.PlayerSpawn))
                     {
@@ -341,8 +341,8 @@ public class CTileMapMaker : MonoBehaviour
                     }
                     else if (tt.HasFlag(ETileType.BossSpawn))
                     {
-                        tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _endTile);
-                        tilemapDic[TilemapLayer.EndTrigger].tilemap.SetTile(pos, _endTriggerTile);
+                        tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, _endTile);
+                        tilemapDic[ETilemapLayer.EndTrigger].tilemap.SetTile(pos, _endTriggerTile);
                         _bossSpawnPos = new Vector2Int(x, y);
                         _bossWorldSpawnPos = _grid.GetCellCenterWorld(pos);
                     }
@@ -350,15 +350,23 @@ public class CTileMapMaker : MonoBehaviour
                 else if (tt.HasFlag(ETileType.Hole))
                 {
                     // 트리거 타일 넣기.
-                    tilemapDic[TilemapLayer.Hole].tilemap.SetTile(pos, _holeTile);
+                    tilemapDic[ETilemapLayer.Hole].tilemap.SetTile(pos, _holeTile);
                 }
                 else if (tt.HasFlag(ETileType.Wall))
                 {
                     // 벽 바닥 그리기
                     // 벽 타일맵에 벽 그리기
-                    tilemapDic[TilemapLayer.Floor].tilemap.SetTile(pos, _structureFloorTile);
-                    tilemapDic[TilemapLayer.Collider].tilemap.SetTile(pos, _wallColliderTile);
-                    tilemapDic[TilemapLayer.Structure].tilemap.SetTile(pos, _wallTile);
+                    tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, _structureFloorTile);
+                    tilemapDic[ETilemapLayer.Collider].tilemap.SetTile(pos, _wallColliderTile);
+                    tilemapDic[ETilemapLayer.Structure].tilemap.SetTile(pos, _wallTile);
+                }
+                else if (tt == ETileType.None)
+                {
+                    tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, null);
+                    tilemapDic[ETilemapLayer.Hole].tilemap.SetTile(pos, null);
+                    tilemapDic[ETilemapLayer.Structure].tilemap.SetTile(pos, null);
+                    tilemapDic[ETilemapLayer.Collider].tilemap.SetTile(pos, null);
+                    tilemapDic[ETilemapLayer.EndTrigger].tilemap.SetTile(pos, null);
                 }
             }
         }
@@ -366,49 +374,47 @@ public class CTileMapMaker : MonoBehaviour
 
     private IEnumerator Co_MakeMap(bool flag = true)
     {
-        if (flag)
+
+        Vector3 gridPos = Vector3.zero;
+        gridPos.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+        _grid.transform.position = gridPos;
+
+        _gridRect.x = 0;
+        _gridRect.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
+        _gridRect.width = _grid.cellSize.x * _worldData.mapSize.x;
+        _gridRect.height = _grid.cellSize.y * _worldData.mapSize.y;
+
+        _worldMaker.InitData(_worldData, _BSPData, _CAData);
+        _tileTypeArray = flag ? _worldMaker.MakeWorld() : _worldMaker.MakeWorld(EMapType.Loby);
+
+        if (_showMapLog)
         {
+            int rows = _tileTypeArray.GetLength(0);
+            int cols = _tileTypeArray.GetLength(1);
+            string mapData = $"TileMap 데이터: \n";
 
-            Vector3 gridPos = Vector3.zero;
-            gridPos.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
-            _grid.transform.position = gridPos;
-
-            _gridRect.x = 0;
-            _gridRect.y = -_grid.cellSize.y * _worldData.mapSize.y / 2;
-            _gridRect.width = _grid.cellSize.x * _worldData.mapSize.x;
-            _gridRect.height = _grid.cellSize.y * _worldData.mapSize.y;
-
-            _tileTypeArray = _worldMaker.MakeWorld(_worldData, _BSPData, _CAData);
-
-            if (_showMapLog)
+            for (int i = 0; i < rows; i++)
             {
-                int rows = _tileTypeArray.GetLength(0);
-                int cols = _tileTypeArray.GetLength(1);
-                string mapData = $"TileMap 데이터: \n";
-
-                for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
                 {
-                    for (int j = 0; j < cols; j++)
-                    {
-                        ETileType tile = _tileTypeArray[i, j];
-                        mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
-                    }
-                    mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
+                    ETileType tile = _tileTypeArray[i, j];
+                    mapData += tile.HasFlag(ETileType.Wall) ? "■" : tile.HasFlag(ETileType.Floor) ? "□" : "※";
                 }
-
-                Debug.Log(mapData);
+                mapData += "\n"; // 한 줄 끝날 때마다 줄바꿈
             }
 
-            //Physics2D.SyncTransforms();
-
-            SetTile();
-            yield return null;
+            Debug.Log(mapData);
         }
+
+        //Physics2D.SyncTransforms();
+
+        SetTile();
+        yield return null;
         //_surfase2D.BuildNavMesh();
 
         // Floor와 Hole을 기준으로 만든다.
-        tilemapDic[TilemapLayer.Floor].tilemapCollider2D.enabled = true;
-        tilemapDic[TilemapLayer.Hole].tilemapCollider2D.enabled = true;
+        tilemapDic[ETilemapLayer.Floor].tilemapCollider2D.enabled = true;
+        tilemapDic[ETilemapLayer.Hole].tilemapCollider2D.enabled = true;
 
         yield return _surfase2D.BuildNavMeshAsync();
         //_surfase2D.UpdateNavMesh(_surfase2D.navMeshData);
@@ -416,8 +422,8 @@ public class CTileMapMaker : MonoBehaviour
 
         // 비활성화 해야 하는 컴포넌트
         // 내비메쉬 생성을 위한 콜라이더이다.
-        tilemapDic[TilemapLayer.Floor].tilemapCollider2D.enabled = false;
-        tilemapDic[TilemapLayer.Hole].tilemapCollider2D.enabled = false;
+        tilemapDic[ETilemapLayer.Floor].tilemapCollider2D.enabled = false;
+        tilemapDic[ETilemapLayer.Hole].tilemapCollider2D.enabled = false;
 
         OnMakeMap?.Invoke(_gridRect);
         Debug.Log($"ReSizeRect {_gridRect}");
