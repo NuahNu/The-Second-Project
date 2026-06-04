@@ -94,7 +94,7 @@ public class CPlayerInput : MonoBehaviour
         }
         if (!_target.TryGetComponent(out _character))
         {
-            if (_character.IsNull("_agent")) return;
+            if (_character.IsNull("_character")) return;
         }
     }
     private void InitAction()
@@ -122,7 +122,7 @@ public class CPlayerInput : MonoBehaviour
 
         _actionDic["AimAng"].performed += AimDirMouse;
 
-        _actionDic["InterAction"].performed += OnInterAction;
+        _actionDic["InterAction"].started += OnInterAction;
     }
 
 
@@ -137,7 +137,7 @@ public class CPlayerInput : MonoBehaviour
 
         _actionDic["AimAng"].performed -= AimDirMouse;
 
-        _actionDic["InterAction"].performed -= OnInterAction;
+        _actionDic["InterAction"].started -= OnInterAction;
     }
 
     private void AimDirMouse(InputAction.CallbackContext obj)
