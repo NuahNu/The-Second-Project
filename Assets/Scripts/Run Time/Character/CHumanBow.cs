@@ -67,7 +67,7 @@ public class CHumanBow : CCharacter
 
     private void AimUpdate()
     {
-        ChangeDir(_aimDir);
+        ChangeAnimDir(_aimDir);
     }
 
     private void AimExit()

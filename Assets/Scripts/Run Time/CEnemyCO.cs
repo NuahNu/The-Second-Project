@@ -92,6 +92,13 @@ public class CEnemyCO : MonoBehaviour
     IBTNode.EState Attack()
     {
         //Debug.Log("공격중");
+        Vector2 aimDir = _player.transform.position - _character.transform.position;
+
+        aimDir = aimDir.GetClosestDirection();
+
+        _character.ChangeAnimDir(aimDir);
+        _character.SetAimDir(aimDir);
+
         return IBTNode.EState.Run;
     }
 

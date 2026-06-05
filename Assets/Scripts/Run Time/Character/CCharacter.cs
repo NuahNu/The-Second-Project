@@ -241,6 +241,11 @@ public abstract class CCharacter : MonoBehaviour
             Kill();
     }
 
+    public void ChangeAnimDir(Vector2 input)
+    {
+        OnDirChange(input);
+    }
+
     #region protected
     protected virtual void SetStates()
     {
@@ -271,11 +276,6 @@ public abstract class CCharacter : MonoBehaviour
         _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
-    }
-
-    protected void ChangeDir(Vector2 input)
-    {
-        OnDirChange(input);
     }
 
     protected virtual void SetAgentEvent()
