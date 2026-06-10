@@ -128,6 +128,10 @@ public abstract class CCharacter : MonoBehaviour
     // Agent
     protected CAgent _cAgent;
 
+    // Mask
+    private SpriteMask _spriteMask;
+    private SpriteRenderer _spriteRenderer;
+
     //
     protected float _att;
     protected float _maxHP;
@@ -145,13 +149,24 @@ public abstract class CCharacter : MonoBehaviour
         SetStates();
         // Agent
         InitAgent();
-
+        // Mask
+        if(TryGetComponent(out _spriteMask))
+        {
+            Debug.Log("이 캐릭터는 _spriteMask가 없구만?");
+        }
+        if (!TryGetComponent(out _spriteRenderer))
+        {
+            Debug.LogWarning("_spriteRenderer 가 없다고?");
+            return;
+        }
         ChangeState(_FSMDic["Idle"]);
     }
 
     protected virtual void Update()
     {
         _currentState.Update();
+        if(_spriteMask != null)
+            _spriteMask.sprite = _spriteRenderer.sprite;
     }
 
     private void OnDestroy()

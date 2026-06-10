@@ -127,8 +127,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7836648898235916460, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
   m_PrefabInstance: {fileID: 1878373029}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &352391766 stripped
-Transform:
+--- !u!224 &352391766 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
   m_PrefabInstance: {fileID: 1878373029}
   m_PrefabAsset: {fileID: 0}
@@ -143,6 +143,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb074e28ac804da43be91843f9db48eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!331 &352391775
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352391759}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_MaskAlphaCutoff: 0.258
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &375807482
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +750,7 @@ PrefabInstance:
       objectReference: {fileID: 2299839550851131811, guid: 2f07c2b071c3d104d8254e26c769a77a, type: 3}
     - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.795
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: m_LocalPosition.y
@@ -724,6 +775,14 @@ PrefabInstance:
     - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.614
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.646
       objectReference: {fileID: 0}
     - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -757,10 +816,14 @@ PrefabInstance:
       propertyPath: _grid
       value: 
       objectReference: {fileID: 1586586878}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5041274930916708328, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7836648898235916460, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 352391775}
   m_SourcePrefab: {fileID: 100100000, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
 --- !u!1001 &9183107716270144742
 PrefabInstance:
@@ -772,7 +835,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 186598164657799556, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 186598164657799556, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_ChunkCullingBounds.y
