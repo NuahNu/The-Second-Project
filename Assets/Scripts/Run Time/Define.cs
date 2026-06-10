@@ -21,8 +21,8 @@ public static class Define
     public static int ORDER_HOLE = -10;
     public static int ORDER_SHADOW = -1;
     public static int ORDER_CHARACTER = 0;
-    public static int ORDER_STRUCTURE = 0;
-    public static int ORDER_STRUCTURE_A = 10;
+    public static int ORDER_STRUCTURE = -2;
+    public static int ORDER_STRUCTURE_A = 0;
 
     // Tilemap name
     public static string NAME_FLOOR = "Floor Tilemap";
