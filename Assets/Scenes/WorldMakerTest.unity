@@ -185,7 +185,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_MaskAlphaCutoff: 0.258
+  m_MaskAlphaCutoff: 0.181
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
   m_FrontSortingLayer: 0
@@ -748,6 +748,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2299839550851131811, guid: 2f07c2b071c3d104d8254e26c769a77a, type: 3}
+    - target: {fileID: 3446685292998065639, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3627888962976683777, guid: 95a78f41cc601c14797a7ede6ec85663, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2082,6 +2086,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2973411324589366451, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973411324589366451, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_Origin.x
       value: -3
       objectReference: {fileID: 0}
@@ -2541,9 +2549,17 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[5].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 4463132497921266893, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5353141143614165537, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_Area
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561217641476085089, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
       objectReference: {fileID: 0}
     - target: {fileID: 7686346719765650514, guid: 1fae533542cdbfe41b75794364a261f9, type: 3}
       propertyPath: m_TagString

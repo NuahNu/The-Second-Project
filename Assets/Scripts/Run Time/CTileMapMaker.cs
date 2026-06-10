@@ -54,6 +54,7 @@ public class CTileMapMaker : MonoBehaviour
         Hole,
         // 플레이어와 같은 Order Layer에 있어야 한다.
         Structure,
+        StructureA,
         // 얘들은 그려지면 안되지
         Collider,
         EndTrigger,
@@ -258,6 +259,9 @@ public class CTileMapMaker : MonoBehaviour
         tilemapDic[ETilemapLayer.Structure] = FindTilemap(Define.NAME_STRUCTURE);
         tilemapDic[ETilemapLayer.Structure].tilemapRenderer.sortingOrder = Define.ORDER_STRUCTURE;
 
+        tilemapDic[ETilemapLayer.StructureA] = FindTilemap(Define.NAME_STRUCTURE_A);
+        tilemapDic[ETilemapLayer.StructureA].tilemapRenderer.sortingOrder = Define.ORDER_STRUCTURE_A;
+
         tilemapDic[ETilemapLayer.Collider] = FindTilemap(Define.NAME_COLLIDER);
         tilemapDic[ETilemapLayer.Collider].tilemapRenderer.sortingOrder = Define.ORDER_COLLIDER;
 
@@ -359,12 +363,14 @@ public class CTileMapMaker : MonoBehaviour
                     tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, _structureFloorTile);
                     tilemapDic[ETilemapLayer.Collider].tilemap.SetTile(pos, _wallColliderTile);
                     tilemapDic[ETilemapLayer.Structure].tilemap.SetTile(pos, _wallTile);
+                    tilemapDic[ETilemapLayer.StructureA].tilemap.SetTile(pos, _wallTile);
                 }
                 else if (tt == ETileType.None)
                 {
                     tilemapDic[ETilemapLayer.Floor].tilemap.SetTile(pos, null);
                     tilemapDic[ETilemapLayer.Hole].tilemap.SetTile(pos, null);
                     tilemapDic[ETilemapLayer.Structure].tilemap.SetTile(pos, null);
+                    tilemapDic[ETilemapLayer.StructureA].tilemap.SetTile(pos, null);
                     tilemapDic[ETilemapLayer.Collider].tilemap.SetTile(pos, null);
                     tilemapDic[ETilemapLayer.EndTrigger].tilemap.SetTile(pos, null);
                 }

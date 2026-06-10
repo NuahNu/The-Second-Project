@@ -22,11 +22,13 @@ public static class Define
     public static int ORDER_SHADOW = -1;
     public static int ORDER_CHARACTER = 0;
     public static int ORDER_STRUCTURE = 0;
+    public static int ORDER_STRUCTURE_A = 10;
 
     // Tilemap name
     public static string NAME_FLOOR = "Floor Tilemap";
     public static string NAME_HOLE = "Hole Tilemap";
     public static string NAME_STRUCTURE = "Structure Tilemap";
+    public static string NAME_STRUCTURE_A = "StructureA Tilemap";
     public static string NAME_COLLIDER = "Collider Tilemap";
     public static string NAME_END = "EndTrigger Tilemap";
 
